@@ -103,19 +103,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
-                            <label for="photo" class="col-md-4 control-label">Photo</label>
+                        {{--<div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">--}}
+                            {{--<label for="photo" class="col-md-4 control-label">Photo</label>--}}
 
-                            <div class="col-md-6">
-                                <input id="photo" type="text" class="form-control" name="photo" value="{{ old('photo') }}" required autofocus>
+                            {{--<div class="col-md-6">--}}
+                                {{--<input id="photo" type="text" class="form-control" name="photo" value="{{ old('photo') }}" required autofocus>--}}
 
-                                @if ($errors->has('photo'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('photo') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                                {{--@if ($errors->has('photo'))--}}
+                                    {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('photo') }}</strong>--}}
+                                    {{--</span>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
