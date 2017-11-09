@@ -18,7 +18,10 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('profile', 'ProfileController@user_profile');
 
 Route::get('add_book', 'BooksController@add_book_form');
+
+//Route::get('add_book_complete', 'BooksController@create');

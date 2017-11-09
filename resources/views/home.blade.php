@@ -20,6 +20,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Book name</th>
+                                {{--<th scope="col">Author</th>--}}
                                 <th scope="col">Year</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Genre</th>
@@ -29,6 +30,8 @@
                             @foreach ($books as $val)
                             <tr>
                                 <td>{{ $val->name }}</td>
+
+{{--                                <td>{{ $val->author }}</td>--}}
 
                                 <td>{{ $val->year }}</td>
 
