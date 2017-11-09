@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $books = DB::table('lib_books')
+            ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
+            ->select('lib_books.*', 'genres.name as genre')
+            ->get();
+
+        return view('home', ['books' => $books]);
+
     }
 }
