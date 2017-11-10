@@ -10,9 +10,9 @@ class LibBook extends Model
         'name', 'genre_id', 'year', 'description',
     ];
 
-    public function roles()
+    public function authors()
     {
-        return $this->belongsToMany('App\Author');
+        return $this->belongsToMany('App\Author', 'authors_books', 'book_id', 'author_id');
     }
 
 }

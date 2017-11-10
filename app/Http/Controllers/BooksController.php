@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\LibBook;
+use App\AuthorsBook;
 
 class BooksController extends Controller
 {
@@ -16,29 +18,28 @@ class BooksController extends Controller
         return view('add_book_form', array('genres' => $genres, 'authors' => $authors));
     }
 
-
-
-
     protected function create(Request $request)
     {
         $book =
             LibBook::create([
             'name' => $request->get('name'),
             'year' => $request->get('year'),
-            //'author_id' => $request->get('author'),
-            'genre_id' => $request->get('genre'),
+            'genre_id' => $request->get('author'),
             'description' => '1',
+            //'user_id' => get[],
         ]);
 
-        return $book;
+        $author = Author::find($request->get('author'));
 
-        //CreateLibBooksTable::create($data);
-        //return back()->with('success', 'Book has been added');
+        $book->authors()->save($author);
+//
+//        $author =
+//            Author::create([
+//                'name' => $request->get('author'),
+//
+//            ]);
+
+        return [$book];
     }
-
-
-
-
-
 
 }

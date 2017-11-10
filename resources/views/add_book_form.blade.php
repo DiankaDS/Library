@@ -44,15 +44,14 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <select class="form-control" id="author" value="{{ old('name') }}">
+                                        <select class="form-control" id="author" name="author">
                                             @foreach ($authors as $val)
-                                                <option>{{ $val->name }}</option>
+                                                <option value="{{ $val->id }}">{{ $val->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
-
 
 
 

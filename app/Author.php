@@ -10,9 +10,10 @@ class Author extends Model
         'name',
     ];
 
-    public function roles()
+    public function books()
     {
-        return $this->belongsToMany('App\LibBook');
+        return $this->belongsToMany('App\LibBook', 'authors_books', 'author_id', 'book_id');
     }
 
+    public $timestamps = false;
 }
