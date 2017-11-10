@@ -15,4 +15,9 @@ class LibBook extends Model
         return $this->belongsToMany('App\Author', 'authors_books', 'book_id', 'author_id');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'user_books', 'book_id', 'user_id')->withTimestamps();
+    }
+
 }
