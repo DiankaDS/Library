@@ -53,6 +53,25 @@
                                 </div>
                             </div>
 
+
+
+
+
+                            <div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">
+                                <label for="author" class="col-md-4 control-label">Author</label>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
                             <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
                                 <label for="genre" class="col-md-4 control-label">Genre</label>
 
