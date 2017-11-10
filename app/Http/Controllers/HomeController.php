@@ -26,7 +26,9 @@ class HomeController extends Controller
     {
         $books = DB::table('lib_books')
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
-            ->select('lib_books.*', 'genres.name as genre')
+            ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
+            ->join('authors', 'authors.id', '=', 'authors_books.author_id')
+            ->select('lib_books.*', 'genres.name as genre', 'authors.name as author')
             ->get();
 
         return view('home', ['books' => $books]);

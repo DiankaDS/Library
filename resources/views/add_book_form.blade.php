@@ -39,19 +39,19 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">
-                                <label for="author" class="col-md-4 control-label">Author</label>
+                            {{--<div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">--}}
+                                {{--<label for="author" class="col-md-4 control-label">Author</label>--}}
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <select class="form-control" id="author">
-                                            @foreach ($authors as $val)
-                                                <option>{{ $val->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                                {{--<div class="col-md-4">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<select class="form-control" id="author">--}}
+                                            {{--@foreach ($authors as $val)--}}
+                                                {{--<option>{{ $val->name }}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
 
 
