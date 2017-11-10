@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\LibBook;
 
 class BooksController extends Controller
 {
+
     public function add_book_form()
     {
         $genres = DB::table('genres')->get();
@@ -17,20 +19,22 @@ class BooksController extends Controller
 
 
 
-//    protected function create(array $data)
-//    {
-//        //return
-//            CreateLibBooksTable::create([
-//            'name' => $data['name'],
-//            'year' => $data['year'],
-//            //'author' => $data['author'],
-//            'genre' => $data['genre'],
-//        ]);
-//
-//
-//        //CreateLibBooksTable::create($data);
-//        return back()->with('success', 'Product has been added');
-//    }
+    protected function create(Request $request)
+    {
+        $book =
+            LibBook::create([
+            'name' => $request->get('name'),
+            'year' => $request->get('year'),
+            //'author_id' => $request->get('author'),
+            'genre_id' => $request->get('genre'),
+            'description' => '1',
+        ]);
+
+        return $book;
+
+        //CreateLibBooksTable::create($data);
+        //return back()->with('success', 'Book has been added');
+    }
 
 
 

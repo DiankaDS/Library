@@ -24,4 +24,4 @@ Route::get('profile', 'ProfileController@user_profile');
 
 Route::get('add_book', 'BooksController@add_book_form');
 
-//Route::get('add_book_complete', 'BooksController@create');
+Route::post('add_book/complete', 'BooksController@create');

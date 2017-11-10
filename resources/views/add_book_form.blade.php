@@ -8,7 +8,7 @@
                     <div class="panel-heading">Add new book</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                        <form class="form-horizontal" method="POST" action="add_book/complete">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -39,33 +39,33 @@
                                 </div>
                             </div>
 
-                            {{--<div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">--}}
-                                {{--<label for="author" class="col-md-4 control-label">Author</label>--}}
-
-                                {{--<div class="col-md-4">--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<select class="form-control" id="author">--}}
-                                            {{--@foreach ($authors as $val)--}}
-                                                {{--<option>{{ $val->name }}</option>--}}
-                                            {{--@endforeach--}}
-                                        {{--</select>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-
-
-
-
-
                             <div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">
                                 <label for="author" class="col-md-4 control-label">Author</label>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Search">
+                                        <select class="form-control" id="author" value="{{ old('name') }}">
+                                            @foreach ($authors as $val)
+                                                <option>{{ $val->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+
+
+
+
+
+                            {{--<div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">--}}
+                                {{--<label for="author" class="col-md-4 control-label">Author</label>--}}
+
+                                {{--<div class="col-md-4">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<input type="text" class="form-control" placeholder="Search">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
 
 
@@ -77,9 +77,9 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <select class="form-control" id="genre">
+                                        <select class="form-control" id="genre" name="genre">
                                             @foreach ($genres as $val)
-                                                <option>{{ $val->name }}</option>
+                                                <option value="{{ $val->id }}">{{ $val->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
