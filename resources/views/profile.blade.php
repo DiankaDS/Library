@@ -50,6 +50,7 @@
                             <th scope="col">Year</th>
                             <th scope="col">Description</th>
                             <th scope="col">Genre</th>
+                            <th scope="col">Tools</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -60,6 +61,15 @@
                                 <td>{{ $val->year }}</td>
                                 <td>{{ $val->description }}</td>
                                 <td>{{ $val->genre }}</td>
+                                <td>
+                                    <form action="delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <input name="id" type="hidden" value="{{ $val->id }}">
+
+                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

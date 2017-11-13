@@ -28,7 +28,6 @@ class BooksController extends Controller
             'year' => $request->get('year'),
             'genre_id' => $request->get('author'),
             'description' => '1',
-            //'user_id' => get[],
         ]);
 
         $author = Author::find($request->get('author'));
@@ -36,14 +35,16 @@ class BooksController extends Controller
 
         $book->authors()->save($author);
         $book->users()->save($user);
-//
-//        $author =
-//            Author::create([
-//                'name' => $request->get('author'),
-//
-//            ]);
 
         return [$book, $author, $user];
+    }
+
+    protected function delete(Request $request){
+
+        $user = User::find(Auth::user()->id);
+        $user->books()->detach($request->get('id'));
+
+        return redirect('profile');
     }
 
 }
