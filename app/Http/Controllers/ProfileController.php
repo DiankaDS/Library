@@ -26,6 +26,7 @@ class ProfileController extends Controller
             ->join('users', 'users.id', '=', 'orders.giving_id')
             ->select('lib_books.name as book', 'authors.name as author', 'users.name as owner', 'orders.*')
             ->where('orders.taker_id', Auth::user()->id)
+            ->where('orders.return', 0)
             ->get();
 
         return view('profile', array('user_info' => Auth::user(), 'user_books' => $user_books, 'user_orders' => $user_orders));
