@@ -27,3 +27,5 @@ Route::get('add_book', 'BooksController@add_book_form');
 Route::post('add_book/complete', 'BooksController@create');
 
 Route::delete('delete/{book_id}','BooksController@delete');
+
+Route::get('orders/{book_id}', 'OrdersController@create_order');
