@@ -18,6 +18,16 @@ class ProfileController extends Controller
             ->select('lib_books.*', 'genres.name as genre', 'authors.name as author', 'user_books.user_id as user')
             ->where('user_books.user_id', Auth::user()->id)
             ->get();
-        return view('profile', array('user_info' => Auth::user(), 'user_books' => $user_books));
+
+        $user_orders = DB::table('orders')
+            ->join('lib_books', 'lib_books.id', '=', 'orders.book_id')
+            ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
+            ->join('authors', 'authors.id', '=', 'authors_books.author_id')
+            ->join('users', 'users.id', '=', 'orders.giving_id')
+            ->select('lib_books.name as book', 'authors.name as author', 'users.name as owner', 'orders.*')
+            ->where('orders.taker_id', Auth::user()->id)
+            ->get();
+
+        return view('profile', array('user_info' => Auth::user(), 'user_books' => $user_books, 'user_orders' => $user_orders));
     }
 }
