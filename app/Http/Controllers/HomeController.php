@@ -34,4 +34,20 @@ class HomeController extends Controller
         return view('home', ['books' => $books]);
 
     }
+
+    public function book_details(Request $request)
+    {
+        $books = DB::table('lib_books')
+            ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
+            ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
+            ->join('authors', 'authors.id', '=', 'authors_books.author_id')
+            ->join('user_books', 'user_books.book_id', '=', 'lib_books.id')
+            ->join('users', 'users.id', '=', 'user_books.user_id')
+            ->select('lib_books.*', 'genres.name as genre', 'authors.name as author', 'users.name as owner')
+//            ->where('lib_books.id', $request->get('id'))
+            ->get();
+
+        return view('book_details', ['books' => $books]);
+
+    }
 }

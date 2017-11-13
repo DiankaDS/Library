@@ -31,7 +31,9 @@
                             @foreach ($books as $val)
                             <tr>
                                 <td>
-                                    <a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a>
+                                    {{--<a href="books/{{ $val->id }}">--}}
+                                        {{ $val->name }}
+                                    {{--</a>--}}
                                 </td>
 
                                 <td>{{ $val->author }}</td>
@@ -42,15 +44,15 @@
 
                                 <td>{{ $val->genre }}</td>
 
-                                {{--<td>--}}
-                                    {{--<form action="orders/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">--}}
-                                        {{--{{csrf_field()}}--}}
+                                <td>
+                                    <form action="orders/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
+                                        {{csrf_field()}}
                                         {{--<input name="_method" type="hidden" value="DELETE">--}}
-                                        {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
+                                        <input name="id" type="hidden" value="{{ $val->id }}">
 
-                                        {{--<button class="btn btn-success" type="submit">Take</button>--}}
-                                    {{--</form>--}}
-                                {{--</td>--}}
+                                        <button class="btn btn-success" type="submit">Take</button>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>
