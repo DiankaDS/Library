@@ -39,3 +39,5 @@ Route::get('/set_password', function () { return view('set_password'); });
 Route::post('/set_password/complete', 'ProfileController@set_password');
 
 Route::get('/delete_user','ProfileController@delete_user');
+
+Route::post('/add_review','HomeController@add_review');

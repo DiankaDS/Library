@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Review;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -75,5 +77,16 @@ class HomeController extends Controller
 
         return view('book_details', ['book_info' => $book_info, 'users' => $users, 'reviews' => $reviews]);
 
+    }
+
+    public function add_review(Request $request)
+    {
+        Review::create([
+                'book_id' => $request->get('book_id'),
+                'user_id' => Auth::user()->id,
+                'text' => $request->get('review'),
+                'rating' => $request->get('rating'),
+            ]);
+        return back();
     }
 }

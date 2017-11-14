@@ -82,6 +82,33 @@
 
                 <div class="panel-body">
 
+                    <form class="form-horizontal" method="POST" action="add_review" id="add_review">
+                        {{ csrf_field() }}
+                        <div class="col-md-4">
+                            <label for="name" class="col-md-4 control-label">Rating</label>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control" id="rating" name="rating">
+                                        @foreach (range(1, 5) as $val)
+                                            <option value="{{ $val }}">{{ $val }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <label for="name" class="col-md-4 control-label">Review</label>
+                            <div class="col-md-6">
+                                <textarea rows="4" cols="50" name="review" form="add_review" id="review" placeholder="Enter review here..."></textarea>
+                            </div>
+                            <input name="book_id" type="hidden" value="{{ $book_info->id }}">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">Add review</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="panel-body">
+
                     <table class="table">
                         <thead>
                         <tr>
