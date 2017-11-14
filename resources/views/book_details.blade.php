@@ -61,10 +61,13 @@
                                 <td>{{ $val->name }}</td>
                                 <td>{{ $val->surname }}</td>
                                 <td>
-                                    <form action="orders/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
+                                    <form action="orders" id="{{ $val->id }}" method="post" name="id">
                                         {{csrf_field()}}
-                                        {{--<input name="_method" type="hidden" value="DELETE">--}}
-                                        {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
+                                        <input name="book_id" type="hidden" value="{{ $book_info->id }}">
+                                        <input name="giving_id" type="hidden" value="{{ $val->id }}">
+
+                                        <input name="date_start" type="date">
+                                        <input name="date_end" type="date">
 
                                         <button class="btn btn-success" type="submit">Take</button>
                                     </form>

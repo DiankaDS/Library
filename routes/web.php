@@ -41,3 +41,13 @@ Route::post('/set_password/complete', 'ProfileController@set_password');
 Route::get('/delete_user','ProfileController@delete_user');
 
 Route::post('/add_review','HomeController@add_review');
+
+Route::post('orders','OrdersController@create_order');
+
+
+
+Route::post('accept_order','OrdersController@accept_order');
+
+Route::post('delete_order','OrdersController@delete_order');
+
+Route::get('orders_to_user','OrdersController@orders_to_user');
