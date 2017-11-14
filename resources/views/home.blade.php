@@ -22,9 +22,9 @@
                                 <th scope="col">Book name</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">Year</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Genre</th>
-                                <th scope="col">Tools</th>
+                                <th scope="col">Rating</th>
+                                {{--<th scope="col">Genre</th>--}}
+                                {{--<th scope="col">Tools</th>--}}
                             </tr>
                             </thead>
                             <tbody>
@@ -38,9 +38,15 @@
 
                                 <td>{{ $val->year }}</td>
 
-                                <td>{{ $val->description }}</td>
+                                <td>
+                                    @if($val->rating)
+                                        {{ $val->rating }}
+                                    @else
+                                        0
+                                    @endif
+                                </td>
 
-                                <td>{{ $val->genre }}</td>
+                                {{--<td>{{ $val->genre }}</td>--}}
 
                                 {{--<td>--}}
                                     {{--<form action="orders/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">--}}
@@ -55,7 +61,6 @@
                             @endforeach
                             </tbody>
                         </table>
-
 
                 </div>
             </div>

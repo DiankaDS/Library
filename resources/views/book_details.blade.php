@@ -76,6 +76,33 @@
 
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Reviews</div>
+
+                <div class="panel-body">
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Text</th>
+                            <th scope="col">Rating</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($reviews as $val)
+                            <tr>
+                                <td>{{ $val->username }}</td>
+                                <td>{{ $val->text }}</td>
+                                <td>{{ $val->rating }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
