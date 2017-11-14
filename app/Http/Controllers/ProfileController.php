@@ -44,7 +44,11 @@ class ProfileController extends Controller
 
     public function delete_user()
     {
-        return array('user_info' => Auth::user());
+        $user = User::find(Auth::user()->id);
+        $user->books()->detach();
+        $user->delete();
+
+        return redirect('home');
     }
 
     public function set_password(Request $request)
@@ -52,7 +56,9 @@ class ProfileController extends Controller
         $user = User::find(Auth::id());
         $hashedPassword = $user->password;
 
-        if (Hash::check($request->password, $hashedPassword) and $request->new_password == $request->password_confirmation) {
+        if (Hash::check($request->password, $hashedPassword)
+            and $request->new_password == $request->password_confirmation
+        ) {
             $user->fill([
                 'password' => Hash::make($request->new_password)
             ])->save();
