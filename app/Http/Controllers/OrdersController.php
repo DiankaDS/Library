@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
@@ -29,8 +30,15 @@ class OrdersController extends Controller
         return $request;
     }
 
-    protected function orders_to_user(Request $request)
+    protected function orders_to_user()
     {
-        return $request;
+        $orders_to_user = DB::table('orders')
+            ->join('users', 'users.id', '=', 'orders.taker_id')
+            ->join('lib_books', 'orders.book_id', '=', 'lib_books.id')
+            ->select('orders.*', 'users.*', 'lib_books.name as book')
+            ->where('orders.giving_id', Auth::user()->id)
+            ->get();
+
+        return view('orders_to_user', ['orders_to_user' => $orders_to_user]);
     }
 }
