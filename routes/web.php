@@ -35,4 +35,7 @@ Route::get('book_{book_id}', 'HomeController@book_details');
 Route::get('/update_user', function () { return view('update_user'); });
 Route::post('/update_user/complete', 'ProfileController@update_user');
 
-Route::get('/delete_user','ProfileController@delete_user');
+Route::get('/set_password', function () { return view('set_password'); });
+Route::post('/set_password/complete', 'ProfileController@set_password');
+
+//Route::get('/delete_user','ProfileController@delete_user');

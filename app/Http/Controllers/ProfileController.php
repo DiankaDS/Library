@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -38,15 +39,26 @@ class ProfileController extends Controller
         $user = User::find(Auth::user()->id);
         $user->update($request->all());
 
-//        $user->name = 'New Flight Name';
-
-//        $user->save();
-
         return redirect('profile');
     }
 
     public function delete_user()
     {
         return array('user_info' => Auth::user());
+    }
+
+    public function set_password(Request $request)
+    {
+        $user = User::find(Auth::id());
+        $hashedPassword = $user->password;
+
+        if (Hash::check($request->password, $hashedPassword) and $request->new_password == $request->password_confirmation) {
+            $user->fill([
+                'password' => Hash::make($request->new_password)
+            ])->save();
+
+            return redirect('profile');
+        }
+        return 'Error';
     }
 }

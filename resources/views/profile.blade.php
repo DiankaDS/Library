@@ -34,16 +34,9 @@
                             </tbody>
                         </table>
                     {{--@endif--}}
-                    {{--<form action="/update_{{ $user_info->id }}" id="{{ $user_info->id }}" method="post" name="id">--}}
-                        {{--{{csrf_field()}}--}}
-                        {{--<input name="_method" type="hidden" value="post">--}}
-                        {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
-                        {{--<button class="btn btn-primary" type="submit">Update profile</button>--}}
-                    {{--</form>--}}
-
                     <button class="btn btn-light"><a href="/update_user">Update profile</a></button>
+                    <button class="btn btn-light"><a href="/set_password">Set new password</a></button>
                     <button class="btn btn-info"><a href="/delete_user">Delete profile</a></button>
-                    {{--<button class="btn btn-info"><a href="/delete_{{ $user_info->id }}">Set new password</a></button>--}}
                 </div>
             </div>
 
