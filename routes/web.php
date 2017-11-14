@@ -31,3 +31,8 @@ Route::delete('delete/{book_id}','BooksController@delete');
 Route::get('orders/{book_id}', 'OrdersController@create_order');
 
 Route::get('book_{book_id}', 'HomeController@book_details');
+
+Route::get('/update_user', function () { return view('update_user'); });
+Route::post('/update_user/complete', 'ProfileController@update_user');
+
+Route::get('/delete_user','ProfileController@delete_user');

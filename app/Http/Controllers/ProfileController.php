@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use App\User;
 
 class ProfileController extends Controller
 {
@@ -30,5 +31,22 @@ class ProfileController extends Controller
             ->get();
 
         return view('profile', array('user_info' => Auth::user(), 'user_books' => $user_books, 'user_orders' => $user_orders));
+    }
+
+    public function update_user(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $user->update($request->all());
+
+//        $user->name = 'New Flight Name';
+
+//        $user->save();
+
+        return redirect('profile');
+    }
+
+    public function delete_user()
+    {
+        return array('user_info' => Auth::user());
     }
 }

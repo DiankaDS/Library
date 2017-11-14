@@ -34,9 +34,47 @@
                             </tbody>
                         </table>
                     {{--@endif--}}
+                    {{--<form action="/update_{{ $user_info->id }}" id="{{ $user_info->id }}" method="post" name="id">--}}
+                        {{--{{csrf_field()}}--}}
+                        {{--<input name="_method" type="hidden" value="post">--}}
+                        {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
+                        {{--<button class="btn btn-primary" type="submit">Update profile</button>--}}
+                    {{--</form>--}}
+
+                    <button class="btn btn-light"><a href="/update_user">Update profile</a></button>
+                    <button class="btn btn-info"><a href="/delete_user">Delete profile</a></button>
+                    {{--<button class="btn btn-info"><a href="/delete_{{ $user_info->id }}">Set new password</a></button>--}}
                 </div>
             </div>
 
+            <div class="panel panel-default">
+                <div class="panel-heading">My orders</div>
+
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Book name</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Date start</th>
+                            <th scope="col">Date end</th>
+                            <th scope="col">Owner</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($user_orders as $val)
+                            <tr>
+                                <td>{{ $val->book }}</td>
+                                <td>{{ $val->author }}</td>
+                                <td>{{ $val->date_start }}</td>
+                                <td>{{ $val->date_end }}</td>
+                                <td>{{ $val->owner }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">Books</div>
@@ -67,40 +105,9 @@
                                         <input name="_method" type="hidden" value="DELETE">
                                         <input name="id" type="hidden" value="{{ $val->id }}">
 
-                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                        <button class="btn btn-info" type="submit">Delete</button>
                                     </form>
                                 </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-
-
-            <div class="panel panel-default">
-                <div class="panel-heading">Orders</div>
-
-                <div class="panel-body">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Book name</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Date start</th>
-                            <th scope="col">Date end</th>
-                            <th scope="col">Owner</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($user_orders as $val)
-                            <tr>
-                                <td>{{ $val->book }}</td>
-                                <td>{{ $val->author }}</td>
-                                <td>{{ $val->date_start }}</td>
-                                <td>{{ $val->date_end }}</td>
-                                <td>{{ $val->owner }}</td>
                             </tr>
                         @endforeach
                         </tbody>
