@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Library</div>
+                <div class="panel-heading">About book</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -14,50 +14,65 @@
                         </div>
                     @endif
 
-                    {{--You are logged in!--}}
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Book name</th>
+                            <td>{{ $book_info->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Author</th>
+                            <td>{{ $book_info->author }}</td>
+                        </tr>
+                        <tr>
+                            <th>Year</th>
+                            <td>{{ $book_info->year }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ $book_info->description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Genre</th>
+                            <td>{{ $book_info->genre }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Users who have a book</div>
 
-                        <table class="table">
-                            <thead>
+                <div class="panel-body">
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Surname</th>
+                            <th scope="col">Send a wish</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($users as $val)
                             <tr>
-                                <th scope="col">Book name</th>
-                                <th scope="col">Author</th>
-                                <th scope="col">Year</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Genre</th>
-                                <th scope="col">Tools</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($books as $val)
-                            <tr>
-                                <td>
-                                    {{--<a href="books/{{ $val->id }}">--}}
-                                        {{ $val->name }}
-                                    {{--</a>--}}
-                                </td>
-
-                                <td>{{ $val->author }}</td>
-
-                                <td>{{ $val->year }}</td>
-
-                                <td>{{ $val->description }}</td>
-
-                                <td>{{ $val->genre }}</td>
-
+                                <td>{{ $val->username }}</td>
+                                <td>{{ $val->name }}</td>
+                                <td>{{ $val->surname }}</td>
                                 <td>
                                     <form action="orders/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
                                         {{csrf_field()}}
                                         {{--<input name="_method" type="hidden" value="DELETE">--}}
-                                        <input name="id" type="hidden" value="{{ $val->id }}">
+                                        {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
 
                                         <button class="btn btn-success" type="submit">Take</button>
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-
+                        @endforeach
+                        </tbody>
+                    </table>
 
                 </div>
             </div>
