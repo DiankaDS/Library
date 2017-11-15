@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    
+
                         <table class="table">
                             <thead>
                             <tr>
@@ -89,7 +89,7 @@
                         </thead>
                         <tbody>
                         @foreach ($orders_to_user as $val)
-                            @if(!$val->accept)
+                            @if($val->accept)
                             <tr>
                                 <td>{{ $val->book }}</td>
                                 {{--<td>{{ $val->author }}</td>--}}
