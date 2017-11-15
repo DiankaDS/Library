@@ -29,13 +29,10 @@
         $('#myModal').modal('show');
         $('#YesButton').off('click');
         $('#YesButton').on('click', function(){
-            $('#'+id).trigger('click');
+            $('#'+id).submit();
         });
 
-
         $("#myModal .modal-body").text(paramPamPam);
-
-
     }
 </script>
 

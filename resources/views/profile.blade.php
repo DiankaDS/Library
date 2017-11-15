@@ -87,9 +87,7 @@
 
                                         {{--<button class="btn btn-danger" type="submit">Delete</button>--}}
 
-                                        <button class="btn btn-danger" type="button" onclick="myModal('delete_book_button', 'Are you sure to delete book?')">Delete</button>
-                                        <button class="btn btn-danger" type="submit" id="delete_book_button" style="display:none;">Delete</button>
-
+                                        <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', 'Are you sure to delete book?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
