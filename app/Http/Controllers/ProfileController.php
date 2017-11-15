@@ -46,6 +46,7 @@ class ProfileController extends Controller
     {
         $user = User::find(Auth::user()->id);
         $user->books()->detach();
+        //user_orders_delete
         $user->delete();
 
         return redirect('home');

@@ -48,7 +48,7 @@
                                         <form class="form-inline" action="accept_order" method="post">
                                             {{csrf_field()}}
                                             <input name="order_id" type="hidden" value="{{ $val->order_id }}">
-                                            <button class="btn btn-primary" type="submit">Accept</button>
+                                            <button class="btn btn-success" type="submit">Accept</button>
                                             <button class="btn btn-danger" type="submit" formaction="delete_order">Reject</button>
                                         </form>
                                     </td>
@@ -119,4 +119,12 @@
        {{--</div>--}}
     </div>
 </div>
+
+
+
+{{--<button class="btn btn-info btn-lg" type="button" data-toggle="modal" data-target="#myModal">Показать всплывающее окно</button>--}}
+{{--<button class="btn btn-info btn-lg" type="submit" onclick="return myModal()">Показать</button>--}}
+
+{{--onclick="return confirm('are u sure?') ? true : false;--}}
+
 @endsection

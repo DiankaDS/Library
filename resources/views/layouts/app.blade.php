@@ -13,13 +13,32 @@
     <!-- Styles -->
     {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>--}}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 
 </head>
+
 <body>
+
+<script type="text/javascript">
+    function myModal(id, paramPamPam)
+    {
+        $('#myModal').modal('show');
+        $('#YesButton').off('click');
+        $('#YesButton').on('click', function(){
+            $('#'+id).trigger('click');
+        });
+
+
+        $("#myModal .modal-body").text(paramPamPam);
+
+
+    }
+</script>
+
     <div id="app">
         <nav class="navbar navbar-inverse">
             <div class="container">
@@ -108,7 +127,52 @@
         @yield('content')
     </div>
 
+
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Please, confirm action!</h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    {{--<button class="btn btn-success" type="submit" id="YesButton" onclick="$('#update_profile_button').trigger('click')">Yes, continue</button>--}}
+                    <button class="btn btn-success" type="submit" id="YesButton">Yes, continue</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">No, back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
