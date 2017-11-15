@@ -23,11 +23,19 @@ class OrdersController extends Controller
     }
 
     protected function accept_order(Request $request){
-        return $request;
+        $order = Order::find($request->get('order_id'));
+
+        $order->accept = 1;
+        $order->save();
+
+        return redirect('orders_to_user');
     }
 
     protected function delete_order(Request $request){
-        return $request;
+        $order = Order::find($request->get('order_id'));
+        $order->delete();
+
+        return redirect('orders_to_user');
     }
 
     protected function orders_to_user()
@@ -35,10 +43,42 @@ class OrdersController extends Controller
         $orders_to_user = DB::table('orders')
             ->join('users', 'users.id', '=', 'orders.taker_id')
             ->join('lib_books', 'orders.book_id', '=', 'lib_books.id')
-            ->select('orders.*', 'users.*', 'lib_books.name as book')
-            ->where('orders.giving_id', Auth::user()->id)
+            ->select('orders.*', 'users.*', 'lib_books.name as book', 'orders.id as order_id')
+            ->where([
+                ['orders.giving_id', Auth::user()->id],
+                ['orders.accept', 0],
+                ['orders.return', 0]
+                ])
             ->get();
 
-        return view('orders_to_user', ['orders_to_user' => $orders_to_user]);
+        $given_books = DB::table('orders')
+            ->join('users', 'users.id', '=', 'orders.taker_id')
+            ->join('lib_books', 'orders.book_id', '=', 'lib_books.id')
+            ->select('orders.*', 'users.*', 'lib_books.name as book', 'orders.id as order_id')
+            ->where([
+                ['orders.giving_id', Auth::user()->id],
+                ['orders.accept', 1],
+            ])
+            ->get();
+
+        return view('orders_to_user', ['orders_to_user' => $orders_to_user, 'given_books' => $given_books]);
     }
+
+    protected function orders_from_user()
+    {
+        $orders_from_user = DB::table('orders')
+            ->join('lib_books', 'lib_books.id', '=', 'orders.book_id')
+//            ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
+//            ->join('authors', 'authors.id', '=', 'authors_books.author_id')
+            ->join('users', 'users.id', '=', 'orders.giving_id')
+            ->select('lib_books.name as book', 'users.*', 'orders.*')
+            ->where([
+                ['orders.taker_id', Auth::user()->id],
+                ['orders.return', 0],
+            ])
+            ->get();
+
+        return view('orders_from_user', ['orders_from_user' => $orders_from_user]);
+    }
+
 }
