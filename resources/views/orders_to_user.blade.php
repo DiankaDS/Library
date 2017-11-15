@@ -5,7 +5,7 @@
     <div class="row">
         {{--<div class="col-md-8 col-md-offset-2">--}}
             <div class="panel panel-default">
-                <div class="panel-heading">Orders</div>
+                <div class="panel-heading">Waiting orders</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    
                         <table class="table">
                             <thead>
                             <tr>
@@ -32,26 +32,28 @@
                             </thead>
                             <tbody>
                             @foreach ($orders_to_user as $val)
-                            <tr>
-                                <td>{{ $val->book }}</td>
-                                {{--<td>{{ $val->author }}</td>--}}
-                                {{--<td>{{ $val->year }}</td>--}}
-                                <td>{{ $val->username }}</td>
-                                <td>{{ $val->name }}</td>
-                                <td>{{ $val->surname }}</td>
-                                <td>{{ $val->phone }}</td>
-                                <td>{{ $val->email }}</td>
-                                <td>{{ $val->date_start }}</td>
-                                <td>{{ $val->date_end }}</td>
-                                <td>
-                                    <form class="form-inline" action="accept_order" method="post">
-                                        {{csrf_field()}}
-                                        <input name="order_id" type="hidden" value="{{ $val->order_id }}">
-                                        <button class="btn btn-primary" type="submit">Accept</button>
-                                        <button class="btn btn-danger" type="submit" formaction="delete_order">Reject</button>
-                                    </form>
-                                </td>
-                            </tr>
+                                @if(!$val->accept)
+                                <tr>
+                                    <td>{{ $val->book }}</td>
+                                    {{--<td>{{ $val->author }}</td>--}}
+                                    {{--<td>{{ $val->year }}</td>--}}
+                                    <td>{{ $val->username }}</td>
+                                    <td>{{ $val->name }}</td>
+                                    <td>{{ $val->surname }}</td>
+                                    <td>{{ $val->phone }}</td>
+                                    <td>{{ $val->email }}</td>
+                                    <td>{{ $val->date_start }}</td>
+                                    <td>{{ $val->date_end }}</td>
+                                    <td>
+                                        <form class="form-inline" action="accept_order" method="post">
+                                            {{csrf_field()}}
+                                            <input name="order_id" type="hidden" value="{{ $val->order_id }}">
+                                            <button class="btn btn-primary" type="submit">Accept</button>
+                                            <button class="btn btn-danger" type="submit" formaction="delete_order">Reject</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endif
                             @endforeach
                             </tbody>
                         </table>
@@ -82,10 +84,12 @@
                             <th scope="col">E-mail</th>
                             <th scope="col">Date start</th>
                             <th scope="col">Date end</th>
+                            <th scope="col">Create return</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($given_books as $val)
+                        @foreach ($orders_to_user as $val)
+                            @if(!$val->accept)
                             <tr>
                                 <td>{{ $val->book }}</td>
                                 {{--<td>{{ $val->author }}</td>--}}
@@ -97,7 +101,15 @@
                                 <td>{{ $val->email }}</td>
                                 <td>{{ $val->date_start }}</td>
                                 <td>{{ $val->date_end }}</td>
+                                <td>
+                                    <form class="form-inline" action="book_return" method="post">
+                                        {{csrf_field()}}
+                                        <input name="order_id" type="hidden" value="{{ $val->order_id }}">
+                                        <button class="btn btn-primary" type="submit">Return</button>
+                                    </form>
+                                </td>
                             </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>

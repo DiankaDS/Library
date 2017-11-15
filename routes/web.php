@@ -51,3 +51,5 @@ Route::post('delete_order','OrdersController@delete_order');
 Route::get('orders_to_user','OrdersController@orders_to_user');
 
 Route::get('orders_from_user','OrdersController@orders_from_user');
+
+Route::post('book_return','OrdersController@book_return');

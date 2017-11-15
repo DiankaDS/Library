@@ -46,22 +46,11 @@ class OrdersController extends Controller
             ->select('orders.*', 'users.*', 'lib_books.name as book', 'orders.id as order_id')
             ->where([
                 ['orders.giving_id', Auth::user()->id],
-                ['orders.accept', 0],
-                ['orders.return', 0]
+                ['orders.return', 0],
                 ])
             ->get();
 
-        $given_books = DB::table('orders')
-            ->join('users', 'users.id', '=', 'orders.taker_id')
-            ->join('lib_books', 'orders.book_id', '=', 'lib_books.id')
-            ->select('orders.*', 'users.*', 'lib_books.name as book', 'orders.id as order_id')
-            ->where([
-                ['orders.giving_id', Auth::user()->id],
-                ['orders.accept', 1],
-            ])
-            ->get();
-
-        return view('orders_to_user', ['orders_to_user' => $orders_to_user, 'given_books' => $given_books]);
+        return view('orders_to_user', ['orders_to_user' => $orders_to_user]);
     }
 
     protected function orders_from_user()
@@ -79,6 +68,15 @@ class OrdersController extends Controller
             ->get();
 
         return view('orders_from_user', ['orders_from_user' => $orders_from_user]);
+    }
+
+    protected function book_return(Request $request){
+        $order = Order::find($request->get('order_id'));
+
+        $order->return = 1;
+        $order->save();
+
+        return redirect('orders_to_user');
     }
 
 }
