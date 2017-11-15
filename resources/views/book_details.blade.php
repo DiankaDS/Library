@@ -40,6 +40,11 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+
+        <div class="row">
+
             <div class="panel panel-default">
                 <div class="panel-heading">Users who have a book</div>
 
@@ -134,6 +139,6 @@
             </div>
 
         </div>
-    </div>
+    {{--</div>--}}
 </div>
 @endsection
