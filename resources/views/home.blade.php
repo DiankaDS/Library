@@ -3,8 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row">
-        {{--<div class="col-md-8 col-md-offset-2">--}}
-            <div class="panel panel-default">
+
+
+        <div class="col-md-4">
+            <input class="form-control" id="mySearch" type="text" placeholder="Quick search">
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="panel panel-default">
                 <div class="panel-heading">Library</div>
 
                 <div class="panel-body">
@@ -15,19 +23,19 @@
                     @endif
 
                     {{--You are logged in!--}}
+                        <div class="filterable">
 
                         <table class="table">
                             <thead>
-                            <tr>
-                                <th scope="col">Book name</th>
-                                <th scope="col">Author</th>
-                                <th scope="col">Year</th>
-                                <th scope="col">Rating</th>
-                                {{--<th scope="col">Genre</th>--}}
-                                {{--<th scope="col">Tools</th>--}}
+                            <tr class="filters">
+                                <th scope="col">Book name<input type="text" class="form-control" placeholder="Search name"></th>
+                                <th scope="col">Author<input type="text" class="form-control" placeholder="Search author"></th>
+                                <th scope="col">Year<input type="text" class="form-control" placeholder="Search year"></th>
+                                <th scope="col">Genre<input type="text" class="form-control" placeholder="Search genre"></th>
+                                <th scope="col">Rating<input type="text" class="form-control" placeholder="Search rating"></th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="myTable">
                             @foreach ($books as $val)
                             <tr>
                                 <td>
@@ -35,8 +43,8 @@
                                 </td>
 
                                 <td>{{ $val->author }}</td>
-
                                 <td>{{ $val->year }}</td>
+                                <td>{{ $val->genre }}</td>
 
                                 <td>
                                     @if($val->rating)
@@ -45,18 +53,6 @@
                                         0
                                     @endif
                                 </td>
-
-                                {{--<td>{{ $val->genre }}</td>--}}
-
-                                {{--<td>--}}
-                                    {{--<form action="orders/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">--}}
-                                        {{--{{csrf_field()}}--}}
-                                        {{--<input name="_method" type="hidden" value="DELETE">--}}
-                                        {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
-
-                                        {{--<button class="btn btn-success" type="submit">Take</button>--}}
-                                    {{--</form>--}}
-                                {{--</td>--}}
                             </tr>
                             @endforeach
                             </tbody>
@@ -66,5 +62,6 @@
             </div>
         {{--</div>--}}
     </div>
+
 </div>
 @endsection
