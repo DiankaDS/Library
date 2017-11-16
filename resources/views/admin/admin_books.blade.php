@@ -33,9 +33,9 @@
                                     {{--<input name="_method" type="hidden" value="DELETE">--}}
                                     {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
 
-                                    {{--<button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_author_message }}')">Delete</button>--}}
+                                    <button class="btn btn-warning" type="button">Update</button>
+                                    <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('', '')">Delete</button>
                                     {{--</form>--}}
-
                                 </td>
                             </tr>
                         @endforeach

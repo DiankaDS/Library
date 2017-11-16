@@ -16,6 +16,7 @@
                                 <th scope="col">Surname</th>
                                 <th scope="col">E-mail</th>
                                 <th scope="col">Phone</th>
+                                {{--<th scope="col">Admin</th>--}}
                                 <th scope="col">Tools</th>
                                 {{--<th scope="col">Password</th>--}}
                                 {{--<th scope="col">photo</th>--}}
@@ -37,9 +38,10 @@
                                     {{--<input name="_method" type="hidden" value="DELETE">--}}
                                     {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
 
+                                    <button class="btn btn-info" type="button">Add to admin</button>
+                                    <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('', '')">Delete</button>
                                     {{--<button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_author_message }}')">Delete</button>--}}
                                     {{--</form>--}}
-
                                 </td>
                             </tr>
                             @endforeach

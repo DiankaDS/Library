@@ -35,11 +35,11 @@
                                 <td>{{ $val->return }}</td>
                                 <td>
                                     {{--<form action="delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">--}}
-                                        {{--{{csrf_field()}}--}}
-                                        {{--<input name="_method" type="hidden" value="DELETE">--}}
-                                        {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
+                                    {{--{{csrf_field()}}--}}
+                                    {{--<input name="_method" type="hidden" value="DELETE">--}}
+                                    {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
 
-                                        {{--<button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_author_message }}')">Delete</button>--}}
+                                    <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('', '')">Delete</button>
                                     {{--</form>--}}
                                 </td>
                             </tr>
