@@ -102,10 +102,12 @@
                                 <td>{{ $val->date_start }}</td>
                                 <td>{{ $val->date_end }}</td>
                                 <td>
-                                    <form class="form-inline" action="book_return" method="post">
+                                    <form class="form-inline" action="book_return" method="post" id="return_form">
                                         {{csrf_field()}}
                                         <input name="order_id" type="hidden" value="{{ $val->order_id }}">
-                                        <button class="btn btn-primary" type="submit">Return</button>
+                                        {{--<button class="btn btn-primary" type="submit">Return</button>--}}
+
+                                        <button class="btn btn-primary" type="button" onclick="myModal('return_form', '{{ $confirm_return_form_message }}')">Return</button>
                                     </form>
                                 </td>
                             </tr>
@@ -119,12 +121,5 @@
        {{--</div>--}}
     </div>
 </div>
-
-
-
-{{--<button class="btn btn-info btn-lg" type="button" data-toggle="modal" data-target="#myModal">Показать всплывающее окно</button>--}}
-{{--<button class="btn btn-info btn-lg" type="submit" onclick="return myModal()">Показать</button>--}}
-
-{{--onclick="return confirm('are u sure?') ? true : false;--}}
 
 @endsection

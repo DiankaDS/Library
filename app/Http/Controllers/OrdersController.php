@@ -50,7 +50,12 @@ class OrdersController extends Controller
                 ])
             ->get();
 
-        return view('orders_to_user', ['orders_to_user' => $orders_to_user]);
+        $confirm_return_form_message = 'Are you sure that the user returned this book?';
+
+        return view('orders_to_user', array(
+            'orders_to_user' => $orders_to_user,
+            'confirm_return_form_message' => $confirm_return_form_message,
+        ));
     }
 
     protected function orders_from_user()
@@ -67,7 +72,9 @@ class OrdersController extends Controller
             ])
             ->get();
 
-        return view('orders_from_user', ['orders_from_user' => $orders_from_user]);
+        return view('orders_from_user', array(
+            'orders_from_user' => $orders_from_user
+        ));
     }
 
     protected function book_return(Request $request){

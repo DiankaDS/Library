@@ -21,6 +21,9 @@ class ProfileController extends Controller
             ->where('user_books.user_id', Auth::user()->id)
             ->get();
 
+        $confirm_delete_book_message = 'Are you sure to delete book?';
+        $confirm_delete_profile_message = 'Are you sure to delete profile?';
+
 //        $user_orders = DB::table('orders')
 //            ->join('lib_books', 'lib_books.id', '=', 'orders.book_id')
 //            ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
@@ -31,7 +34,12 @@ class ProfileController extends Controller
 //            ->where('orders.return', 0)
 //            ->get();
 
-        return view('profile', array('user_info' => Auth::user(), 'user_books' => $user_books));
+        return view('profile', array(
+            'user_info' => Auth::user(),
+            'user_books' => $user_books,
+            'confirm_delete_book_message' => $confirm_delete_book_message,
+            'confirm_delete_profile_message' => $confirm_delete_profile_message,
+        ));
     }
 
     public function update_user(Request $request)
