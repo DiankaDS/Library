@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function user_profile()
     {
         $user_books = DB::table('lib_books')

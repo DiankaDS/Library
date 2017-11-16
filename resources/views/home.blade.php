@@ -2,9 +2,18 @@
 
 @section('content')
 <div class="container">
+
+    @guest
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h2><p class="text-danger">
+                   Welcome, guest! Please, login or register to see more.
+                </p></h2>
+            </div>
+        </div>
+    @endguest
+
     <div class="row">
-
-
         <div class="col-md-4">
             <input class="form-control" id="mySearch" type="text" placeholder="Quick search">
         </div>

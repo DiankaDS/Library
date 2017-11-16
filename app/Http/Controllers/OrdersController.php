@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     protected function create_order(Request $request)
     {
             Order::create([

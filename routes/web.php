@@ -30,7 +30,7 @@ Route::delete('delete/{book_id}','BooksController@delete');
 
 Route::get('orders/{book_id}', 'OrdersController@create_order');
 
-Route::get('book_{book_id}', 'HomeController@book_details');
+Route::get('book_{book_id}', 'BooksController@book_details');
 
 Route::get('/update_user', function () { return view('update_user'); });
 Route::post('/update_user/complete', 'ProfileController@update_user');
@@ -40,7 +40,7 @@ Route::post('/set_password/complete', 'ProfileController@set_password');
 
 Route::get('/delete_user','ProfileController@delete_user');
 
-Route::post('/add_review','HomeController@add_review');
+Route::post('/add_review','BooksController@add_review');
 
 Route::post('orders','OrdersController@create_order');
 
