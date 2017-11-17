@@ -58,6 +58,10 @@
 
                 <div class="panel-body">
 
+{{--                    {{ var_dump($users) }}--}}
+
+                    @if( count($users) !== 0 )
+
                     <table class="table">
                         <thead>
                         <tr>
@@ -108,6 +112,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @else
+                        <p> This book has nothing... </p>
+                    @endif
 
                 </div>
             </div>
@@ -160,6 +167,8 @@
 
                 <div class="panel-body">
 
+                    @if( count($reviews) !== 0 )
+
                     <table class="table">
                         <thead>
                         <tr>
@@ -178,6 +187,11 @@
                         @endforeach
                         </tbody>
                     </table>
+
+                    @else
+                        <p> This book hasn't reviews... Be first! </p>
+                    @endif
+
                 </div>
             </div>
 

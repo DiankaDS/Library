@@ -83,6 +83,9 @@
                 <div class="panel-heading">Books</div>
 
                 <div class="panel-body">
+
+                    @if( count($user_books) !== 0 )
+
                     <table class="table">
                         <thead>
                         <tr>
@@ -115,6 +118,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @else
+                        <p> You haven't books... </p>
+                    @endif
                 </div>
             </div>
 

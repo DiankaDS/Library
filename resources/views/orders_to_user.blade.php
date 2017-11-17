@@ -15,6 +15,9 @@
                 <div class="panel-heading">Waiting orders</div>
 
                 <div class="panel-body">
+
+                    @if( count($orders_to_user) !== 0 )
+
                         <table class="table">
                             <thead>
                             <tr>
@@ -58,6 +61,9 @@
                             @endforeach
                             </tbody>
                         </table>
+                    @else
+                        <p> No one orders... </p>
+                    @endif
 
                 </div>
             </div>
@@ -66,6 +72,8 @@
                 <div class="panel-heading">Given books</div>
 
                 <div class="panel-body">
+
+                    @if( count($orders_to_user) !== 0 )
 
                     <table class="table">
                         <thead>
@@ -111,6 +119,10 @@
                         @endforeach
                         </tbody>
                     </table>
+
+                    @else
+                        <p> No one orders... </p>
+                    @endif
 
                 </div>
             </div>
