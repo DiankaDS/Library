@@ -75,7 +75,9 @@ class ProfileController extends Controller
 //        $user = User::find(Auth::user()->id);
         $user->update($request->all());
 
-        return redirect('profile');
+        $message = "You profile updated!";
+
+        return redirect('profile')->with('status', $message);
     }
 
     public function upload_photo(Request $request)
@@ -93,7 +95,9 @@ class ProfileController extends Controller
             'photo' => $file_name,
         ])->save();
 
-        return redirect('profile');
+        $message = "Photo was upload!";
+
+        return redirect('profile')->with('status', $message);
     }
 
     public function delete_user()
@@ -103,7 +107,9 @@ class ProfileController extends Controller
         //user_orders_delete
         $user->delete();
 
-        return redirect('home');
+        $message = "You profile deleted!";
+
+        return redirect('home')->with('status', $message);
     }
 
     public function set_password(Request $request)
@@ -123,7 +129,9 @@ class ProfileController extends Controller
                 'password' => Hash::make($request->new_password)
             ])->save();
 
-            return redirect('profile');
+            $message = "You password changed!";
+
+            return redirect('profile')->with('status', $message);
         }
         return 'Error';
     }

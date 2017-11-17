@@ -13,6 +13,12 @@
         </div>
     @endguest
 
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
     <div class="row">
         <div class="col-md-4">
             <input class="form-control" id="mySearch" type="text" placeholder="Quick search">
@@ -25,11 +31,6 @@
                 <div class="panel-heading">Library</div>
 
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
                     {{--You are logged in!--}}
                         <div class="filterable">

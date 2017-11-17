@@ -29,7 +29,9 @@ class OrdersController extends Controller
                 'book_id' => $request->get('book_id'),
             ]);
 
-        return redirect('home');
+        $message = "Order created!";
+
+        return redirect('home')->with('status', $message);
     }
 
     protected function accept_order(Request $request){
@@ -38,14 +40,18 @@ class OrdersController extends Controller
         $order->accept = 1;
         $order->save();
 
-        return redirect('orders_to_user');
+        $message = "Order accepted!";
+
+        return redirect('orders_to_user')->with('status', $message);
     }
 
     protected function delete_order(Request $request){
         $order = Order::find($request->get('order_id'));
         $order->delete();
 
-        return redirect('orders_to_user');
+        $message = "Order deleted!";
+
+        return redirect('orders_to_user')->with('status', $message);
     }
 
     protected function orders_to_user()
@@ -93,7 +99,9 @@ class OrdersController extends Controller
         $order->return = 1;
         $order->save();
 
-        return redirect('orders_to_user');
+        $message = "Book returned!";
+
+        return redirect('orders_to_user')->with('status', $message);
     }
 
 }

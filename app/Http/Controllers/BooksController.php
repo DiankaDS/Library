@@ -59,7 +59,9 @@ class BooksController extends Controller
         $book->authors()->save($author);
         $book->users()->save($user);
 
-        return redirect('profile');
+        $message = "Book created!";
+
+        return redirect('profile')->with('status', $message);
     }
 
     protected function delete(Request $request){
@@ -67,7 +69,8 @@ class BooksController extends Controller
         $user = User::find(Auth::user()->id);
         $user->books()->detach($request->get('id'));
 
-        return redirect('profile');
+        $message = "User deleted!";
+        return redirect('profile')->with('status', $message);
     }
 
     public function book_details($http_response_header)
@@ -135,18 +138,9 @@ class BooksController extends Controller
             'text' => $request->get('review'),
             'rating' => $request->get('rating'),
         ]);
-        return back();
+
+        $message = "You review saved!";
+        return back()->with('status', $message);
     }
-
-
-//    public function upload_photo(Request $request)
-//    {
-//        $file = $request->file('photo');
-//        $file_name = time().'_'.$_FILES['photo']['name'];
-//        $file->move(public_path().'/images', $file_name);
-//
-//        return $file_name;
-//    }
-
 
 }
