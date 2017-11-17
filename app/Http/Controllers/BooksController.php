@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 //use App\Http\Controllers\Auth\ProfileController;
 use Auth;
 
+//use Illuminate\Support\Facades\Storage;
+//use Illuminate\Http\UploadedFile;
+use Image;
+
 class BooksController extends Controller
 {
     public function __construct()
@@ -33,7 +37,12 @@ class BooksController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'year' => 'required|integer',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $file = $request->file('photo');
+        $file_name = time().'_'.$_FILES['photo']['name'];
+        $file->move(public_path().'/images/books', $file_name);
 
         $book =
             LibBook::create([
@@ -41,6 +50,7 @@ class BooksController extends Controller
             'year' => $request->get('year'),
             'genre_id' => $request->get('author'),
             'description' => '1',
+            'photo' => $file_name,
         ]);
 
         $author = Author::find($request->get('author'));
@@ -127,5 +137,16 @@ class BooksController extends Controller
         ]);
         return back();
     }
+
+
+//    public function upload_photo(Request $request)
+//    {
+//        $file = $request->file('photo');
+//        $file_name = time().'_'.$_FILES['photo']['name'];
+//        $file->move(public_path().'/images', $file_name);
+//
+//        return $file_name;
+//    }
+
 
 }

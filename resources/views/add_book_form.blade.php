@@ -8,7 +8,7 @@
                     <div class="panel-heading">Add new book</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="add_book/complete">
+                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="add_book/complete">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -67,10 +67,6 @@
                             {{--</div>--}}
 
 
-
-
-
-
                             <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
                                 <label for="genre" class="col-md-4 control-label">Genre</label>
 
@@ -84,6 +80,22 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
+                                <label for="photo" class="col-md-4 control-label">Photo</label>
+
+                                <div class="col-md-6">
+                                    <input id="photo" type="file" name="photo" required>
+
+                                    @if ($errors->has('photo'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('photo') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">

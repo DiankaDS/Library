@@ -34,6 +34,8 @@ Route::post('/set_password/complete', 'ProfileController@set_password');
 
 Route::get('/delete_user','ProfileController@delete_user');
 
+Route::post('/upload_photo','ProfileController@upload_photo');
+
 // Books routes
 
 Route::get('add_book', 'BooksController@add_book_form');

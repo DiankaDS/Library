@@ -9,6 +9,21 @@
 
                 <div class="panel-body">
                     {{--@if (session('status'))--}}
+
+
+                    @if ( $user_info->photo !== '1' )
+                        <img src="../images/users/{{$user_info->photo}}">
+                    @else
+                        <img src="../images/default_user.jpg">
+                    @endif
+
+                    <form class="form-inline" action="/upload_photo" enctype="multipart/form-data" method="POST">
+                        {{csrf_field()}}
+                        <input id="photo" type="file" name="photo" required>
+
+                        <button class="btn btn-info" type="submit">Upload photo</button>
+                    </form>
+
                         <table class="table">
                             <tbody>
                             <tr>

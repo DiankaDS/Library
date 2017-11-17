@@ -78,6 +78,24 @@ class ProfileController extends Controller
         return redirect('profile');
     }
 
+    public function upload_photo(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $file = $request->file('photo');
+        $file_name = time().'_'.$_FILES['photo']['name'];
+        $file->move(public_path().'/images/users', $file_name);
+
+        $user = User::find(Auth::user()->id);
+        $user->fill([
+            'photo' => $file_name,
+        ])->save();
+
+        return redirect('profile');
+    }
+
     public function delete_user()
     {
         $user = User::find(Auth::user()->id);

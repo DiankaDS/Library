@@ -14,6 +14,13 @@
                         </div>
                     @endif
 
+
+                    @if ( $book_info->photo )
+                        <img src="../images/books/{{$book_info->photo}}">
+                    @else
+                        <img src="../images/default_book.jpg">
+                    @endif
+
                     <table class="table">
                         <tbody>
                         <tr>
