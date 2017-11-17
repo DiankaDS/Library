@@ -117,10 +117,22 @@ class ProfileController extends Controller
         $user = User::find(Auth::id());
         $hashedPassword = $user->password;
 
-        if (Hash::check($request->password, $hashedPassword)
-            and $request->new_password == $request->password_confirmation
-        ) {
+        $request->validate([
+            'new_password' => 'required|string|min:6',
+        ]);
 
+        if (!Hash::check($request->password, $hashedPassword)) {
+
+            $message = "You password failed!";
+            return back()->with('status', $message);
+        }
+
+        elseif ($request->new_password !== $request->password_confirmation){
+
+            $message = "Confirmation failed!";
+            return back()->with('status', $message);
+        }
+        else{
             $request->validate([
                 'new_password' => 'required|string|min:6|confirmed',
             ]);
@@ -130,9 +142,8 @@ class ProfileController extends Controller
             ])->save();
 
             $message = "You password changed!";
-
             return redirect('profile')->with('status', $message);
         }
-        return 'Error';
+
     }
 }
