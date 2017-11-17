@@ -7,6 +7,7 @@ use Auth;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Contracts\Validation\Rule;
 
 class ProfileController extends Controller
 {
@@ -50,6 +51,28 @@ class ProfileController extends Controller
     public function update_user(Request $request)
     {
         $user = User::find(Auth::user()->id);
+
+        if($user['username'] !== $request['username']){
+            $request->validate([
+                'username' => 'required|string|max:255|unique:users',
+            ]);
+        }
+
+        if($user['email'] !== $request['email']){
+            $request->validate([
+                'email' => 'required|string|email|max:255|unique:users',
+            ]);
+        }
+
+        $request->validate([
+//            'username' => 'required|string|max:255|unique:users',
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+//            'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required|integer',
+        ]);
+
+//        $user = User::find(Auth::user()->id);
         $user->update($request->all());
 
         return redirect('profile');
@@ -73,6 +96,11 @@ class ProfileController extends Controller
         if (Hash::check($request->password, $hashedPassword)
             and $request->new_password == $request->password_confirmation
         ) {
+
+            $request->validate([
+                'new_password' => 'required|string|min:6|confirmed',
+            ]);
+
             $user->fill([
                 'password' => Hash::make($request->new_password)
             ])->save();

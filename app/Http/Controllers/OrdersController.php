@@ -16,7 +16,12 @@ class OrdersController extends Controller
 
     protected function create_order(Request $request)
     {
-            Order::create([
+        $request->validate([
+            'date_start' => 'required|date',
+            'date_end' => 'required|date',
+        ]);
+
+        Order::create([
                 'giving_id' => $request->get('giving_id'),
                 'taker_id' => Auth::user()->id,
                 'date_start' => $request->get('date_start'),

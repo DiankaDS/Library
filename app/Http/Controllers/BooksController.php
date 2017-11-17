@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Author;
 use App\User;
 use App\LibBook;
+use App\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 //use App\Http\Controllers\Auth\ProfileController;
@@ -21,11 +22,19 @@ class BooksController extends Controller
     {
         $genres = DB::table('genres')->get();
         $authors = DB::table('authors')->get();
-        return view('add_book_form', array('genres' => $genres, 'authors' => $authors));
+        return view('add_book_form', array(
+            'genres' => $genres,
+            'authors' => $authors
+        ));
     }
 
     protected function create(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'year' => 'required|integer',
+        ]);
+
         $book =
             LibBook::create([
             'name' => $request->get('name'),
@@ -83,16 +92,33 @@ class BooksController extends Controller
             ->where('reviews.book_id', $http_response_header)
             ->get();
 
+        $user_reviews = DB::table('reviews')
+            ->select('reviews.user_id')
+            ->where([
+                ['reviews.book_id', $http_response_header],
+                ['reviews.user_id', Auth::user()->id]
+            ])
+            ->first();
+
 //        $book_rating = DB::table('reviews')
 //            ->where('reviews.book_id', $http_response_header)
 //            ->sum('reviews.rating');
 
-        return view('book_details', ['book_info' => $book_info, 'users' => $users, 'reviews' => $reviews]);
+        return view('book_details', array(
+            'book_info' => $book_info,
+            'users' => $users,
+            'reviews' => $reviews,
+            'user_reviews' => $user_reviews,
+        ));
 
     }
 
     public function add_review(Request $request)
     {
+        $request->validate([
+            'review' => 'required|string|max:255',
+        ]);
+
         Review::create([
             'book_id' => $request->get('book_id'),
             'user_id' => Auth::user()->id,

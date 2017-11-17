@@ -71,8 +71,27 @@
                                         <input name="book_id" type="hidden" value="{{ $book_info->id }}">
                                         <input name="giving_id" type="hidden" value="{{ $val->id }}">
 
-                                        <input name="date_start" type="date">
-                                        <input name="date_end" type="date">
+                                        <div class="form-group{{ $errors->has('date_start') ? ' has-error' : '' }}">
+                                            <label for="date_start">Date start</label>
+
+                                            <input name="date_start" type="date">
+                                            @if ($errors->has('date_start'))
+                                                <span class="help-block">
+                                                <strong>{{ $errors->first('date_start') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group{{ $errors->has('date_end') ? ' has-error' : '' }}">
+                                            <label for="date_end">Date end</label>
+
+                                            <input name="date_end" type="date">
+                                            @if ($errors->has('date_end'))
+                                                <span class="help-block">
+                                                <strong>{{ $errors->first('date_end') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
 
                                         <button class="btn btn-success" type="submit">Take</button>
                                     </form>
@@ -88,6 +107,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Reviews</div>
 
+                @if( !$user_reviews )
+
                 <div class="panel-body">
 
                     <form class="form-horizontal" method="POST" action="add_review" id="add_review">
@@ -97,7 +118,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <select class="form-control" id="rating" name="rating">
-                                        @foreach (range(1, 5) as $val)
+                                        @foreach (range(5, 1, -1) as $val)
                                             <option value="{{ $val }}">{{ $val }}</option>
                                         @endforeach
                                     </select>
@@ -105,8 +126,20 @@
                             </div>
                             <label for="name" class="col-md-4 control-label">Review</label>
                             <div class="col-md-6">
+
+                                <div class="form-group{{ $errors->has('review') ? ' has-error' : '' }}">
+
                                 <textarea rows="4" cols="50" name="review" form="add_review" id="review" placeholder="Enter review here..."></textarea>
-                            </div>
+
+                                    @if ($errors->has('review'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('review') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
+
+                                </div>
                             <input name="book_id" type="hidden" value="{{ $book_info->id }}">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Add review</button>
@@ -115,6 +148,8 @@
                     </form>
 
                 </div>
+                @endif
+
                 <div class="panel-body">
 
                     <table class="table">

@@ -43,7 +43,7 @@
                             <label for="surname" class="col-md-4 control-label">Surname</label>
 
                             <div class="col-md-6">
-                                <input id="surname" type="text" class="form-control" name="surname" value="{{ old('surname') }}" required autofocus>
+                                <input id="surname" type="text" class="form-control" name="surname" value="{{ old('surname') }}" autofocus>
 
                                 @if ($errors->has('surname'))
                                     <span class="help-block">
