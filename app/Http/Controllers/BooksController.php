@@ -38,10 +38,10 @@ class BooksController extends Controller
         $id = $request['id'];
 
         if ($id == 'name') {
-            $source = DB::table('lib_books')
-                ->select('lib_books.name')
-                ->where('lib_books.name', 'like', '%' . $str . '%')
-                ->get();
+        $source = DB::table('lib_books')
+            ->select('lib_books.name')
+            ->where('lib_books.name', 'like', '%' . $str . '%')
+            ->get();
         }
 
         elseif ($id == 'author') {
@@ -50,7 +50,6 @@ class BooksController extends Controller
                 ->where('authors.name', 'like', '%' . $str . '%')
                 ->get();
         }
-
         else $source = [];
 
         return json_encode($source);
@@ -70,16 +69,29 @@ class BooksController extends Controller
         $file_name = time().'_'.$_FILES['photo']['name'];
         $file->move(public_path().'/images/books', $file_name);
 
-        $book =
-            LibBook::create([
-            'name' => $request->get('name'),
-            'year' => $request->get('year'),
-            'genre_id' => $request->get('author'),
-            'description' => '1',
-            'photo' => $file_name,
-        ]);
+        $book = LibBook::where('name', $request->get('name'))->first();
 
-        $author = Author::find($request->get('author'));
+        if(!$book) {
+            $book =
+                LibBook::create([
+                    'name' => $request->get('name'),
+                    'year' => $request->get('year'),
+                    'genre_id' => $request->get('genre'),
+                    'description' => '1',
+                    'photo' => $file_name,
+                ]);
+        }
+
+//        $author = Author::find($request->get('author'));
+        $author = Author::where('name', $request->get('author'))->first();
+
+        if(!$author) {
+            $author =
+                Author::create([
+                    'name' => $request->get('author'),
+                ]);
+        }
+
         $user = User::find(Auth::user()->id);
 
         $book->authors()->save($author);
