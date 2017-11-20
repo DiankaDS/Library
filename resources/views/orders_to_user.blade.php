@@ -16,7 +16,7 @@
 
                 <div class="panel-body">
 
-                    @if( count($orders_to_user) !== 0 )
+                    @if( count($orders_to_user_not_accept) !== 0 )
 
                         <table class="table">
                             <thead>
@@ -35,8 +35,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($orders_to_user as $val)
-                                @if(!$val->accept)
+                            @foreach ($orders_to_user_not_accept as $val)
+{{--                                @if(!$val->accept)--}}
                                 <tr>
                                     <td>{{ $val->book }}</td>
                                     {{--<td>{{ $val->author }}</td>--}}
@@ -57,7 +57,7 @@
                                         </form>
                                     </td>
                                 </tr>
-                                @endif
+                                {{--@endif--}}
                             @endforeach
                             </tbody>
                         </table>
@@ -73,7 +73,7 @@
 
                 <div class="panel-body">
 
-                    @if( count($orders_to_user) !== 0 )
+                    @if( count($orders_to_user_accept) !== 0 )
 
                     <table class="table">
                         <thead>
@@ -92,8 +92,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($orders_to_user as $val)
-                            @if($val->accept)
+                        @foreach ($orders_to_user_accept as $val)
+{{--                            @if($val->accept)--}}
                             <tr>
                                 <td>{{ $val->book }}</td>
                                 {{--<td>{{ $val->author }}</td>--}}
@@ -115,7 +115,7 @@
                                     </form>
                                 </td>
                             </tr>
-                            @endif
+                            {{--@endif--}}
                         @endforeach
                         </tbody>
                     </table>

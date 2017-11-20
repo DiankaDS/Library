@@ -3,14 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row">
-        {{--<div class="col-md-8 col-md-offset-2">--}}
 
             <div class="panel panel-default">
                 <div class="panel-heading">My waiting orders</div>
 
                 <div class="panel-body">
 
-                    @if( count($orders_from_user) !== 0 )
+                    @if( count($orders_from_user_not_accept) !== 0 )
 
                     <table class="table">
                         <thead>
@@ -26,8 +25,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($orders_from_user as $val)
-                            @if(!$val->accept)
+                        @foreach ($orders_from_user_not_accept as $val)
+{{--                            @if(!$val->accept)--}}
                             <tr>
                                 <td>{{ $val->book }}</td>
                                 <td>{{ $val->username }}</td>
@@ -38,7 +37,7 @@
                                 <td>{{ $val->date_start }}</td>
                                 <td>{{ $val->date_end }}</td>
                             </tr>
-                            @endif
+                            {{--@endif--}}
                         @endforeach
                         </tbody>
                     </table>
@@ -53,7 +52,7 @@
 
                 <div class="panel-body">
 
-                    @if( count($orders_from_user) !== 0 )
+                    @if( count($orders_from_user_accept) !== 0 )
 
                     <table class="table">
                         <thead>
@@ -69,8 +68,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($orders_from_user as $val)
-                            @if($val->accept)
+                        @foreach ($orders_from_user_accept as $val)
+{{--                            @if($val->accept)--}}
                             <tr>
                                 <td>{{ $val->book }}</td>
                                 <td>{{ $val->username }}</td>
@@ -81,7 +80,7 @@
                                 <td>{{ $val->date_start }}</td>
                                 <td>{{ $val->date_end }}</td>
                             </tr>
-                            @endif
+                            {{--@endif--}}
                         @endforeach
                         </tbody>
                     </table>
@@ -91,7 +90,6 @@
                 </div>
             </div>
 
-        {{--</div>--}}
     </div>
 </div>
 @endsection

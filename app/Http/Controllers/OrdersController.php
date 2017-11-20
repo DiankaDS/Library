@@ -66,10 +66,15 @@ class OrdersController extends Controller
                 ])
             ->get();
 
+        $orders_to_user_accept = $orders_to_user->where('accept', 1);
+        $orders_to_user_not_accept = $orders_to_user->where('accept', 0);
+
         $confirm_return_form_message = 'Are you sure that the user returned this book?';
 
         return view('orders_to_user', array(
-            'orders_to_user' => $orders_to_user,
+//            'orders_to_user' => $orders_to_user,
+            'orders_to_user_accept' => $orders_to_user_accept,
+            'orders_to_user_not_accept' => $orders_to_user_not_accept,
             'confirm_return_form_message' => $confirm_return_form_message,
         ));
     }
@@ -88,8 +93,13 @@ class OrdersController extends Controller
             ])
             ->get();
 
+        $orders_from_user_accept = $orders_from_user->where('accept', 1);
+        $orders_from_user_not_accept = $orders_from_user->where('accept', 0);
+
         return view('orders_from_user', array(
-            'orders_from_user' => $orders_from_user
+//            'orders_from_user' => $orders_from_user,
+            'orders_from_user_accept' => $orders_from_user_accept,
+            'orders_from_user_not_accept' => $orders_from_user_not_accept,
         ));
     }
 
