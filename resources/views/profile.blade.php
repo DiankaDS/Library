@@ -14,7 +14,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Profile</div>
 
-                <div class="panel-body">
+                <div class="panel-body" align="center">
                     {{--@if (session('status'))--}}
 
 

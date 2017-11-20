@@ -133,7 +133,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script type='text/javascript' src="{{ asset('js/jquery-1.8.2.min.js') }}"></script>
+{{--    <script type='text/javascript' src="{{ asset('js/jquery-1.8.2.min.js') }}"></script>--}}
     <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

@@ -14,7 +14,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">About book</div>
 
-                <div class="panel-body">
+                <div class="panel-body" align="center">
 
 {{--                    @if ( $book_info->photo )--}}
                     <img src="../images/books/{{$book_info->photo}}" height="300" width="250">
@@ -175,38 +175,59 @@
 
                 <div class="panel-body">
 
+                    {{--@if( count($reviews) !== 0 )--}}
+
+                    {{--<table class="table">--}}
+                        {{--<thead>--}}
+                        {{--<tr>--}}
+                            {{--<th scope="col">Photo</th>--}}
+                            {{--<th scope="col">Username</th>--}}
+                            {{--<th scope="col">Text</th>--}}
+                            {{--<th scope="col">Rating</th>--}}
+                        {{--</tr>--}}
+                        {{--</thead>--}}
+                        {{--<tbody>--}}
+                        {{--@foreach ($reviews as $val)--}}
+                            {{--<tr>--}}
+                                {{--<td>--}}
+                                    {{--<img src="../images/users/{{$val->photo}}" height="42" width="42">--}}
+                                {{--</td>--}}
+                                {{--<td>{{ $val->username }}</td>--}}
+                                {{--<td>{{ $val->text }}</td>--}}
+                                {{--<td>{{ $val->rating }}</td>--}}
+                            {{--</tr>--}}
+                        {{--@endforeach--}}
+                        {{--</tbody>--}}
+                    {{--</table>--}}
+
+                    {{--@else--}}
+                        {{--<p> This book hasn't reviews... Be first! </p>--}}
+                    {{--@endif--}}
+
+                {{--</div>--}}
+
                     @if( count($reviews) !== 0 )
-
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Photo</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Text</th>
-                            <th scope="col">Rating</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <div class="col-md-6">
                         @foreach ($reviews as $val)
-                            <tr>
-                                <td>
-                                    <img src="../images/users/{{$val->photo}}" height="42" width="42">
-                                </td>
-                                <td>{{ $val->username }}</td>
-                                <td>{{ $val->text }}</td>
-                                <td>{{ $val->rating }}</td>
-                            </tr>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                            <strong>{{ $val->username }}</strong>
+                            <div class="panel-body">
+                                <strong>Rating: {{ $val->rating }}</strong>
+                                <p class="text">{{ $val->text }}</p>
+                                <span class="text-muted">commented at {{ $val->created_at }}</span>
+                            </div>
+                            </div>
+                        </div>
                         @endforeach
-                        </tbody>
-                    </table>
-
+                    </div>
                     @else
                         <p> This book hasn't reviews... Be first! </p>
                     @endif
-
                 </div>
-            </div>
 
+            </div>
         </div>
     {{--</div>--}}
 </div>

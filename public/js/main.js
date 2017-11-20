@@ -102,3 +102,8 @@ function checkTip(e){
 function clearTips(){
     $('.tips').remove();
 }
+
+// --- Ajax in Home (search books) ---
+function searchBook(e){
+    //
+}
