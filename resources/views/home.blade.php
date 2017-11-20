@@ -38,6 +38,7 @@
                         <table class="table">
                             <thead>
                             <tr class="filters">
+                                <th scope="col">Photo</th>
                                 <th scope="col">Book name<input type="text" class="form-control" placeholder="Search name"></th>
                                 <th scope="col">Author<input type="text" class="form-control" placeholder="Search author"></th>
                                 <th scope="col">Year<input type="text" class="form-control" placeholder="Search year"></th>
@@ -48,6 +49,11 @@
                             <tbody id="myTable">
                             @foreach ($books as $val)
                             <tr>
+                                <td>
+                                    <a href="book_{{ $val->id }}" name="{{ $val->id }}">
+                                        <img src="../images/books/{{$val->photo}}" height="50" width="50">
+                                    </a>
+                                </td>
                                 <td>
                                     <a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a>
                                 </td>

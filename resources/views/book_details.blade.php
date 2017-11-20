@@ -16,11 +16,11 @@
 
                 <div class="panel-body">
 
-                    @if ( $book_info->photo )
-                        <img src="../images/books/{{$book_info->photo}}">
-                    @else
-                        <img src="../images/default_book.jpg">
-                    @endif
+{{--                    @if ( $book_info->photo )--}}
+                    <img src="../images/books/{{$book_info->photo}}" height="300" width="250">
+                    {{--@else--}}
+                        {{--<img src="../images/books/default_book.jpg">--}}
+                    {{--@endif--}}
 
                     <table class="table">
                         <tbody>
@@ -44,6 +44,10 @@
                             <th>Genre</th>
                             <td>{{ $book_info->genre }}</td>
                         </tr>
+                        <tr>
+                            <th>Date add</th>
+                            <td>{{ $book_info->created_at }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -65,6 +69,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th scope="col">Photo</th>
                             <th scope="col">Username</th>
                             <th scope="col">Name</th>
                             <th scope="col">Surname</th>
@@ -74,6 +79,9 @@
                         <tbody>
                         @foreach ($users as $val)
                             <tr>
+                                <td>
+                                    <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                                </td>
                                 <td>{{ $val->username }}</td>
                                 <td>{{ $val->name }}</td>
                                 <td>{{ $val->surname }}</td>
@@ -172,6 +180,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th scope="col">Photo</th>
                             <th scope="col">Username</th>
                             <th scope="col">Text</th>
                             <th scope="col">Rating</th>
@@ -180,6 +189,9 @@
                         <tbody>
                         @foreach ($reviews as $val)
                             <tr>
+                                <td>
+                                    <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                                </td>
                                 <td>{{ $val->username }}</td>
                                 <td>{{ $val->text }}</td>
                                 <td>{{ $val->rating }}</td>

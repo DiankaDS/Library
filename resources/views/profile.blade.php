@@ -18,11 +18,11 @@
                     {{--@if (session('status'))--}}
 
 
-                    @if ( $user_info->photo !== '1' )
-                        <img src="../images/users/{{$user_info->photo}}">
-                    @else
-                        <img src="../images/default_user.jpg">
-                    @endif
+{{--                    @if ( $user_info->photo !== '1' )--}}
+                    <img src="../images/users/{{$user_info->photo}}" height="300" width="300">
+                    {{--@else--}}
+                        {{--<img src="../images/users/default_user.jpg">--}}
+                    {{--@endif--}}
 
                     <form class="form-inline" action="/upload_photo" enctype="multipart/form-data" method="POST">
                         {{csrf_field()}}

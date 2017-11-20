@@ -65,9 +65,14 @@ class BooksController extends Controller
             'genre' => 'required|string|max:255',
         ]);
 
-        $file = $request->file('photo');
-        $file_name = time().'_'.$_FILES['photo']['name'];
-        $file->move(public_path().'/images/books', $file_name);
+        if($request->file('photo')) {
+            $file = $request->file('photo');
+            $file_name = time() . '_' . $_FILES['photo']['name'];
+            $file->move(public_path() . '/images/books', $file_name);
+        }
+        else{
+            $file_name = 'default_book.jpg';
+        }
 
         $book = LibBook::where('name', $request->get('name'))->first();
 
@@ -139,7 +144,7 @@ class BooksController extends Controller
 
         $reviews = DB::table('reviews')
             ->join('users', 'users.id', '=', 'reviews.user_id')
-            ->select('users.username', 'reviews.*')
+            ->select('users.username', 'users.photo', 'reviews.*')
             ->where('reviews.book_id', $http_response_header)
             ->get();
 
