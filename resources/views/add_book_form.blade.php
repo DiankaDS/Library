@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container" onclick='clearTips();'>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
@@ -15,7 +15,7 @@
                                 <label for="name" class="col-md-4 control-label">Book name</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
+                                    <input id="name" type="text" autocomplete="off" class="form-control" name="name" value="{{ old('name') }}" onkeyup='checkTip(event);' required>
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -25,11 +25,25 @@
                                 </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">
+                                <label for="author" class="col-md-4 control-label">Author</label>
+
+                                <div class="col-md-6">
+                                    <input id="author" type="text" autocomplete="off" class="form-control" name="author" value="{{ old('author') }}" onkeyup='checkTip(event);' required>
+
+                                    @if ($errors->has('author'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('author') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
                                 <label for="year" class="col-md-4 control-label">Year</label>
 
                                 <div class="col-md-6">
-                                    <input id="year" type="text" class="form-control" name="year" value="{{ old('year') }}" required autofocus>
+                                    <input id="year" type="text" autocomplete="off" class="form-control" name="year" value="{{ old('year') }}" required>
 
                                     @if ($errors->has('year'))
                                         <span class="help-block">
@@ -39,33 +53,19 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">
-                                <label for="author" class="col-md-4 control-label">Author</label>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <select class="form-control" id="author" name="author">
-                                            @foreach ($authors as $val)
-                                                <option value="{{ $val->id }}">{{ $val->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
                             {{--<div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">--}}
                                 {{--<label for="author" class="col-md-4 control-label">Author</label>--}}
 
                                 {{--<div class="col-md-4">--}}
                                     {{--<div class="form-group">--}}
-                                        {{--<input type="text" class="form-control" placeholder="Search">--}}
+                                        {{--<select class="form-control" id="author" name="author">--}}
+                                            {{--@foreach ($authors as $val)--}}
+                                                {{--<option value="{{ $val->id }}">{{ $val->name }}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
                                     {{--</div>--}}
                                 {{--</div>--}}
                             {{--</div>--}}
-
 
                             <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
                                 <label for="genre" class="col-md-4 control-label">Genre</label>
@@ -80,7 +80,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
                                 <label for="photo" class="col-md-4 control-label">Photo</label>

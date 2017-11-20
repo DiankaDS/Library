@@ -48,6 +48,8 @@ Route::get('book_{book_id}', 'BooksController@book_details');
 
 Route::post('/add_review','BooksController@add_review');
 
+Route::post('search_value','BooksController@add_book_search');
+
 // Orders routes
 
 Route::post('orders','OrdersController@create_order');

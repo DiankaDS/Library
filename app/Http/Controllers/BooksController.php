@@ -32,12 +32,38 @@ class BooksController extends Controller
         ));
     }
 
+    public function add_book_search(Request $request)
+    {
+        $str = $request['str'];
+        $id = $request['id'];
+
+        if ($id == 'name') {
+            $source = DB::table('lib_books')
+                ->select('lib_books.name')
+                ->where('lib_books.name', 'like', '%' . $str . '%')
+                ->get();
+        }
+
+        elseif ($id == 'author') {
+            $source = DB::table('authors')
+                ->select('authors.name')
+                ->where('authors.name', 'like', '%' . $str . '%')
+                ->get();
+        }
+
+        else $source = [];
+
+        return json_encode($source);
+    }
+
     protected function create(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'year' => 'required|integer',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'author' => 'required|string|max:255',
+            'genre' => 'required|string|max:255',
         ]);
 
         $file = $request->file('photo');
