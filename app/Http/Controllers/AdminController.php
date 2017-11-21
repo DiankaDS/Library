@@ -160,7 +160,20 @@ class AdminController extends Controller
             ->join('lib_books', 'reviews.book_id', '=', 'lib_books.id')
             ->select('users.username', 'reviews.*', 'lib_books.name as book')
             ->get();
-        return view('admin/admin_reviews', array('reviews' => $reviews));
+
+        $confirm_delete_review_message = 'Are you sure to delete this review?';
+        return view('admin/admin_reviews', array(
+            'reviews' => $reviews,
+            'confirm_delete_review_message' => $confirm_delete_review_message,
+        ));
     }
 
+    protected function admin_review_delete(Request $request)
+    {
+        $review = Review::find($request->get('admins_review_id'));
+        $review->delete();
+
+        $message = "Review deleted!";
+        return back()->with('status', $message);
+    }
 }

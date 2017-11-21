@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <div class="row">
         <div class="panel panel-default">
@@ -15,36 +20,33 @@
                             <th scope="col">Username</th>
                             <th scope="col">Review</th>
                             <th scope="col">Rating</th>
+                            <th scope="col">Created</th>
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>
                         <tbody id="myTable">
                         @foreach ($reviews as $val)
                             <tr>
-                                <td>{{ $val->book }}</td>
+                                <td>
+                                    <a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->book }}</a>
+                                </td>
                                 <td>{{ $val->username }}</td>
                                 <td>{{ $val->text }}</td>
                                 <td>{{ $val->rating }}</td>
+                                <td>{{ $val->created_at }}</td>
                                 <td>
-                                    {{--<form action="delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">--}}
-                                        {{--{{csrf_field()}}--}}
+                                    <form action="admin_del_review/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
+                                        {{csrf_field()}}
                                         {{--<input name="_method" type="hidden" value="DELETE">--}}
-                                        {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
+                                        <input name="admins_review_id" type="hidden" value="{{ $val->id }}">
 
-                                    <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('', '')">Delete</button>
-                                        {{--<button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_author_message }}')">Delete</button>--}}
-                                    {{--</form>--}}
+                                        <button class="btn btn-danger" type="button" id="delete_review_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_review_message }}')">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-
-                    {{--<form class="form-inline" action="/" method="get">--}}
-                        {{--{{csrf_field()}}--}}
-
-                        {{--<button class="btn btn-info" type="submit">Add review</button>--}}
-                    {{--</form>--}}
 
                 </div>
         </div>
