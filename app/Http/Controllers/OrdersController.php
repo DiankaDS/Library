@@ -64,7 +64,7 @@ class OrdersController extends Controller
 
         $message = "Order deleted!";
 
-        return redirect('orders_to_user')->with('status', $message);
+        return back()->with('status', $message);
     }
 
     protected function orders_to_user()

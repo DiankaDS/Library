@@ -34,24 +34,17 @@
                                 <td>{{ $val->accept }}</td>
                                 <td>{{ $val->return }}</td>
                                 <td>
-                                    {{--<form action="delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">--}}
-                                    {{--{{csrf_field()}}--}}
-                                    {{--<input name="_method" type="hidden" value="DELETE">--}}
-                                    {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
+                                    <form action="delete_order" id="{{ $val->id }}" method="post" name="id">
+                                        {{csrf_field()}}
+                                        <input name="order_id" type="hidden" value="{{ $val->id }}">
 
-                                    <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('', '')">Delete</button>
-                                    {{--</form>--}}
+                                        <button class="btn btn-danger" type="button" id="delete_order_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_order_message }}')">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-
-                    {{--<form class="form-inline" action="/" method="get">--}}
-                        {{--{{csrf_field()}}--}}
-
-                        {{--<button class="btn btn-info" type="submit">Add order</button>--}}
-                    {{--</form>--}}
 
                 </div>
         </div>
