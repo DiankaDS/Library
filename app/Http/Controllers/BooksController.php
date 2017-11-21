@@ -112,7 +112,7 @@ class BooksController extends Controller
         $user = User::find(Auth::user()->id);
         $user->books()->detach($request->get('id'));
 
-        $message = "User deleted!";
+        $message = "Book deleted!";
         return redirect('profile')->with('status', $message);
     }
 

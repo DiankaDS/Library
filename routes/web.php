@@ -32,7 +32,7 @@ Route::post('/update_user/complete', 'ProfileController@update_user');
 Route::get('/set_password', function () { return view('set_password'); });
 Route::post('/set_password/complete', 'ProfileController@set_password');
 
-Route::get('/delete_user','ProfileController@delete_user');
+Route::post('/delete_user','ProfileController@delete_user');
 
 Route::post('/upload_photo','ProfileController@upload_photo');
 
@@ -69,6 +69,10 @@ Route::post('book_return','OrdersController@book_return');
 // Admin routes
 
 //Route::get('/admin', 'AdminController@index');
+
+Route::get('admin', function () {
+    return redirect('/admin_users');
+});
 
 Route::get('/admin_users', 'AdminController@admin_users');
 

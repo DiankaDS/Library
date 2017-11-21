@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <div class="row">
         <div class="panel panel-default">
@@ -11,6 +16,7 @@
                         <table class="table">
                             <thead>
                             <tr class="filters">
+                                <th scope="col">Photo</th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Surname</th>
@@ -25,6 +31,9 @@
                             <tbody id="myTable">
                             @foreach ($users as $val)
                             <tr>
+                                <td>
+                                    <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                                </td>
                                 <td>{{ $val->username }}</td>
                                 <td>{{ $val->name }}</td>
                                 <td>{{ $val->surname }}</td>
@@ -33,15 +42,16 @@
 {{--                                <td>{{ $val->password }}</td>--}}
                                 {{--<td>{{ $val->photo }}</td>--}}
                                 <td>
-                                    {{--<form action="delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">--}}
-                                    {{--{{csrf_field()}}--}}
-                                    {{--<input name="_method" type="hidden" value="DELETE">--}}
-                                    {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
+                                    {{--<button class="btn btn-info" type="button">Add to admin</button>--}}
+                                    
+                                    <form class="form-inline" action="delete_user" method="post" id="{{ $val->id }}" name="delete_user">
+                                        {{--<input name="_method" type="hidden" value="DELETE">--}}
+                                        <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
+                                        {{csrf_field()}}
 
-                                    <button class="btn btn-info" type="button">Add to admin</button>
-                                    <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('', '')">Delete</button>
-                                    {{--<button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_author_message }}')">Delete</button>--}}
-                                    {{--</form>--}}
+                                        <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>
+                                    </form>
+
                                 </td>
                             </tr>
                             @endforeach

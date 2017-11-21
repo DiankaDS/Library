@@ -7,9 +7,6 @@
         <div class="alert alert-success">
             {{ session('status') }}
         </div>
-        {{--<div class="alert alert-danger">--}}
-            {{--{{ session('error') }}--}}
-        {{--</div>--}}
     @endif
 
     <div class="row">
@@ -19,7 +16,6 @@
 
                 <div class="panel-body" align="center">
                     {{--@if (session('status'))--}}
-
 
 {{--                    @if ( $user_info->photo !== '1' )--}}
                     <img src="../images/users/{{$user_info->photo}}" height="300" width="300">
@@ -68,7 +64,7 @@
                     </form>
 
                     <div class="text-right">
-                        <form class="form-inline" action="/delete_user" method="get" id="delete_user">
+                        <form class="form-inline" action="delete_user" method="post" id="delete_user">
                             {{csrf_field()}}
 
                             <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('delete_user', '{{ $confirm_delete_profile_message }}')">Delete profile</button>

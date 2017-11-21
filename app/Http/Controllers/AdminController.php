@@ -17,7 +17,12 @@ class AdminController extends Controller
     protected function admin_users()
     {
         $users = User::all();
-        return view('admin/admin_users', array('users' => $users));
+        $confirm_delete_profile_message = "Are you sure to delete this user?";
+
+        return view('admin/admin_users', array(
+            'users' => $users,
+            'confirm_delete_profile_message' => $confirm_delete_profile_message,
+        ));
     }
 
     protected function admin_books()
