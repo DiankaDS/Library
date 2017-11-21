@@ -36,7 +36,7 @@ class AdminController extends Controller
             ->select('lib_books.*', 'genres.name as genre', 'authors.name as author')
             ->get();
 
-        $confirm_delete_book_message = 'Are you sure to delete book?';
+        $confirm_delete_book_message = 'Are you sure to delete this book?';
 
         return view('admin/admin_books', array(
             'books' => $books,
@@ -63,7 +63,44 @@ class AdminController extends Controller
     protected function admin_authors()
     {
         $authors = Author::all();
-        return view('admin/admin_authors', array('authors' => $authors));
+        $confirm_delete_author_message = 'Are you sure to delete this author?';
+        return view('admin/admin_authors', array(
+            'authors' => $authors,
+            'confirm_delete_author_message' => $confirm_delete_author_message,
+        ));
+    }
+
+    protected function admin_author_delete(Request $request)
+    {
+        $author = Author::find($request->get('admins_author_id'));
+
+        $author->books()->detach();
+        $author->delete();
+
+        $message = "Author deleted!";
+        return back()->with('status', $message);
+    }
+
+    protected function admin_author_create(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $author = Author::where('name', $request->get('name'))->first();
+
+        if(!$author) {
+                Author::create([
+                    'name' => $request->get('name'),
+                ]);
+
+            $message = "Author created!";
+        }
+        else{
+            $message = "Author already exists!";
+        }
+
+        return back()->with('status', $message);
     }
 
     protected function admin_genres()
