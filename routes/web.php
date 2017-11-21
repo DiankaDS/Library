@@ -85,3 +85,5 @@ Route::get('/admin_genres', 'AdminController@admin_genres');
 Route::get('/admin_orders', 'AdminController@admin_orders');
 
 Route::get('/admin_reviews', 'AdminController@admin_reviews');
+
+Route::post('admin_del_book/{book_id}', 'AdminController@admin_book_delete');

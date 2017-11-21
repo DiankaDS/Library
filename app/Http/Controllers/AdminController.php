@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\LibBook;
 use App\Author;
+use App\Review;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -34,7 +36,28 @@ class AdminController extends Controller
             ->select('lib_books.*', 'genres.name as genre', 'authors.name as author')
             ->get();
 
-        return view('admin/admin_books', array('books' => $books));
+        $confirm_delete_book_message = 'Are you sure to delete book?';
+
+        return view('admin/admin_books', array(
+            'books' => $books,
+            'confirm_delete_book_message' => $confirm_delete_book_message,
+        ));
+    }
+
+    protected function admin_book_delete(Request $request)
+    {
+        $book_id = $request->get('admins_book_id');
+
+        $book = LibBook::find($book_id);
+
+        Review::where('book_id', $book_id)->delete();
+
+        $book->users()->detach();
+        $book->authors()->detach();
+        $book->delete();
+
+        $message = "Book deleted!";
+        return back()->with('status', $message);
     }
 
     protected function admin_authors()
