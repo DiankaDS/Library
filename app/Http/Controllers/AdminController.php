@@ -20,12 +20,37 @@ class AdminController extends Controller
     {
         $users = User::all();
         $confirm_delete_profile_message = "Are you sure to delete this user?";
+        $confirm_add_to_admin_message = "Are you sure to add this user to admin?";
+        $confirm_delete_from_admin_message = "Are you sure to delete this user from admin?";
 
         return view('admin/admin_users', array(
             'users' => $users,
             'confirm_delete_profile_message' => $confirm_delete_profile_message,
+            'confirm_add_to_admin_message' => $confirm_add_to_admin_message,
+            'confirm_delete_from_admin_message' => $confirm_delete_from_admin_message,
         ));
     }
+
+    protected function add_to_admin(Request $request)
+    {
+        $order = User::find($request->get('admins_user_id'));
+        $order->admin = 1;
+        $order->save();
+
+        $message = "User added to admin!";
+        return back()->with('status', $message);
+    }
+
+    protected function delete_from_admin(Request $request)
+    {
+        $order = User::find($request->get('admins_user_id'));
+        $order->admin = 0;
+        $order->save();
+
+        $message = "User deleted from admin!";
+        return back()->with('status', $message);
+    }
+
 
     protected function admin_books()
     {

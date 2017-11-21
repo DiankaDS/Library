@@ -12,56 +12,63 @@
         <div class="panel panel-default">
             <div class="panel-heading">Users</div>
 
-                <div class="panel-body">
-                        <table class="table">
-                            <thead>
-                            <tr class="filters">
-                                <th scope="col">Photo</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Surname</th>
-                                <th scope="col">E-mail</th>
-                                <th scope="col">Phone</th>
-                                {{--<th scope="col">Admin</th>--}}
-                                <th scope="col">Tools</th>
-                                {{--<th scope="col">Password</th>--}}
-                                {{--<th scope="col">photo</th>--}}
-                            </tr>
-                            </thead>
-                            <tbody id="myTable">
-                            @foreach ($users as $val)
-                            <tr>
-                                <td>
-                                    <img src="../images/users/{{$val->photo}}" height="42" width="42">
-                                </td>
-                                <td>{{ $val->username }}</td>
-                                <td>{{ $val->name }}</td>
-                                <td>{{ $val->surname }}</td>
-                                <td>{{ $val->email }}</td>
-                                <td>{{ $val->phone }}</td>
-{{--                                <td>{{ $val->password }}</td>--}}
-                                {{--<td>{{ $val->photo }}</td>--}}
-                                <td>
-                                    {{--<button class="btn btn-info" type="button">Add to admin</button>--}}
-                                    
-                                    <form class="form-inline" action="delete_user" method="post" id="{{ $val->id }}" name="delete_user">
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr class="filters">
+                        <th scope="col">Photo</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Tools</th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    @foreach ($users as $val)
+                        <tr>
+                            <td>
+                                <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                            </td>
+                            <td>{{ $val->username }}</td>
+                            <td>{{ $val->name }}</td>
+                            <td>{{ $val->surname }}</td>
+                            <td>{{ $val->email }}</td>
+                            <td>{{ $val->phone }}</td>
+                            <td>
+                                <form class="form-inline" action="delete_user" method="post" id="{{ $val->id }}" name="delete_user" style ='display:inline;'>
                                         {{--<input name="_method" type="hidden" value="DELETE">--}}
+                                    <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
+                                    {{csrf_field()}}
+
+                                    <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>
+                                </form>
+
+                                @if($val->admin == 0)
+                                    <form class="form-inline" action="add_to_admin" method="post" id="add_to_admin_{{ $val->id }}" name="add_to_admin" style ='display:inline;'>
                                         <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                         {{csrf_field()}}
 
-                                        <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>
+                                        <button class="btn btn-info" type="button" onclick="myModal('add_to_admin_{{ $val->id }}', '{{ $confirm_add_to_admin_message }}')">Add to admin</button>
                                     </form>
+                                @else
+                                    <form class="form-inline" action="delete_from_admin" method="post" id="delete_from_admin_{{ $val->id }}" name="delete_from_admin" style ='display:inline;'>
+                                        <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
+                                        {{csrf_field()}}
 
-                                </td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                </div>
+                                        <button class="btn btn-warning" type="button" onclick="myModal('delete_from_admin_{{ $val->id }}', '{{ $confirm_delete_from_admin_message }}')">Delete from admin</button>
+                                    </form>
+                                @endif
 
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-        {{--</div>--}}
 </div>
 
 @endsection

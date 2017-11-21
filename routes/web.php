@@ -97,3 +97,7 @@ Route::post('admin_del_genre/{genre_id}', 'AdminController@admin_genre_delete');
 Route::post('admin_create_genre', 'AdminController@admin_genre_create');
 
 Route::post('admin_del_review/{review_id}', 'AdminController@admin_review_delete');
+
+Route::post('add_to_admin', 'AdminController@add_to_admin');
+
+Route::post('delete_from_admin', 'AdminController@delete_from_admin');
