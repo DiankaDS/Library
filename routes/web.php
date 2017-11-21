@@ -91,3 +91,7 @@ Route::post('admin_del_book/{book_id}', 'AdminController@admin_book_delete');
 Route::post('admin_del_author/{author_id}', 'AdminController@admin_author_delete');
 
 Route::post('admin_create_author', 'AdminController@admin_author_create');
+
+Route::post('admin_del_genre/{genre_id}', 'AdminController@admin_genre_delete');
+
+Route::post('admin_create_genre', 'AdminController@admin_genre_create');

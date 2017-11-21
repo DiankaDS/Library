@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -21,23 +26,39 @@
                             <tr>
                                 <td>{{ $val->name }}</td>
                                 <td>
-                                    {{--<form action="delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">--}}
-                                    {{--{{csrf_field()}}--}}
-                                    {{--<input name="_method" type="hidden" value="DELETE">--}}
-                                    {{--<input name="id" type="hidden" value="{{ $val->id }}">--}}
+                                    <form action="admin_del_genre/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
+                                        {{csrf_field()}}
+                                        <input name="admins_genre_id" type="hidden" value="{{ $val->id }}">
 
-                                    <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('', '')">Delete</button>
-                                    {{--</form>--}}
+                                        <button class="btn btn-danger" type="button" id="delete_genre_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_genre_message }}')">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
 
-                    <form class="form-inline" action="/" method="get">
-                        {{csrf_field()}}
+                    <form class="form-horizontal" method="POST" action="admin_create_genre">
+                        {{ csrf_field() }}
 
-                        <button class="btn btn-info" type="submit">Add genre</button>
+                        <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
+
+                            <div class="col-md-6">
+                                <input id="genre" type="text" autocomplete="off" placeholder="New genre" class="form-control" name="genre" value="{{ old('genre') }}" required>
+
+                                @if ($errors->has('genre'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('genre') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button class="btn btn-info" type="submit">Add genre</button>
+                            </div>
+                        </div>
                     </form>
 
                 </div>
