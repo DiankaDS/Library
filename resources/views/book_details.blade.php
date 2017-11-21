@@ -64,7 +64,7 @@
 
 {{--                    {{ var_dump($users) }}--}}
 
-                    @if( count($users) !== 0 )
+                    @if( count($users) != 0 )
 
                     <table class="table">
                         <thead>
@@ -206,7 +206,7 @@
 
                 {{--</div>--}}
 
-                    @if( count($reviews) !== 0 )
+                    @if( count($reviews) != 0 )
                     <div class="col-md-6">
                         @foreach ($reviews as $val)
                         <div class="panel panel-default">

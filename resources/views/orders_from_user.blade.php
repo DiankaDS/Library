@@ -9,7 +9,7 @@
 
                 <div class="panel-body">
 
-                    @if( count($orders_from_user_not_accept) !== 0 )
+                    @if( count($orders_from_user_not_accept) != 0 )
 
                     <table class="table">
                         <thead>
@@ -52,7 +52,7 @@
 
                 <div class="panel-body">
 
-                    @if( count($orders_from_user_accept) !== 0 )
+                    @if( count($orders_from_user_accept) != 0 )
 
                     <table class="table">
                         <thead>

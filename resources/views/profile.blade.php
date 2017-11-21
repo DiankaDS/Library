@@ -7,6 +7,9 @@
         <div class="alert alert-success">
             {{ session('status') }}
         </div>
+        {{--<div class="alert alert-danger">--}}
+            {{--{{ session('error') }}--}}
+        {{--</div>--}}
     @endif
 
     <div class="row">

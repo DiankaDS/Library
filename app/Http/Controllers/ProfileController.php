@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use App\Order;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Validation\Rule;
 
@@ -102,12 +103,46 @@ class ProfileController extends Controller
 
     public function delete_user()
     {
-        $user = User::find(Auth::user()->id);
-        $user->books()->detach();
-        //user_orders_delete
-        $user->delete();
+        $orders_from_user = DB::table('orders')
+            ->select('orders.id')
+            ->where([
+                ['orders.taker_id', Auth::user()->id],
+                ['orders.return', 0],
+                ['orders.accept', 1],
+            ])
+            ->get();
 
-        $message = "You profile deleted!";
+        $orders_to_user = DB::table('orders')
+            ->select('orders.id')
+            ->where([
+                ['orders.giving_id', Auth::user()->id],
+                ['orders.return', 0],
+                ['orders.accept', 1],
+            ])
+            ->get();
+
+        if(count($orders_from_user) != 0){
+            $message = "You have taken books. Please, return their first.";
+
+            return redirect('profile')->with('status', $message);
+        }
+        elseif(count($orders_to_user) != 0){
+            $message = "You give books. Please, regain their first.";
+
+            return redirect('profile')->with('status', $message);
+        }
+        else {
+            Order::where('taker_id', Auth::user()->id)
+                ->orWhere('giving_id', Auth::user()->id)
+                ->delete();
+
+            $user = User::find(Auth::user()->id);
+            $user->books()->detach();
+
+            $user->delete();
+
+            $message = "You profile deleted!";
+        }
 
         return redirect('home')->with('status', $message);
     }
