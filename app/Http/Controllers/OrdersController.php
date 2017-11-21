@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use Auth;
+use App\User;
+use Mail;
 use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
@@ -28,6 +30,17 @@ class OrdersController extends Controller
                 'date_end' => $request->get('date_end'),
                 'book_id' => $request->get('book_id'),
             ]);
+
+        $giving_user = User::find($request->get('giving_id'))->toArray();
+
+        Mail::send('emails.mailExample', $giving_user, function($message) use ($giving_user){
+            $message->getHeaders()
+                ->addTextHeader('PROJECT', 'Library');
+            $message->getHeaders()
+                ->addTextHeader('EMAILS', 'diana.agafonova@nixsolutions.com');
+            $message->from('library.mailer@nixsolutions.com');
+            $message->to($giving_user['email'])->subject('New order');
+        });
 
         $message = "Order created!";
 
