@@ -40,8 +40,9 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Books') }}
                     </a>
-
-                    <a class="navbar-brand" href="{{ url('admin_users') }}"> Admin page </a>
+                    @if(Auth::user() &&  Auth::user()->admin == 1)
+                        <a class="navbar-brand" href="{{ url('admin_users') }}"> Admin page </a>
+                    @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
