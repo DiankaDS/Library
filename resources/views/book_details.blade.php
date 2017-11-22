@@ -86,13 +86,13 @@
                                 <td>{{ $val->name }}</td>
                                 <td>{{ $val->surname }}</td>
                                 <td>
-                                    <form action="orders" id="{{ $val->id }}" method="post" name="id">
+                                    <form action="orders" id="{{ $val->id }}" method="post" name="id" class="form-inline">
                                         {{csrf_field()}}
                                         <input name="book_id" type="hidden" value="{{ $book_info->id }}">
                                         <input name="giving_id" type="hidden" value="{{ $val->id }}">
 
                                         <div class="form-group{{ $errors->has('date_start') ? ' has-error' : '' }}">
-                                            <label for="date_start">Date start</label>
+                                            <label for="date_start">Date start:</label>
 
                                             <input name="date_start" type="date">
                                             @if ($errors->has('date_start'))
@@ -103,7 +103,7 @@
                                         </div>
 
                                         <div class="form-group{{ $errors->has('date_end') ? ' has-error' : '' }}">
-                                            <label for="date_end">Date end</label>
+                                            <label for="date_end">Date end:</label>
 
                                             <input name="date_end" type="date">
                                             @if ($errors->has('date_end'))

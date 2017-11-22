@@ -168,7 +168,7 @@ class AdminController extends Controller
             ->join('users', 'users.id', '=', 'orders.taker_id')
             ->join('users as users1', 'users1.id', '=', 'orders.giving_id')
             ->join('lib_books', 'orders.book_id', '=', 'lib_books.id')
-            ->select('orders.*', 'users.name as taker', 'users1.name as giving', 'lib_books.name as book', 'orders.id as order_id')
+            ->select('orders.*', 'users.username as taker', 'users1.username as giving', 'lib_books.name as book', 'orders.id as order_id')
             ->get();
 
         $confirm_delete_order_message = 'Are you sure to delete this order?';
