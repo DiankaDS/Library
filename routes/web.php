@@ -101,3 +101,9 @@ Route::post('admin_del_review/{review_id}', 'AdminController@admin_review_delete
 Route::post('add_to_admin', 'AdminController@add_to_admin');
 
 Route::post('delete_from_admin', 'AdminController@delete_from_admin');
+
+// Register with Facebook routes
+
+Route::get('auth/{provider}', 'Auth\SocialAuthController@redirectToProvider');
+
+Route::get('auth/{provider}/callback', 'Auth\SocialAuthController@handleProviderCallback');

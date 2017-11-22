@@ -119,9 +119,9 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
+                                <button type="submit" class="btn btn-primary">Register</button>
+
+                                <a href="{{ url('/auth/facebook') }}" class="btn btn-link">Register with Facebook</a>
                             </div>
                         </div>
                     </form>
