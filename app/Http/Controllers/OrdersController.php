@@ -34,10 +34,10 @@ class OrdersController extends Controller
         $giving_user = User::find($request->get('giving_id'))->toArray();
 
         Mail::send('emails.mailExample', $giving_user, function($message) use ($giving_user){
-            $message->getHeaders()
-                ->addTextHeader('PROJECT', 'Library');
-            $message->getHeaders()
-                ->addTextHeader('EMAILS', 'diana.agafonova@nixsolutions.com');
+//            $message->getHeaders()
+//                ->addTextHeader('PROJECT', 'Library');
+//            $message->getHeaders()
+//                ->addTextHeader('EMAILS', 'diana.agafonova@nixsolutions.com');
             $message->from('library.mailer@nixsolutions.com');
             $message->to($giving_user['email'])->subject('New order');
         });
