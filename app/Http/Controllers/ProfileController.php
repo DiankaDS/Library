@@ -70,7 +70,7 @@ class ProfileController extends Controller
 
         $message = "You profile updated!";
 
-        return redirect('profile')->with('status', $message);
+        return back()->with('status', $message);
     }
 
     public function upload_photo(Request $request)
@@ -90,7 +90,7 @@ class ProfileController extends Controller
 
         $message = "Photo was upload!";
 
-        return redirect('profile')->with('status', $message);
+        return back()->with('status', $message);
     }
 
     public function delete_user(Request $request)
@@ -178,7 +178,7 @@ class ProfileController extends Controller
             ])->save();
 
             $message = "You password changed!";
-            return redirect('profile')->with('status', $message);
+            return back()->with('status', $message);
         }
 
     }

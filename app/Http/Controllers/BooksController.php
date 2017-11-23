@@ -104,7 +104,7 @@ class BooksController extends Controller
 
         $message = "Book created!";
 
-        return redirect('profile')->with('status', $message);
+        return back()->with('status', $message);
     }
 
     protected function delete(Request $request){
@@ -113,7 +113,7 @@ class BooksController extends Controller
         $user->books()->detach($request->get('id'));
 
         $message = "Book deleted!";
-        return redirect('profile')->with('status', $message);
+        return back()->with('status', $message);
     }
 
     public function book_details($http_response_header)
