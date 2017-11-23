@@ -1,4 +1,3 @@
-
 // --- Confirm window ---
 function myModal(id, paramPamPam) {
     $('#myModal').modal('show');
@@ -9,46 +8,6 @@ function myModal(id, paramPamPam) {
 
     $("#myModal .modal-body").text(paramPamPam);
 }
-
-// --- Quick search in home ---
-$(document).ready(function(){
-    $("#mySearch").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
-});
-
-// --- Filters in table (home) ---
-$(document).ready(function(){
-    $('.filterable .filters input').keyup(function(e){
-        /* Ignore tab key */
-        var code = e.keyCode || e.which;
-        if (code == '9') return;
-        /* Useful DOM data and selectors */
-        var $input = $(this),
-            inputContent = $input.val().toLowerCase(),
-            $panel = $input.parents('.filterable'),
-            column = $panel.find('.filters th').index($input.parents('th')),
-            $table = $panel.find('.table'),
-            $rows = $table.find('tbody tr');
-        /* Dirtiest filter function ever ;) */
-        var $filteredRows = $rows.filter(function(){
-            var value = $(this).find('td').eq(column).text().toLowerCase();
-            return value.indexOf(inputContent) === -1;
-        });
-        /* Clean previous no-result if exist */
-        $table.find('tbody .no-result').remove();
-        /* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
-        $rows.show();
-        $filteredRows.hide();
-        /* Prepend no-result row if all rows are filtered */
-        if ($filteredRows.length === $rows.length) {
-            $table.find('tbody').prepend($('<tr class="no-result text-center"><td colspan="'+ $table.find('.filters th').length +'">No result found</td></tr>'));
-        }
-    });
-});
 
 // --- Ajax in add book (find text in input) ---
 function checkTip(e){
@@ -104,6 +63,67 @@ function clearTips(){
 }
 
 // --- Ajax in Home (search books) ---
-function searchBook(e){
-    //
+function searchBook(){
+    var input_book = $("#mySearchBook");
+    var input_author = $("#mySearchAuthor");
+    var input_year = $("#mySearchYear");
+    var input_genre = $("#mySearchGenre");
+
+    $.ajax({
+        'headers': {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        'type': 'post',
+        'url': 'search_books',
+        'data': {
+            'str_book': input_book.val(),
+            'str_author': input_author.val(),
+            'str_year': input_year.val(),
+            'str_genre': input_genre.val()
+        },
+        success: function (data) {
+            var source = $.parseJSON(data);
+            $("#myBooks").empty();
+            console.log(data);
+            console.log(source);
+
+            if(source.length !== 0) {
+                for (var i = 0; i < source.length; i++) {
+                    var container = $('<div class="col-md-3"></div>');
+                    container.appendTo($("#myBooks"));
+                    var thumb = $('<div class="thumbnail"></div>');
+                    thumb.appendTo(container);
+
+                    var a = $('<a href="book_' + source[i].id + '" name="' + source[i].id + '">');
+                    a.appendTo(thumb);
+                    var img = $('<img src="../images/books/' + source[i].photo + '" style="width: 125px; height: 150px;">');
+                    img.appendTo(a);
+
+                    var caption = $('<div class="caption"></div>');
+                    caption.appendTo(thumb);
+
+                    var pa = $('<p align="center"><a href="book_' + source[i].id + '" name="' + source[i].id + '">' + source[i].name + '</a></div>');
+                    pa.appendTo(caption);
+
+                    var p = $('<p align="center">' + source[i].author + ', ' + source[i].year + '</p>');
+                    p.appendTo(caption);
+
+                    if (source[i].rating) {
+                        var rating = $('<p align="center">Rating: ' + source[i].rating + '</p>');
+                    }
+                    else {
+                        var rating = $('<p align="center">Rating: 0</p>');
+                    }
+                    rating.appendTo(caption);
+                }
+            }
+            else{
+                $('<p align="center">No result found...</p>').appendTo($("#myBooks"));
+            }
+        },
+        error: function (x, e) {
+            console.log(x);
+            console.log(e);
+        }
+    });
 }

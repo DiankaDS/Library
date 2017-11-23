@@ -22,6 +22,8 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('search_books','HomeController@search_books');
+
 // Profile routes
 
 Route::get('profile', 'ProfileController@user_profile');
