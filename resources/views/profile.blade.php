@@ -102,7 +102,7 @@
                         <tbody>
                         @foreach ($user_books as $val)
                             <tr>
-                                <td>{{ $val->name }}</td>
+                                <td><a href="/book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a></td>
                                 <td>{{ $val->author }}</td>
                                 <td>{{ $val->year }}</td>
                                 <td>{{ $val->description }}</td>
