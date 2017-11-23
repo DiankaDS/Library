@@ -30,7 +30,7 @@
                                 <td><a href="profile/{{ $val->taker_id }}" name="{{ $val->taker_id }}">{{ $val->taker }}</a></td>
                                 <td>{{ $val->date_start }}</td>
                                 <td>{{ $val->date_end }}</td>
-                                <td>{{ $val->book }}</td>
+                                <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
                                 <td>{{ $val->accept }}</td>
                                 <td>{{ $val->return }}</td>
                                 <td>

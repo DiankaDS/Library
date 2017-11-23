@@ -28,7 +28,7 @@
                         @foreach ($reviews as $val)
                             <tr>
                                 <td>
-                                    <a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->book }}</a>
+                                    <a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a>
                                 </td>
                                 <td>
                                     <a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a>

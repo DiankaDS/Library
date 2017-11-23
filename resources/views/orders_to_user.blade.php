@@ -38,7 +38,7 @@
                             @foreach ($orders_to_user_not_accept as $val)
 {{--                                @if(!$val->accept)--}}
                                 <tr>
-                                    <td>{{ $val->book }}</td>
+                                    <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
                                     {{--<td>{{ $val->author }}</td>--}}
                                     {{--<td>{{ $val->year }}</td>--}}
                                     <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
@@ -95,7 +95,7 @@
                         @foreach ($orders_to_user_accept as $val)
 {{--                            @if($val->accept)--}}
                             <tr>
-                                <td>{{ $val->book }}</td>
+                                <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
                                 {{--<td>{{ $val->author }}</td>--}}
                                 {{--<td>{{ $val->year }}</td>--}}
                                 <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
