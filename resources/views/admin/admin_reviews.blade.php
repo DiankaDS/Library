@@ -30,7 +30,9 @@
                                 <td>
                                     <a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->book }}</a>
                                 </td>
-                                <td>{{ $val->username }}</td>
+                                <td>
+                                    <a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a>
+                                </td>
                                 <td>{{ $val->text }}</td>
                                 <td>{{ $val->rating }}</td>
                                 <td>{{ $val->created_at }}</td>

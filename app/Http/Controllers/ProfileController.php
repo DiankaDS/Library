@@ -17,32 +17,24 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
-    public function user_profile()
+    public function user_profile($http_response_header)
     {
+        $user_id = $http_response_header;
+
         $user_books = DB::table('lib_books')
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->join('user_books', 'lib_books.id', '=', 'user_books.book_id')
             ->select('lib_books.*', 'genres.name as genre', 'authors.name as author', 'user_books.user_id as user')
-            ->where('user_books.user_id', Auth::user()->id)
+            ->where('user_books.user_id', $user_id)
             ->get();
 
         $confirm_delete_book_message = 'Are you sure to delete book?';
         $confirm_delete_profile_message = 'Are you sure to delete profile?';
 
-//        $user_orders = DB::table('orders')
-//            ->join('lib_books', 'lib_books.id', '=', 'orders.book_id')
-//            ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
-//            ->join('authors', 'authors.id', '=', 'authors_books.author_id')
-//            ->join('users', 'users.id', '=', 'orders.giving_id')
-//            ->select('lib_books.name as book', 'authors.name as author', 'users.name as owner', 'orders.*')
-//            ->where('orders.taker_id', Auth::user()->id)
-//            ->where('orders.return', 0)
-//            ->get();
-
         return view('profile', array(
-            'user_info' => Auth::user(),
+            'user_info' => User::find($user_id),
             'user_books' => $user_books,
             'confirm_delete_book_message' => $confirm_delete_book_message,
             'confirm_delete_profile_message' => $confirm_delete_profile_message,

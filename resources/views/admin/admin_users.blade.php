@@ -31,7 +31,7 @@
                             <td>
                                 <img src="../images/users/{{$val->photo}}" height="42" width="42">
                             </td>
-                            <td>{{ $val->username }}</td>
+                            <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
                             <td>{{ $val->name }}</td>
                             <td>{{ $val->surname }}</td>
                             <td>{{ $val->email }}</td>

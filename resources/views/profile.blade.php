@@ -15,20 +15,17 @@
                 <div class="panel-heading">Profile</div>
 
                 <div class="panel-body" align="center">
-                    {{--@if (session('status'))--}}
 
-{{--                    @if ( $user_info->photo !== '1' )--}}
                     <img src="../images/users/{{$user_info->photo}}" height="300" width="300">
-                    {{--@else--}}
-                        {{--<img src="../images/users/default_user.jpg">--}}
-                    {{--@endif--}}
 
+                    @if($user_info['id'] == Auth::user()->id)
                     <form class="form-inline" action="/upload_photo" enctype="multipart/form-data" method="POST">
                         {{csrf_field()}}
                         <input id="photo" type="file" name="photo" required>
 
                         <button class="btn btn-info" type="submit">Upload photo</button>
                     </form>
+                    @endif
 
                         <table class="table">
                             <tbody>
@@ -44,6 +41,8 @@
                                 <th>Surname</th>
                                 <td>{{ $user_info['surname'] }}</td>
                             </tr>
+
+                            @if($user_info['id'] == Auth::user()->id)
                             <tr>
                                 <th>E-mail</th>
                                 <td>{{ $user_info['email'] }}</td>
@@ -52,10 +51,13 @@
                                 <th>Phone</th>
                                 <td>{{ $user_info['phone'] }}</td>
                             </tr>
+                            @endif
+
                             </tbody>
                         </table>
                     {{--@endif--}}
 
+                    @if($user_info['id'] == Auth::user()->id)
                     <form class="form-inline" action="/update_user" method="get">
                         {{csrf_field()}}
 
@@ -70,6 +72,7 @@
                             <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('delete_user', '{{ $confirm_delete_profile_message }}')">Delete profile</button>
                         </form>
                     </div>
+                    @endif
 
                 </div>
             </div>
@@ -105,6 +108,8 @@
                                 <td>{{ $val->description }}</td>
                                 <td>{{ $val->genre }}</td>
                                 <td>
+
+                                    @if($user_info['id'] == Auth::user()->id)
                                     <form action="delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
                                         {{csrf_field()}}
                                         <input name="_method" type="hidden" value="DELETE">
@@ -112,6 +117,40 @@
 
                                         <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')">Delete</button>
                                     </form>
+
+                                    @else
+                                        <form action="/orders" id="{{ $val->id }}" method="post" name="id" class="form-inline">
+                                            {{csrf_field()}}
+                                            <input name="book_id" type="hidden" value="{{ $val->id }}">
+                                            <input name="giving_id" type="hidden" value="{{ $user_info['id'] }}">
+
+                                            <div class="form-group{{ $errors->has('date_start') ? ' has-error' : '' }}">
+                                                <label for="date_start">Date start:</label>
+
+                                                <input name="date_start" type="date">
+                                                @if ($errors->has('date_start'))
+                                                    <span class="help-block">
+                                                <strong>{{ $errors->first('date_start') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+
+                                            <div class="form-group{{ $errors->has('date_end') ? ' has-error' : '' }}">
+                                                <label for="date_end">Date end:</label>
+
+                                                <input name="date_end" type="date">
+                                                @if ($errors->has('date_end'))
+                                                    <span class="help-block">
+                                                <strong>{{ $errors->first('date_end') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+
+                                            <button class="btn btn-success" type="submit">Take</button>
+                                        </form>
+
+                                    @endif
+
                                 </td>
                             </tr>
                         @endforeach

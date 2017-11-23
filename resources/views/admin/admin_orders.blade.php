@@ -26,8 +26,8 @@
                         @foreach ($orders as $val)
                             <tr>
                                 <td>{{ $val->order_id }}</td>
-                                <td>{{ $val->giving }}</td>
-                                <td>{{ $val->taker }}</td>
+                                <td><a href="profile/{{ $val->giving_id }}" name="{{ $val->giving_id }}">{{ $val->giving }}</a></td>
+                                <td><a href="profile/{{ $val->taker_id }}" name="{{ $val->taker_id }}">{{ $val->taker }}</a></td>
                                 <td>{{ $val->date_start }}</td>
                                 <td>{{ $val->date_end }}</td>
                                 <td>{{ $val->book }}</td>

@@ -26,7 +26,7 @@ Route::post('search_books','HomeController@search_books');
 
 // Profile routes
 
-Route::get('profile', 'ProfileController@user_profile');
+Route::get('profile/{user_id}', 'ProfileController@user_profile');
 
 Route::get('/update_user', function () { return view('update_user'); });
 Route::post('/update_user/complete', 'ProfileController@update_user');

@@ -88,7 +88,7 @@
                                 <ul class="dropdown-menu">
 
                                     <li>
-                                        <a href="profile"> Profile </a>
+                                        <a href="/profile/{{ Auth::user()->id }}"> Profile </a>
                                     </li>
 
                                     <li>

@@ -29,7 +29,7 @@
 {{--                            @if(!$val->accept)--}}
                             <tr>
                                 <td>{{ $val->book }}</td>
-                                <td>{{ $val->username }}</td>
+                                <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
                                 <td>{{ $val->name }}</td>
                                 <td>{{ $val->surname }}</td>
                                 {{--<td>{{ $val->phone }}</td>--}}
@@ -72,7 +72,7 @@
 {{--                            @if($val->accept)--}}
                             <tr>
                                 <td>{{ $val->book }}</td>
-                                <td>{{ $val->username }}</td>
+                                <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
                                 <td>{{ $val->name }}</td>
                                 <td>{{ $val->surname }}</td>
                                 <td>{{ $val->phone }}</td>
