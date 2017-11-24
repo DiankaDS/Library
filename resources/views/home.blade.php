@@ -53,6 +53,7 @@
                 <div class="panel-body">
 
                     <div class="row" id="myBooks">
+                    @if( count($books) !== 0 )
                         @foreach ($books as $val)
                             <div class="col-md-3">
                                 <div class="thumbnail">
@@ -72,7 +73,11 @@
                                 </div>
                             </div>
                         @endforeach
+                    @else
+                        <p> Nothing books... Add first one! </p>
+                    @endif
                     </div>
+
 
                 </div>
             </div>

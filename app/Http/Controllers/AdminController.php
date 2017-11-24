@@ -131,7 +131,7 @@ class AdminController extends Controller
     protected function admin_genres()
     {
         $genres = DB::table('genres')->get();
-        $confirm_delete_genre_message = 'Are you sure to delete this author?';
+        $confirm_delete_genre_message = 'Are you sure to delete this genre?';
         return view('admin/admin_genres', array(
             'genres' => $genres,
             'confirm_delete_genre_message' => $confirm_delete_genre_message,

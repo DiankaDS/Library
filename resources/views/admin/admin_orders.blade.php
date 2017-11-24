@@ -8,6 +8,7 @@
             <div class="panel-heading">Orders</div>
 
                 <div class="panel-body">
+                    @if( count($orders) !== 0 )
                     <table class="table">
                         <thead>
                         <tr class="filters">
@@ -45,6 +46,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @else
+                        <p> Nothing orders... </p>
+                    @endif
 
                 </div>
         </div>

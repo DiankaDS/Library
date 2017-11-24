@@ -68,16 +68,16 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="orders_to_user"> Orders to me </a>
+                                        <a href="/orders_to_user"> Orders to me </a>
                                     </li>
                                     <li>
-                                        <a href="orders_from_user"> My requests </a>
+                                        <a href="/orders_from_user"> My requests </a>
                                     </li>
                                 </ul>
                             </li>
 
                              <li>
-                                 <a href="add_book"> Add Book </a>
+                                 <a href="/add_book"> Add Book </a>
                              </li>
 
                             <li class="dropdown">

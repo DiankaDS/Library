@@ -13,6 +13,7 @@
             <div class="panel-heading">Reviews</div>
 
                 <div class="panel-body">
+                    @if( count($reviews) !== 0 )
                     <table class="table">
                         <thead>
                         <tr class="filters">
@@ -49,6 +50,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @else
+                        <p> Nothing reviews... </p>
+                    @endif
 
                 </div>
         </div>

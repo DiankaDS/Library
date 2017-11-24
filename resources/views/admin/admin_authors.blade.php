@@ -14,6 +14,7 @@
             <div class="panel-heading">Authors</div>
 
                 <div class="panel-body">
+                    @if( count($authors) !== 0 )
                     <table class="table">
                         <thead>
                         <tr class="filters">
@@ -38,6 +39,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @else
+                        <p> Nothing authors... </p>
+                    @endif
 
                     <form class="form-horizontal" method="POST" action="admin_create_author">
                         {{ csrf_field() }}

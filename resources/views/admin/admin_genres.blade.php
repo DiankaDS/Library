@@ -14,6 +14,7 @@
             <div class="panel-heading">Genres</div>
 
                 <div class="panel-body">
+                    @if( count($genres) !== 0 )
                     <table class="table">
                         <thead>
                         <tr class="filters">
@@ -37,6 +38,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @else
+                        <p> Nothing genres... </p>
+                    @endif
 
                     <form class="form-horizontal" method="POST" action="admin_create_genre">
                         {{ csrf_field() }}

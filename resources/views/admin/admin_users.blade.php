@@ -13,6 +13,7 @@
             <div class="panel-heading">Users</div>
 
             <div class="panel-body">
+                @if( count($users) !== 0 )
                 <table class="table">
                     <thead>
                     <tr class="filters">
@@ -66,6 +67,9 @@
                     @endforeach
                     </tbody>
                 </table>
+                @else
+                    <p> Nothing users... </p>
+                @endif
             </div>
         </div>
     </div>
