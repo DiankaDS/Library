@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Author;
+use App\LibBook;
 use Tests\TestCase;
 use App\User;
 use Illuminate\Support\Facades\DB;
@@ -15,10 +16,6 @@ class BooksTest extends TestCase
      *
      * @return void
      */
-//    public function testExample()
-//    {
-//        $this->assertTrue(true);
-//    }
 
 //    --- Home tests ---
 
@@ -42,23 +39,6 @@ class BooksTest extends TestCase
     }
 
 
-//    public function testLogin()
-//    {
-//        $response = $this->get('login');
-////            ->see('Welcome')
-////            ->type('diana.agafonova@nixsolutions.com', 'email')
-////            ->type('111111', 'password')
-////            ->press('Login')
-////            ->dontSee('Welcome');
-//
-//        $this
-//            ->assertEquals(200, $response->status());
-//    }
-
-//    use WithoutMiddleware;
-
-
-
 //    --- Books tests ---
 
     public function testBooksRoutes()
@@ -68,8 +48,26 @@ class BooksTest extends TestCase
 
         $response = $this->get('add_book');
         $this->assertEquals(200, $response->status());
-//        $response->assertViewIs('home');
 
+        $book_id = LibBook::first()->id;
+        $response = $this->get('book_' . $book_id);
+        $this->assertEquals(200, $response->status());
+
+        $response = $this->post('add_book/complete', [
+            'name' => 'Some test book',
+            'year' => '1999',
+            'author' => 'Some test author',
+            'genre' => '1',
+        ]);
+        $this->assertEquals(302, $response->status());
+
+        $response = $this->post('/add_review', [
+            'book_id' => 1,
+            'user_id' => 1,
+            'text' => 'Some test review',
+            'rating' => 5,
+        ]);
+        $this->assertEquals(302, $response->status());
     }
 
 
@@ -80,7 +78,16 @@ class BooksTest extends TestCase
         $user = User::first();
         $this->actingAs($user);
 
-        $this->assertTrue(true);
+        $user_id = User::first()->id;
+
+        $response = $this->get('profile/' . $user_id);
+        $response->assertStatus(200);
+
+        $response = $this->get('/update_user');
+        $response->assertStatus(200);
+
+        $response = $this->get('/set_password');
+        $response->assertStatus(200);
     }
 
 
@@ -91,7 +98,11 @@ class BooksTest extends TestCase
         $user = User::first();
         $this->actingAs($user);
 
-        $this->assertTrue(true);
+        $response = $this->get('orders_to_user');
+        $response->assertStatus(200);
+
+        $response = $this->get('orders_from_user');
+        $response->assertStatus(200);
     }
 
 
