@@ -15,7 +15,13 @@ function checkTip(e){
     clearTips();
     var input = $(e.currentTarget);
 
+    var timer;
+    clearTimeout(timer);
+
+    timer=setTimeout(function(){
+
     if(input.val()!=''){
+
         $.ajax({
             'headers': {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -27,28 +33,31 @@ function checkTip(e){
                 'id': input.attr('id')
             },
             success: function(data){
-
                 var source = $.parseJSON(data);
 
-                var tips = $("<div class='tips'></div>");
-                tips.css('position', 'absolute');
-                tips.css('background', 'rgba(255,255,255,0.9)');
-                tips.css('border', 'solid 1px #ccc');
-                tips.css('width', '100%');
-                tips.css('cursor', 'pointer');
-                tips.css('z-index', '1');
+                if(source!='') {
 
-                // console.log(input.val());
-                // console.log(data);
-                // console.log(source);
+                    var tips = $("<div class='tips'></div>");
+                    tips.css('position', 'absolute');
+                    tips.css('background', 'rgba(255,255,255,0.9)');
+                    tips.css('border', 'solid 1px #ccc');
+                    tips.css('width', '100%');
+                    tips.css('cursor', 'pointer');
+                    tips.css('z-index', '1');
 
-                for(var i=0; i<source.length; i++){
-                    var tip = $("<div class='tip'>"+source[i]['name']+"</div>");
-                    tip.click(function(e){ $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text()); });
-                    tips.append(tip);
+                    // console.log(input.val());
+                    // console.log(data);
+                    // console.log(source);
+
+                    for (var i = 0; i < source.length; i++) {
+                        var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+                        tip.click(function (e) {
+                            $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
+                        });
+                        tips.append(tip);
+                    }
+                    tips.appendTo((input).parent());
                 }
-
-                tips.appendTo((input).parent());
             },
             error: function(x, e){
                 console.log(x);
@@ -56,6 +65,7 @@ function checkTip(e){
             }
         });
     }
+    }, 1000);
 }
 
 function clearTips(){
