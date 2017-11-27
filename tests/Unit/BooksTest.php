@@ -19,20 +19,22 @@ class BooksTest extends TestCase
 
 //    --- Home tests ---
 
+//    use RefreshDatabase;
+
+
     public function testHomeRoutes()
     {
 //        $response = $this->call('GET', '/');
         $response = $this->get('/');
-        $this
-            ->assertEquals(200, $response->status());
-        $response
-            ->assertViewIs('home');
+        $this->assertEquals(200, $response->status());
+        $response->assertViewIs('home');
 
         $response = $this->get('/home');
-        $this
-            ->assertEquals(200, $response->status());
+        $this->assertEquals(200, $response->status());
 
-        $response = $this->json('POST', 'search_books', ['str_book' => 'Some book']);
+        $response = $this->json('POST', 'search_books', [
+            'str_book' => 'Some book'
+        ]);
         $response
             ->assertStatus(200)
             ->assertJson([]);
@@ -134,11 +136,15 @@ class BooksTest extends TestCase
         $response = $this->get('admin_authors');
         $response->assertStatus(200);
 
-        $response = $this->post('admin_create_author', ['name' => 'Some test name']);
+        $response = $this->post('admin_create_author', [
+            'name' => 'Some test name'
+        ]);
         $this->assertEquals(302, $response->status());
 
         $author_id = Author::where('name', '=', 'Some test name')->first()->id;
-        $response = $this->post('admin_del_author/' . $author_id, ['admins_author_id' => $author_id]);
+        $response = $this->post('admin_del_author/' . $author_id, [
+            'admins_author_id' => $author_id
+        ]);
         $this->assertEquals(302, $response->status());
     }
 
@@ -150,11 +156,18 @@ class BooksTest extends TestCase
         $response = $this->get('admin_genres');
         $response->assertStatus(200);
 
-        $response = $this->post('admin_create_genre', ['genre' => 'Some test name']);
+        $response = $this->post('admin_create_genre', [
+            'genre' => 'Some test name'
+        ]);
         $this->assertEquals(302, $response->status());
 
-        $genre_id = DB::table('genres')->where('genres.name', '=', 'Some test name')->first()->id;
-        $response = $this->post('admin_del_genre/' . $genre_id, ['admins_genre_id' => $genre_id]);
+        $genre_id = DB::table('genres')
+            ->where('genres.name', '=', 'Some test name')
+            ->first()
+            ->id;
+        $response = $this->post('admin_del_genre/' . $genre_id, [
+            'admins_genre_id' => $genre_id
+        ]);
         $this->assertEquals(302, $response->status());
     }
 
