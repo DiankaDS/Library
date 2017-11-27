@@ -25,20 +25,14 @@
             <input class="form-control" id="mySearchBook" type="text" placeholder="Book name">
             <input class="form-control" id="mySearchAuthor" type="text" placeholder="Author">
             <input class="form-control" id="mySearchYear" type="text" placeholder="Year">
-            <input class="form-control" id="mySearchGenre" type="text" placeholder="Genre">
+            {{--<input class="form-control" id="mySearchGenre" type="text" placeholder="Genre">--}}
 
-            {{--<select class="form-control" id="mySearchAuthor" name="author">--}}
-                {{--<option value="">All authors</option>--}}
-                {{--@foreach ($authors as $val)--}}
-                    {{--<option value="{{ $val->id }}">{{ $val->name }}</option>--}}
-                {{--@endforeach--}}
-            {{--</select>--}}
-            {{--<select class="form-control" id="mySearchGenre" name="genre">--}}
-                {{--<option value="">All genres</option>--}}
-                {{--@foreach ($genres as $val)--}}
-                    {{--<option value="{{ $val->id }}">{{ $val->name }}</option>--}}
-                {{--@endforeach--}}
-            {{--</select>--}}
+            <select class="form-control" id="mySearchGenre" name="genre">
+                <option value="">All genres</option>
+                @foreach ($genres as $val)
+                    <option value="{{ $val->name }}">{{ $val->name }}</option>
+                @endforeach
+            </select>
 
             <button type="button" class="btn btn-info" onclick='searchBook(event);'>Search book</button>
         </form>

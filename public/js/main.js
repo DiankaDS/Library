@@ -94,8 +94,8 @@ function searchBook(){
         success: function (data) {
             var source = $.parseJSON(data);
             $("#myBooks").empty();
-            console.log(data);
-            console.log(source);
+            // console.log(data);
+            // console.log(source);
 
             if(source.length !== 0) {
                 for (var i = 0; i < source.length; i++) {

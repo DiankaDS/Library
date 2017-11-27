@@ -36,12 +36,12 @@ class HomeController extends Controller
             ->groupBy('lib_books.id', 'authors.name')
             ->get();
 
-//        $genres = DB::table('genres')->get();
+        $genres = DB::table('genres')->get();
 //        $authors = DB::table('authors')->get();
 
         return view('home', [
             'books' => $books,
-//            'genres' => $genres,
+            'genres' => $genres,
 //            'authors' => $authors,
         ]);
     }
