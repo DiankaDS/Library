@@ -16,11 +16,7 @@
 
                 <div class="panel-body" align="center">
 
-{{--                    @if ( $book_info->photo )--}}
                     <img src="../images/books/{{$book_info->photo}}" height="300" width="250">
-                    {{--@else--}}
-                        {{--<img src="../images/books/default_book.jpg">--}}
-                    {{--@endif--}}
 
                     <table class="table">
                         <tbody>
@@ -61,8 +57,6 @@
                 <div class="panel-heading">Users who have a book</div>
 
                 <div class="panel-body">
-
-{{--                    {{ var_dump($users) }}--}}
 
                     @if( count($users) != 0 )
 
@@ -179,16 +173,25 @@
                     <div class="col-md-6">
                         @foreach ($reviews as $val)
                         <div class="panel panel-default">
-                            <div class="panel-heading">
+                            <div class="panel-heading" id="review">
                                 <a href="profile/{{ $val->id }}" name="{{ $val->id }}">
                                     <img src="../images/users/{{$val->photo}}" height="42" width="42">
                                 </a>
                                 <strong><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></strong>
-                            <div class="panel-body">
-                                <strong>Rating: {{ $val->rating }}</strong>
-                                <p class="text">{{ $val->text }}</p>
-                                <span class="text-muted">commented at {{ $val->created_at }}</span>
-                            </div>
+
+                                @if( $val->id == Auth::user()->id )
+                                    <button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right">Edit</button>
+                                @endif
+
+                                <div class="panel-body">
+                                    <strong>Rating: {{ $val->rating }}</strong>
+
+                                    <div id="review_{{ $val->id }}">
+                                        <p class="text">{{ $val->text }}</p>
+                                    </div>
+
+                                    <span class="text-muted">commented at {{ $val->created_at }}</span>
+                                </div>
                             </div>
                         </div>
                         @endforeach

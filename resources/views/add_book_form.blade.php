@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="container" onclick='clearTips();'>
+
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
@@ -53,20 +60,6 @@
                                 </div>
                             </div>
 
-                            {{--<div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">--}}
-                                {{--<label for="author" class="col-md-4 control-label">Author</label>--}}
-
-                                {{--<div class="col-md-4">--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<select class="form-control" id="author" name="author">--}}
-                                            {{--@foreach ($authors as $val)--}}
-                                                {{--<option value="{{ $val->id }}">{{ $val->name }}</option>--}}
-                                            {{--@endforeach--}}
-                                        {{--</select>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-
                             <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
                                 <label for="genre" class="col-md-4 control-label">Genre</label>
 
@@ -94,7 +87,6 @@
                                     @endif
                                 </div>
                             </div>
-
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">

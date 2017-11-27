@@ -137,3 +137,17 @@ function searchBook(){
         }
     });
 }
+
+// --- Edit review in book_details ---
+function editReview(id, text) {
+    var form = '<form id="edit_review_form" method="post" action="add_review">' +
+        '<input name="_token" type="hidden" value="'+$('meta[name="csrf-token"]').attr('content')+'">' +
+        '<input name="edit_review_id" type="hidden" value="'+id+'">' +
+        '<textarea rows="4" cols="50" name="review" id="review" placeholder="Enter review here...">'+text+'</textarea>' +
+        '<br>' +
+        '<button type="submit" class="btn btn-info">Save</button>' +
+        '</form>';
+
+    document.getElementById("review_"+id).innerHTML = form;
+    $("textarea").focus();
+}

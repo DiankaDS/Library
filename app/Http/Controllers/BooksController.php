@@ -175,14 +175,23 @@ class BooksController extends Controller
             'review' => 'required|string|max:255',
         ]);
 
-        Review::create([
-            'book_id' => $request->get('book_id'),
-            'user_id' => Auth::user()->id,
-            'text' => $request->get('review'),
-            'rating' => $request->get('rating'),
-        ]);
+        if($request->get('edit_review_id')) {
+            $review = Review::find($request->get('edit_review_id'));
+            $review->fill([
+                'text' => $request->get('review')
+            ])->save();
+        }
 
-        $message = "You review saved!";
+        else{
+            Review::create([
+                'book_id' => $request->get('book_id'),
+                'user_id' => Auth::user()->id,
+                'text' => $request->get('review'),
+                'rating' => $request->get('rating'),
+            ]);
+        }
+        $message = "Your review saved!";
+
         return back()->with('status', $message);
     }
 
