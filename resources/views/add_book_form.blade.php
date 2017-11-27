@@ -63,8 +63,8 @@
                             <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
                                 <label for="genre" class="col-md-4 control-label">Genre</label>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                                <div class="form-group">
+                                    <div class="col-md-4">
                                         <select class="form-control" id="genre" name="genre">
                                             @foreach ($genres as $val)
                                                 <option value="{{ $val->id }}">{{ $val->name }}</option>
