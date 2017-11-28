@@ -16,7 +16,7 @@ class BooksTableSeeder extends Seeder
         for($i=1; $i<10; $i++) {
             $book = LibBook::insertGetId([
                 'name' => str_random(10),
-                'genre_id' => mt_rand(1, 4),
+                'genre_id' => mt_rand(1, 10),
                 'year' => mt_rand(1600, 2017),
                 'description' => str_random(20),
                 'photo' => 'default_book.jpg',
@@ -32,6 +32,8 @@ class BooksTableSeeder extends Seeder
             DB::table('user_books')->insert([
                 'book_id' => $book,
                 'user_id' => mt_rand(1, 10),
+                'created_at' => Now(),
+                'updated_at' => Now(),
             ]);
         }
     }
