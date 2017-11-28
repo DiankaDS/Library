@@ -13,7 +13,7 @@ class BooksTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i=1; $i<10; $i++) {
+        for($i=1; $i<=10; $i++) {
             $book = LibBook::insertGetId([
                 'name' => str_random(10),
                 'genre_id' => mt_rand(1, 10),
