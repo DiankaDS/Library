@@ -60,13 +60,13 @@
 
                     @if( count($users) != 0 )
 
-                    <table class="table">
+                    <table class="table" id="users_have_book_table">
                         <thead>
                         <tr>
                             <th scope="col">Photo</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Surname</th>
+                            <th scope="col">Username <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 1)"></button></th>
+                            <th scope="col">Name <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 2)"></button></th>
+                            <th scope="col">Surname <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 3)"></button></th>
                             <th scope="col">Send a wish</th>
                         </tr>
                         </thead>

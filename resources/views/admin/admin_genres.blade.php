@@ -15,10 +15,10 @@
 
                 <div class="panel-body">
                     @if( count($genres) !== 0 )
-                    <table class="table">
+                    <table class="table" id="genres_table">
                         <thead>
                         <tr class="filters">
-                            <th scope="col">Genre</th>
+                            <th scope="col">Genre <button class="glyphicon glyphicon-sort" onclick="sortTable('genres_table', 0)"></button></th>
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>

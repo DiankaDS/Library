@@ -14,14 +14,14 @@
 
             <div class="panel-body">
                 @if( count($users) !== 0 )
-                <table class="table">
+                <table class="table" id="users_table">
                     <thead>
                     <tr class="filters">
                         <th scope="col">Photo</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">E-mail</th>
+                        <th scope="col">Username <button class="glyphicon glyphicon-sort" onclick="sortTable('users_table', 1)"></button></th>
+                        <th scope="col">Name <button class="glyphicon glyphicon-sort" onclick="sortTable('users_table', 2)"></button></th>
+                        <th scope="col">Surname <button class="glyphicon glyphicon-sort" onclick="sortTable('users_table', 3)"></button></th>
+                        <th scope="col">E-mail <button class="glyphicon glyphicon-sort" onclick="sortTable('users_table', 4)"></button></th>
                         <th scope="col">Phone</th>
                         <th scope="col">Tools</th>
                     </tr>

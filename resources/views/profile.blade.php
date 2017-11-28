@@ -88,14 +88,14 @@
 
                     @if( count($user_books) !== 0 )
 
-                    <table class="table">
+                    <table class="table" id="user_books_table">
                         <thead>
                         <tr>
-                            <th scope="col">Book name</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Year</th>
+                            <th scope="col">Book name <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 0)"></button></th>
+                            <th scope="col">Author <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 1)"></button></th>
+                            <th scope="col">Year <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 2)"></button></th>
                             <th scope="col">Description</th>
-                            <th scope="col">Genre</th>
+                            <th scope="col">Genre <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 4)"></button></th>
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>

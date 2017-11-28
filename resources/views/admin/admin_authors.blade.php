@@ -15,10 +15,10 @@
 
                 <div class="panel-body">
                     @if( count($authors) !== 0 )
-                    <table class="table">
+                    <table class="table" id="authors_table">
                         <thead>
                         <tr class="filters">
-                            <th scope="col">Author</th>
+                            <th scope="col">Author <button class="glyphicon glyphicon-sort" onclick="sortTable('authors_table', 0)"></button></th>
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>

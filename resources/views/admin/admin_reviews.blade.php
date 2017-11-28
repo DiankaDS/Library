@@ -14,14 +14,14 @@
 
                 <div class="panel-body">
                     @if( count($reviews) !== 0 )
-                    <table class="table">
+                    <table class="table" id="reviews_table">
                         <thead>
                         <tr class="filters">
-                            <th scope="col">Book name</th>
-                            <th scope="col">Username</th>
+                            <th scope="col">Book name <button class="glyphicon glyphicon-sort" onclick="sortTable('reviews_table', 0)"></button></th>
+                            <th scope="col">Username <button class="glyphicon glyphicon-sort" onclick="sortTable('reviews_table', 1)"></button></th>
                             <th scope="col">Review</th>
-                            <th scope="col">Rating</th>
-                            <th scope="col">Created</th>
+                            <th scope="col">Rating <button class="glyphicon glyphicon-sort" onclick="sortTable('reviews_table', 3)"></button></th>
+                            <th scope="col">Created <button class="glyphicon glyphicon-sort" onclick="sortTable('reviews_table', 4)"></button></th>
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>

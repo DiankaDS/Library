@@ -18,15 +18,27 @@
 
                 @if( count($orders_from_user_not_accept) != 0 )
 
-                    <table class="table">
+                    <table class="table" id="orders_from_user_not_accept_table">
                         <thead>
                         <tr>
-                            <th scope="col">Book name</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Surname</th>
-                            <th scope="col">Date start</th>
-                            <th scope="col">Date end</th>
+                            <th scope="col">Book name
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 0)"></button>
+                            </th>
+                            <th scope="col">Username
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 1)"></button>
+                            </th>
+                            <th scope="col">Name
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 2)"></button>
+                            </th>
+                            <th scope="col">Surname
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 3)"></button>
+                            </th>
+                            <th scope="col">Date start
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 4)"></button>
+                            </th>
+                            <th scope="col">Date end
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 5)"></button>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -55,17 +67,31 @@
 
                 @if( count($orders_from_user_accept) != 0 )
 
-                    <table class="table">
+                    <table class="table" id="orders_from_user_accept_table">
                         <thead>
                         <tr>
-                            <th scope="col">Book name</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Surname</th>
+                            <th scope="col">Book name
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 0)"></button>
+                            </th>
+                            <th scope="col">Username
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 1)"></button>
+                            </th>
+                            <th scope="col">Name
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 2)"></button>
+                            </th>
+                            <th scope="col">Surname
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 3)"></button>
+                            </th>
                             <th scope="col">Phone</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Date start</th>
-                            <th scope="col">Date end</th>
+                            <th scope="col">E-mail
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 5)"></button>
+                            </th>
+                            <th scope="col">Date start
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 6)"></button>
+                            </th>
+                            <th scope="col">Date end
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 7)"></button>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
