@@ -54,7 +54,7 @@ Route::post('search_value','BooksController@addBookSearch');
 
 // Orders routes
 
-Route::post('orders','OrdersController@create_order');
+Route::post('orders','OrdersController@createOrder');
 
 Route::get('orders/{book_id}', 'OrdersController@createOrder');
 
