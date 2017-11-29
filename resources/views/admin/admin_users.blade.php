@@ -13,14 +13,15 @@
             <div class="panel-heading">Users</div>
 
             <div class="panel-body">
-                <table class="table">
+                @if (count($users) !== 0)
+                <table class="table" id="users_table">
                     <thead>
                     <tr class="filters">
                         <th scope="col">Photo</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">E-mail</th>
+                        <th scope="col">Username <button class="glyphicon glyphicon-sort" onclick="sortTable('users_table', 1)"></button></th>
+                        <th scope="col">Name <button class="glyphicon glyphicon-sort" onclick="sortTable('users_table', 2)"></button></th>
+                        <th scope="col">Surname <button class="glyphicon glyphicon-sort" onclick="sortTable('users_table', 3)"></button></th>
+                        <th scope="col">E-mail <button class="glyphicon glyphicon-sort" onclick="sortTable('users_table', 4)"></button></th>
                         <th scope="col">Phone</th>
                         <th scope="col">Tools</th>
                     </tr>
@@ -38,14 +39,13 @@
                             <td>{{ $val->phone }}</td>
                             <td>
                                 <form class="form-inline" action="delete_user" method="post" id="{{ $val->id }}" name="delete_user" style ='display:inline;'>
-                                        {{--<input name="_method" type="hidden" value="DELETE">--}}
                                     <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                     {{csrf_field()}}
 
                                     <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>
                                 </form>
 
-                                @if($val->admin == 0)
+                                @if ($val->admin == 0)
                                     <form class="form-inline" action="add_to_admin" method="post" id="add_to_admin_{{ $val->id }}" name="add_to_admin" style ='display:inline;'>
                                         <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                         {{csrf_field()}}
@@ -66,6 +66,9 @@
                     @endforeach
                     </tbody>
                 </table>
+                @else
+                    <p> Nothing users... </p>
+                @endif
             </div>
         </div>
     </div>

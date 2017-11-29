@@ -2,23 +2,29 @@
 
 @section('content')
 <div class="container">
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">Orders</div>
 
-                <div class="panel-body">
-                    <table class="table">
+            <div class="panel-body">
+                @if (count($orders) !== 0)
+                    <table class="table" id="orders_table">
                         <thead>
                         <tr class="filters">
-                            <th scope="col">Order id</th>
-                            <th scope="col">Giving</th>
-                            <th scope="col">Taker</th>
-                            <th scope="col">Date start</th>
-                            <th scope="col">Date end</th>
-                            <th scope="col">Book name</th>
-                            <th scope="col">Accept</th>
-                            <th scope="col">Return</th>
+                            <th scope="col">Order id <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_table', 0)"></button></th>
+                            <th scope="col">Giving <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_table', 1)"></button></th>
+                            <th scope="col">Taker <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_table', 2)"></button></th>
+                            <th scope="col">Date start <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_table', 3)"></button></th>
+                            <th scope="col">Date end <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_table', 4)"></button></th>
+                            <th scope="col">Book name <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_table', 5)"></button></th>
+                            <th scope="col">Accept <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_table', 6)"></button></th>
+                            <th scope="col">Return <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_table', 7)"></button></th>
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>
@@ -45,11 +51,12 @@
                         @endforeach
                         </tbody>
                     </table>
-
-                </div>
+                @else
+                    <p> Nothing orders... </p>
+                @endif
+            </div>
         </div>
     </div>
-        {{--</div>--}}
 </div>
 
 @endsection

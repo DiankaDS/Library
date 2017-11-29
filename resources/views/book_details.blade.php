@@ -16,11 +16,7 @@
 
                 <div class="panel-body" align="center">
 
-{{--                    @if ( $book_info->photo )--}}
                     <img src="../images/books/{{$book_info->photo}}" height="300" width="250">
-                    {{--@else--}}
-                        {{--<img src="../images/books/default_book.jpg">--}}
-                    {{--@endif--}}
 
                     <table class="table">
                         <tbody>
@@ -54,25 +50,21 @@
             </div>
         </div>
     </div>
+    <div class="row">
 
-        <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">Users who have a book</div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Users who have a book</div>
+            <div class="panel-body">
 
-                <div class="panel-body">
-
-{{--                    {{ var_dump($users) }}--}}
-
-                    @if( count($users) != 0 )
-
-                    <table class="table">
+                @if (count($users) != 0)
+                    <table class="table" id="users_have_book_table">
                         <thead>
                         <tr>
                             <th scope="col">Photo</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Surname</th>
+                            <th scope="col">Username <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 1)"></button></th>
+                            <th scope="col">Name <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 2)"></button></th>
+                            <th scope="col">Surname <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 3)"></button></th>
                             <th scope="col">Send a wish</th>
                         </tr>
                         </thead>
@@ -120,20 +112,18 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @else
-                        <p> This book has nothing... </p>
-                    @endif
+                @else
+                    <p> This book has nothing... </p>
+                @endif
 
-                </div>
             </div>
+        </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Reviews</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Reviews</div>
 
-                @if( !$user_reviews )
-
+            @if (!$user_reviews)
                 <div class="panel-body">
-
                     <form class="form-horizontal" method="POST" action="add_review" id="add_review">
                         {{ csrf_field() }}
                         <div class="col-md-4">
@@ -169,37 +159,43 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
-                @endif
+            @endif
 
-                <div class="panel-body">
+            <div class="panel-body">
 
-                    @if( count($reviews) != 0 )
+                @if (count($reviews) != 0)
                     <div class="col-md-6">
                         @foreach ($reviews as $val)
                         <div class="panel panel-default">
-                            <div class="panel-heading">
+                            <div class="panel-heading" id="review">
                                 <a href="profile/{{ $val->id }}" name="{{ $val->id }}">
                                     <img src="../images/users/{{$val->photo}}" height="42" width="42">
                                 </a>
                                 <strong><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></strong>
-                            <div class="panel-body">
-                                <strong>Rating: {{ $val->rating }}</strong>
-                                <p class="text">{{ $val->text }}</p>
-                                <span class="text-muted">commented at {{ $val->created_at }}</span>
-                            </div>
+
+                                @if( $val->id == Auth::user()->id )
+                                    <button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right">Edit</button>
+                                @endif
+
+                                <div class="panel-body">
+                                    <strong>Rating: {{ $val->rating }}</strong>
+
+                                    <div id="review_{{ $val->id }}">
+                                        <p class="text">{{ $val->text }}</p>
+                                    </div>
+
+                                    <span class="text-muted">commented at {{ $val->created_at }}</span>
+                                </div>
                             </div>
                         </div>
                         @endforeach
                     </div>
-                    @else
-                        <p> This book hasn't reviews... Be first! </p>
-                    @endif
-                </div>
-
+                @else
+                    <p> This book hasn't reviews... Be first! </p>
+                @endif
             </div>
         </div>
-    {{--</div>--}}
+    </div>
 </div>
 @endsection

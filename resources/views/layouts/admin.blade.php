@@ -11,13 +11,8 @@
     <title>{{ config('app.name', 'Books') }}</title>
 
     <!-- Styles -->
-    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
-    {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>--}}
-    {{--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>--}}
 
 </head>
 
@@ -82,7 +77,6 @@
             </div>
             <div class="modal-body"></div>
             <div class="modal-footer">
-                {{--<button class="btn btn-success" type="submit" id="YesButton" onclick="$('#update_profile_button').trigger('click')">Yes, continue</button>--}}
                 <button class="btn btn-success" type="submit" id="YesButton">Yes, continue</button>
                 <button class="btn btn-danger" type="button" data-dismiss="modal">No, back</button>
             </div>
@@ -95,30 +89,3 @@
 <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

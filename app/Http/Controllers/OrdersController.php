@@ -16,7 +16,7 @@ class OrdersController extends Controller
         $this->middleware('auth');
     }
 
-    protected function create_order(Request $request)
+    protected function createOrder(Request $request)
     {
         $request->validate([
             'date_start' => 'required|date',
@@ -47,7 +47,7 @@ class OrdersController extends Controller
         return redirect('home')->with('status', $message);
     }
 
-    protected function accept_order(Request $request){
+    protected function acceptOrder(Request $request){
         $order = Order::find($request->get('order_id'));
 
         $order->accept = 1;
@@ -58,7 +58,7 @@ class OrdersController extends Controller
         return redirect('orders_to_user')->with('status', $message);
     }
 
-    protected function delete_order(Request $request){
+    protected function deleteOrder(Request $request){
         $order = Order::find($request->get('order_id'));
         $order->delete();
 
@@ -67,7 +67,7 @@ class OrdersController extends Controller
         return back()->with('status', $message);
     }
 
-    protected function orders_to_user()
+    protected function ordersToUser()
     {
         $orders_to_user = DB::table('orders')
             ->join('users', 'users.id', '=', 'orders.taker_id')
@@ -85,19 +85,16 @@ class OrdersController extends Controller
         $confirm_return_form_message = 'Are you sure that the user returned this book?';
 
         return view('orders_to_user', array(
-//            'orders_to_user' => $orders_to_user,
             'orders_to_user_accept' => $orders_to_user_accept,
             'orders_to_user_not_accept' => $orders_to_user_not_accept,
             'confirm_return_form_message' => $confirm_return_form_message,
         ));
     }
 
-    protected function orders_from_user()
+    protected function ordersFromUser()
     {
         $orders_from_user = DB::table('orders')
             ->join('lib_books', 'lib_books.id', '=', 'orders.book_id')
-//            ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
-//            ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->join('users', 'users.id', '=', 'orders.giving_id')
             ->select('lib_books.name as book', 'users.*', 'orders.*')
             ->where([
@@ -110,13 +107,12 @@ class OrdersController extends Controller
         $orders_from_user_not_accept = $orders_from_user->where('accept', 0);
 
         return view('orders_from_user', array(
-//            'orders_from_user' => $orders_from_user,
             'orders_from_user_accept' => $orders_from_user_accept,
             'orders_from_user_not_accept' => $orders_from_user_not_accept,
         ));
     }
 
-    protected function book_return(Request $request){
+    protected function bookReturn(Request $request){
         $order = Order::find($request->get('order_id'));
 
         $order->return = 1;
@@ -126,5 +122,4 @@ class OrdersController extends Controller
 
         return redirect('orders_to_user')->with('status', $message);
     }
-
 }

@@ -15,7 +15,13 @@ function checkTip(e){
     clearTips();
     var input = $(e.currentTarget);
 
+    var timer;
+    clearTimeout(timer);
+
+    timer=setTimeout(function(){
+
     if(input.val()!=''){
+
         $.ajax({
             'headers': {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -27,28 +33,31 @@ function checkTip(e){
                 'id': input.attr('id')
             },
             success: function(data){
-
                 var source = $.parseJSON(data);
 
-                var tips = $("<div class='tips'></div>");
-                tips.css('position', 'absolute');
-                tips.css('background', 'rgba(255,255,255,0.9)');
-                tips.css('border', 'solid 1px #ccc');
-                tips.css('width', '100%');
-                tips.css('cursor', 'pointer');
-                tips.css('z-index', '1');
+                if(source!='') {
 
-                // console.log(input.val());
-                // console.log(data);
-                // console.log(source);
+                    var tips = $("<div class='tips'></div>");
+                    tips.css('position', 'absolute');
+                    tips.css('background', 'rgba(255,255,255,0.9)');
+                    tips.css('border', 'solid 1px #ccc');
+                    tips.css('width', '100%');
+                    tips.css('cursor', 'pointer');
+                    tips.css('z-index', '1');
 
-                for(var i=0; i<source.length; i++){
-                    var tip = $("<div class='tip'>"+source[i]['name']+"</div>");
-                    tip.click(function(e){ $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text()); });
-                    tips.append(tip);
+                    // console.log(input.val());
+                    // console.log(data);
+                    // console.log(source);
+
+                    for (var i = 0; i < source.length; i++) {
+                        var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+                        tip.click(function (e) {
+                            $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
+                        });
+                        tips.append(tip);
+                    }
+                    tips.appendTo((input).parent());
                 }
-
-                tips.appendTo((input).parent());
             },
             error: function(x, e){
                 console.log(x);
@@ -56,6 +65,7 @@ function checkTip(e){
             }
         });
     }
+    }, 1000);
 }
 
 function clearTips(){
@@ -84,8 +94,8 @@ function searchBook(){
         success: function (data) {
             var source = $.parseJSON(data);
             $("#myBooks").empty();
-            console.log(data);
-            console.log(source);
+            // console.log(data);
+            // console.log(source);
 
             if(source.length !== 0) {
                 for (var i = 0; i < source.length; i++) {
@@ -126,4 +136,57 @@ function searchBook(){
             console.log(e);
         }
     });
+}
+
+// --- Edit review in book_details ---
+function editReview(id, text) {
+    var form = '<form id="edit_review_form" method="post" action="add_review">' +
+        '<input name="_token" type="hidden" value="'+$('meta[name="csrf-token"]').attr('content')+'">' +
+        '<input name="edit_review_id" type="hidden" value="'+id+'">' +
+        '<textarea rows="4" cols="50" name="review" id="review" placeholder="Enter review here...">'+text+'</textarea>' +
+        '<br>' +
+        '<button type="submit" class="btn btn-info">Save</button>' +
+        '</form>';
+
+    document.getElementById("review_"+id).innerHTML = form;
+    $("textarea").focus();
+}
+
+// --- Sort tables ---
+function sortTable(id, n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById(id);
+    switching = true;
+    dir = "asc";
+    while (switching) {
+        switching = false;
+        rows = table.getElementsByTagName("TR");
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+
+            if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch= true;
+                    break;
+                }
+            } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    shouldSwitch= true;
+                    break;
+                }
+            }
+        }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount ++;
+        } else {
+            if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
 }

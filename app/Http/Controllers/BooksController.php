@@ -8,11 +8,7 @@ use App\LibBook;
 use App\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-//use App\Http\Controllers\Auth\ProfileController;
 use Auth;
-
-//use Illuminate\Support\Facades\Storage;
-//use Illuminate\Http\UploadedFile;
 use Image;
 
 class BooksController extends Controller
@@ -22,7 +18,7 @@ class BooksController extends Controller
         $this->middleware('auth');
     }
 
-    public function add_book_form()
+    public function addBookForm()
     {
         $genres = DB::table('genres')->get();
         $authors = DB::table('authors')->get();
@@ -32,7 +28,7 @@ class BooksController extends Controller
         ));
     }
 
-    public function add_book_search(Request $request)
+    public function addBookSearch(Request $request)
     {
         $str = $request['str'];
         $id = $request['id'];
@@ -65,36 +61,34 @@ class BooksController extends Controller
             'genre' => 'required|string|max:255',
         ]);
 
-        if($request->file('photo')) {
+        if ($request->file('photo')) {
             $file = $request->file('photo');
             $file_name = time() . '_' . $_FILES['photo']['name'];
             $file->move(public_path() . '/images/books', $file_name);
         }
-        else{
+        else {
             $file_name = 'default_book.jpg';
         }
 
         $book = LibBook::where('name', $request->get('name'))->first();
 
-        if(!$book) {
-            $book =
-                LibBook::create([
-                    'name' => $request->get('name'),
-                    'year' => $request->get('year'),
-                    'genre_id' => $request->get('genre'),
-                    'description' => '1',
-                    'photo' => $file_name,
-                ]);
+        if (!$book) {
+            $book = LibBook::create([
+                'name' => $request->get('name'),
+                'year' => $request->get('year'),
+                'genre_id' => $request->get('genre'),
+                'description' => '1',
+                'photo' => $file_name,
+            ]);
         }
 
 //        $author = Author::find($request->get('author'));
         $author = Author::where('name', $request->get('author'))->first();
 
-        if(!$author) {
-            $author =
-                Author::create([
-                    'name' => $request->get('author'),
-                ]);
+        if (!$author) {
+            $author = Author::create([
+                'name' => $request->get('author'),
+            ]);
         }
 
         $user = User::find(Auth::user()->id);
@@ -104,7 +98,7 @@ class BooksController extends Controller
 
         $message = "Book created!";
 
-        return redirect('profile')->with('status', $message);
+        return back()->with('status', $message);
     }
 
     protected function delete(Request $request){
@@ -113,21 +107,11 @@ class BooksController extends Controller
         $user->books()->detach($request->get('id'));
 
         $message = "Book deleted!";
-        return redirect('profile')->with('status', $message);
+        return back()->with('status', $message);
     }
 
-    public function book_details($http_response_header)
+    public function bookDetails($http_response_header)
     {
-//        $book_info = DB::table('lib_books')
-//            ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
-//            ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
-//            ->join('authors', 'authors.id', '=', 'authors_books.author_id')
-//            ->join('user_books', 'user_books.book_id', '=', 'lib_books.id')
-//            ->join('users', 'users.id', '=', 'user_books.user_id')
-//            ->select('lib_books.*', 'genres.name as genre', 'authors.name as author', 'users.name as owner')
-//            ->where('lib_books.id', $http_response_header)
-//            ->get();
-
         $book_info = DB::table('lib_books')
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
@@ -156,33 +140,43 @@ class BooksController extends Controller
             ])
             ->first();
 
-//        $book_rating = DB::table('reviews')
-//            ->where('reviews.book_id', $http_response_header)
-//            ->sum('reviews.rating');
-
-        return view('book_details', array(
-            'book_info' => $book_info,
-            'users' => $users,
-            'reviews' => $reviews,
-            'user_reviews' => $user_reviews,
-        ));
+        if ($book_info) {
+            return view('book_details', array(
+                'book_info' => $book_info,
+                'users' => $users,
+                'reviews' => $reviews,
+                'user_reviews' => $user_reviews,
+            ));
+        }
+        else {
+            return back();
+        }
 
     }
 
-    public function add_review(Request $request)
+    public function addReview(Request $request)
     {
         $request->validate([
             'review' => 'required|string|max:255',
         ]);
 
-        Review::create([
-            'book_id' => $request->get('book_id'),
-            'user_id' => Auth::user()->id,
-            'text' => $request->get('review'),
-            'rating' => $request->get('rating'),
-        ]);
+        if ($request->get('edit_review_id')) {
+            $review = Review::find($request->get('edit_review_id'));
+            $review->fill([
+                'text' => $request->get('review')
+            ])->save();
+        }
 
-        $message = "You review saved!";
+        else {
+            Review::create([
+                'book_id' => $request->get('book_id'),
+                'user_id' => Auth::user()->id,
+                'text' => $request->get('review'),
+                'rating' => $request->get('rating'),
+            ]);
+        }
+        $message = "Your review saved!";
+
         return back()->with('status', $message);
     }
 

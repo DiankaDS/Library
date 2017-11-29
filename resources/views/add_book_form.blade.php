@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="container" onclick='clearTips();'>
+
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
@@ -53,25 +60,11 @@
                                 </div>
                             </div>
 
-                            {{--<div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">--}}
-                                {{--<label for="author" class="col-md-4 control-label">Author</label>--}}
-
-                                {{--<div class="col-md-4">--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<select class="form-control" id="author" name="author">--}}
-                                            {{--@foreach ($authors as $val)--}}
-                                                {{--<option value="{{ $val->id }}">{{ $val->name }}</option>--}}
-                                            {{--@endforeach--}}
-                                        {{--</select>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-
                             <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
                                 <label for="genre" class="col-md-4 control-label">Genre</label>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                                <div class="form-group">
+                                    <div class="col-md-4">
                                         <select class="form-control" id="genre" name="genre">
                                             @foreach ($genres as $val)
                                                 <option value="{{ $val->id }}">{{ $val->name }}</option>
@@ -95,10 +88,9 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" value="Add_book">
                                         Add book
                                     </button> 
                                 </div>

@@ -18,7 +18,6 @@ class HomeController extends Controller
 //    {
 //        $this->middleware('auth');
 //    }
-
     /**
      * Show the application dashboard.
      *
@@ -27,7 +26,6 @@ class HomeController extends Controller
     public function index()
     {
         $books = DB::table('lib_books')
-//            ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->leftJoin('reviews', 'reviews.book_id', '=', 'lib_books.id')
@@ -36,19 +34,15 @@ class HomeController extends Controller
             ->groupBy('lib_books.id', 'authors.name')
             ->get();
 
-//        $genres = DB::table('genres')->get();
-//        $authors = DB::table('authors')->get();
+        $genres = DB::table('genres')->get();
 
         return view('home', [
             'books' => $books,
-//            'genres' => $genres,
-//            'authors' => $authors,
+            'genres' => $genres,
         ]);
     }
 
-
-
-    public function search_books(Request $request)
+    public function searchBooks(Request $request)
     {
         $str_book = $request['str_book'];
         $str_author = $request['str_author'];
@@ -73,5 +67,4 @@ class HomeController extends Controller
 
         return json_encode($source);
     }
-
 }

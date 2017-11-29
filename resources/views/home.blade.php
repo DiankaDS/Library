@@ -13,46 +13,36 @@
         </div>
     @endguest
 
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <div class="row">
-
         <form class="form-inline">
             <input class="form-control" id="mySearchBook" type="text" placeholder="Book name">
             <input class="form-control" id="mySearchAuthor" type="text" placeholder="Author">
             <input class="form-control" id="mySearchYear" type="text" placeholder="Year">
-            <input class="form-control" id="mySearchGenre" type="text" placeholder="Genre">
 
-            {{--<select class="form-control" id="mySearchAuthor" name="author">--}}
-                {{--<option value="">All authors</option>--}}
-                {{--@foreach ($authors as $val)--}}
-                    {{--<option value="{{ $val->id }}">{{ $val->name }}</option>--}}
-                {{--@endforeach--}}
-            {{--</select>--}}
-            {{--<select class="form-control" id="mySearchGenre" name="genre">--}}
-                {{--<option value="">All genres</option>--}}
-                {{--@foreach ($genres as $val)--}}
-                    {{--<option value="{{ $val->id }}">{{ $val->name }}</option>--}}
-                {{--@endforeach--}}
-            {{--</select>--}}
+            <select class="form-control" id="mySearchGenre" name="genre">
+                <option value="">All genres</option>
+                @foreach ($genres as $val)
+                    <option value="{{ $val->name }}">{{ $val->name }}</option>
+                @endforeach
+            </select>
 
             <button type="button" class="btn btn-info" onclick='searchBook(event);'>Search book</button>
         </form>
-
     </div>
     <br>
-
     <div class="row">
         <div class="panel panel-default">
-                <div class="panel-heading">Library</div>
+            <div class="panel-heading">Library</div>
 
-                <div class="panel-body">
-
-                    <div class="row" id="myBooks">
+            <div class="panel-body">
+                <div class="row" id="myBooks">
+                    @if( count($books) !== 0 )
                         @foreach ($books as $val)
                             <div class="col-md-3">
                                 <div class="thumbnail">
@@ -68,16 +58,17 @@
                                             <p align="center">Rating: 0</p>
                                         @endif
                                     </div>
-                                    {{--</a>--}}
                                 </div>
                             </div>
                         @endforeach
-                    </div>
-
+                    @else
+                        <div class="col-md-3">
+                            <p> Nothing books... Add first one! </p>
+                        </div>
+                    @endif
                 </div>
             </div>
-        {{--</div>--}}
+        </div>
     </div>
-
 </div>
 @endsection
