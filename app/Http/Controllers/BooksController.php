@@ -151,7 +151,6 @@ class BooksController extends Controller
         else {
             return back();
         }
-
     }
 
     public function addReview(Request $request)

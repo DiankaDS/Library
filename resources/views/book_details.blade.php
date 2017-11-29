@@ -169,12 +169,12 @@
                         @foreach ($reviews as $val)
                         <div class="panel panel-default">
                             <div class="panel-heading" id="review">
-                                <a href="profile/{{ $val->id }}" name="{{ $val->id }}">
+                                <a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">
                                     <img src="../images/users/{{$val->photo}}" height="42" width="42">
                                 </a>
-                                <strong><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></strong>
+                                <strong><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></strong>
 
-                                @if( $val->id == Auth::user()->id )
+                                @if( $val->user_id == Auth::user()->id )
                                     <button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right">Edit</button>
                                 @endif
 
