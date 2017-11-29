@@ -2,13 +2,18 @@
 
 @section('content')
 <div class="container">
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">Orders</div>
 
-                <div class="panel-body">
-                    @if( count($orders) !== 0 )
+            <div class="panel-body">
+                @if (count($orders) !== 0)
                     <table class="table" id="orders_table">
                         <thead>
                         <tr class="filters">
@@ -46,14 +51,12 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @else
-                        <p> Nothing orders... </p>
-                    @endif
-
-                </div>
+                @else
+                    <p> Nothing orders... </p>
+                @endif
+            </div>
         </div>
     </div>
-        {{--</div>--}}
 </div>
 
 @endsection

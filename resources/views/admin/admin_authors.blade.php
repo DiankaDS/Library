@@ -13,8 +13,8 @@
         <div class="panel panel-default">
             <div class="panel-heading">Authors</div>
 
-                <div class="panel-body">
-                    @if( count($authors) !== 0 )
+            <div class="panel-body">
+                @if (count($authors) !== 0)
                     <table class="table" id="authors_table">
                         <thead>
                         <tr class="filters">
@@ -39,38 +39,36 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @else
-                        <p> Nothing authors... </p>
-                    @endif
+                @else
+                    <p> Nothing authors... </p>
+                @endif
 
-                    <form class="form-horizontal" method="POST" action="admin_create_author">
-                        {{ csrf_field() }}
+                <form class="form-horizontal" method="POST" action="admin_create_author">
+                    {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" autocomplete="off" placeholder="New author name" class="form-control" name="name" value="{{ old('name') }}" required>
+                        <div class="col-md-6">
+                            <input id="name" type="text" autocomplete="off" placeholder="New author name" class="form-control" name="name" value="{{ old('name') }}" required>
 
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                            @if ($errors->has('name'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                            @endif
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button class="btn btn-info" type="submit">Add author</button>
-                            </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <button class="btn btn-info" type="submit">Add author</button>
                         </div>
-                    </form>
-
-                </div>
+                    </div>
+                </form>
+            </div>
         </div>
         </div>
     </div>
-        {{--</div>--}}
 </div>
 
 @endsection

@@ -13,7 +13,7 @@
             <div class="panel-heading">Users</div>
 
             <div class="panel-body">
-                @if( count($users) !== 0 )
+                @if (count($users) !== 0)
                 <table class="table" id="users_table">
                     <thead>
                     <tr class="filters">
@@ -39,14 +39,13 @@
                             <td>{{ $val->phone }}</td>
                             <td>
                                 <form class="form-inline" action="delete_user" method="post" id="{{ $val->id }}" name="delete_user" style ='display:inline;'>
-                                        {{--<input name="_method" type="hidden" value="DELETE">--}}
                                     <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                     {{csrf_field()}}
 
                                     <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>
                                 </form>
 
-                                @if($val->admin == 0)
+                                @if ($val->admin == 0)
                                     <form class="form-inline" action="add_to_admin" method="post" id="add_to_admin_{{ $val->id }}" name="add_to_admin" style ='display:inline;'>
                                         <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                         {{csrf_field()}}

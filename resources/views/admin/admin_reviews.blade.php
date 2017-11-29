@@ -12,8 +12,8 @@
         <div class="panel panel-default">
             <div class="panel-heading">Reviews</div>
 
-                <div class="panel-body">
-                    @if( count($reviews) !== 0 )
+            <div class="panel-body">
+                @if (count($reviews) !== 0)
                     <table class="table" id="reviews_table">
                         <thead>
                         <tr class="filters">
@@ -40,7 +40,6 @@
                                 <td>
                                     <form action="admin_del_review/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
                                         {{csrf_field()}}
-                                        {{--<input name="_method" type="hidden" value="DELETE">--}}
                                         <input name="admins_review_id" type="hidden" value="{{ $val->id }}">
 
                                         <button class="btn btn-danger" type="button" id="delete_review_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_review_message }}')">Delete</button>
@@ -50,14 +49,12 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @else
-                        <p> Nothing reviews... </p>
-                    @endif
-
-                </div>
+                @else
+                    <p> Nothing reviews... </p>
+                @endif
+            </div>
         </div>
     </div>
-        {{--</div>--}}
 </div>
 
 @endsection

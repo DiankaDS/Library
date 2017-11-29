@@ -12,8 +12,8 @@
         <div class="panel panel-default">
             <div class="panel-heading">Books</div>
 
-                <div class="panel-body">
-                    @if( count($books) !== 0 )
+            <div class="panel-body">
+                @if (count($books) !== 0)
                     <table class="table" id="books_table">
                         <thead>
                         <tr class="filters">
@@ -43,11 +43,9 @@
 
                                     <form action="admin_del_book/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
                                         {{csrf_field()}}
-                                        {{--<input name="_method" type="hidden" value="DELETE">--}}
                                         <input name="admins_book_id" type="hidden" value="{{ $val->id }}">
 
                                         <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')">Delete</button>
-                                        {{--<button class="btn btn-warning" type="submit" formaction="admin_up_book/{{ $val->id }}">Update</button>--}}
                                     </form>
 
                                 </td>
@@ -55,15 +53,12 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @else
-                        <p> Nothing books... </p>
-                    @endif
-
-                </div>
-
+                @else
+                    <p> Nothing books... </p>
+                @endif
+            </div>
         </div>
     </div>
-        {{--</div>--}}
 </div>
 
 @endsection

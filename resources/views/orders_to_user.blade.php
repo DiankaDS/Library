@@ -12,11 +12,9 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">Waiting orders</div>
-
             <div class="panel-body">
 
-                @if( count($orders_to_user_not_accept) != 0 )
-
+                @if (count($orders_to_user_not_accept) != 0)
                     <table class="table" id="orders_to_user_not_accept_table">
                         <thead>
                         <tr>
@@ -71,17 +69,14 @@
                 @else
                     <p> No one orders... </p>
                 @endif
-
             </div>
         </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">Given books</div>
-
             <div class="panel-body">
 
-                @if( count($orders_to_user_accept) != 0 )
-
+                @if (count($orders_to_user_accept) != 0)
                     <table class="table" id="orders_to_user_accept_table">
                         <thead>
                         <tr>
@@ -133,11 +128,9 @@
                         @endforeach
                         </tbody>
                     </table>
-
                 @else
                     <p> No one orders... </p>
                 @endif
-
             </div>
         </div>
     </div>

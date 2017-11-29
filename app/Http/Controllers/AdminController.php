@@ -16,7 +16,7 @@ class AdminController extends Controller
         $this->middleware('admin');
     }
 
-    protected function admin_users()
+    protected function adminUsers()
     {
         $users = User::all();
         $confirm_delete_profile_message = "Are you sure to delete this user?";
@@ -31,7 +31,7 @@ class AdminController extends Controller
         ));
     }
 
-    protected function add_to_admin(Request $request)
+    protected function addToAdmin(Request $request)
     {
         $order = User::find($request->get('admins_user_id'));
         $order->admin = 1;
@@ -41,7 +41,7 @@ class AdminController extends Controller
         return back()->with('status', $message);
     }
 
-    protected function delete_from_admin(Request $request)
+    protected function deleteFromAdmin(Request $request)
     {
         $order = User::find($request->get('admins_user_id'));
         $order->admin = 0;
@@ -51,7 +51,7 @@ class AdminController extends Controller
         return back()->with('status', $message);
     }
 
-    protected function admin_books()
+    protected function adminBooks()
     {
         $books = DB::table('lib_books')
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
@@ -68,7 +68,7 @@ class AdminController extends Controller
         ));
     }
 
-    protected function admin_book_delete(Request $request)
+    protected function adminBookDelete(Request $request)
     {
         $book_id = $request->get('admins_book_id');
 
@@ -84,7 +84,7 @@ class AdminController extends Controller
         return back()->with('status', $message);
     }
 
-    protected function admin_authors()
+    protected function adminAuthors()
     {
         $authors = Author::all();
         $confirm_delete_author_message = 'Are you sure to delete this author?';
@@ -94,7 +94,7 @@ class AdminController extends Controller
         ));
     }
 
-    protected function admin_author_delete(Request $request)
+    protected function adminAuthorDelete(Request $request)
     {
         $author = Author::find($request->get('admins_author_id'));
 
@@ -105,29 +105,28 @@ class AdminController extends Controller
         return back()->with('status', $message);
     }
 
-    protected function admin_author_create(Request $request)
+    protected function adminAuthorCreate(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
-
         $author = Author::where('name', $request->get('name'))->first();
 
-        if(!$author) {
+        if (!$author) {
                 Author::create([
                     'name' => $request->get('name'),
                 ]);
 
             $message = "Author created!";
         }
-        else{
+        else {
             $message = "Author already exists!";
         }
 
         return back()->with('status', $message);
     }
 
-    protected function admin_genres()
+    protected function adminGenres()
     {
         $genres = DB::table('genres')->get();
         $confirm_delete_genre_message = 'Are you sure to delete this genre?';
@@ -137,7 +136,7 @@ class AdminController extends Controller
         ));
     }
 
-    protected function admin_genre_delete(Request $request)
+    protected function adminGenreDelete(Request $request)
     {
         DB::table('genres')
             ->where('genres.id', $request->get('admins_genre_id'))
@@ -147,7 +146,7 @@ class AdminController extends Controller
         return back()->with('status', $message);
     }
 
-    protected function admin_genre_create(Request $request)
+    protected function adminGenreCreate(Request $request)
     {
         $request->validate([
             'genre' => 'required|string|max:255',
@@ -161,7 +160,7 @@ class AdminController extends Controller
         return back()->with('status', $message);
     }
 
-    protected function admin_orders()
+    protected function adminOrders()
     {
         $orders = DB::table('orders')
             ->join('users', 'users.id', '=', 'orders.taker_id')
@@ -177,7 +176,7 @@ class AdminController extends Controller
         ));
     }
 
-    protected function admin_reviews()
+    protected function adminReviews()
     {
         $reviews = DB::table('reviews')
             ->join('users', 'users.id', '=', 'reviews.user_id')
@@ -192,7 +191,7 @@ class AdminController extends Controller
         ));
     }
 
-    protected function admin_review_delete(Request $request)
+    protected function adminReviewDelete(Request $request)
     {
         $review = Review::find($request->get('admins_review_id'));
         $review->delete();

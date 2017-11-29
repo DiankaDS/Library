@@ -50,16 +50,14 @@
             </div>
         </div>
     </div>
+    <div class="row">
 
-        <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">Users who have a book</div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Users who have a book</div>
+            <div class="panel-body">
 
-                <div class="panel-body">
-
-                    @if( count($users) != 0 )
-
+                @if (count($users) != 0)
                     <table class="table" id="users_have_book_table">
                         <thead>
                         <tr>
@@ -114,20 +112,18 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @else
-                        <p> This book has nothing... </p>
-                    @endif
+                @else
+                    <p> This book has nothing... </p>
+                @endif
 
-                </div>
             </div>
+        </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Reviews</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Reviews</div>
 
-                @if( !$user_reviews )
-
+            @if (!$user_reviews)
                 <div class="panel-body">
-
                     <form class="form-horizontal" method="POST" action="add_review" id="add_review">
                         {{ csrf_field() }}
                         <div class="col-md-4">
@@ -163,13 +159,12 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
-                @endif
+            @endif
 
-                <div class="panel-body">
+            <div class="panel-body">
 
-                    @if( count($reviews) != 0 )
+                @if (count($reviews) != 0)
                     <div class="col-md-6">
                         @foreach ($reviews as $val)
                         <div class="panel panel-default">
@@ -196,13 +191,11 @@
                         </div>
                         @endforeach
                     </div>
-                    @else
-                        <p> This book hasn't reviews... Be first! </p>
-                    @endif
-                </div>
-
+                @else
+                    <p> This book hasn't reviews... Be first! </p>
+                @endif
             </div>
         </div>
-    {{--</div>--}}
+    </div>
 </div>
 @endsection

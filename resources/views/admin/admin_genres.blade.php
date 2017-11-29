@@ -13,8 +13,8 @@
         <div class="panel panel-default">
             <div class="panel-heading">Genres</div>
 
-                <div class="panel-body">
-                    @if( count($genres) !== 0 )
+            <div class="panel-body">
+                @if (count($genres) !== 0)
                     <table class="table" id="genres_table">
                         <thead>
                         <tr class="filters">
@@ -38,38 +38,36 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @else
-                        <p> Nothing genres... </p>
-                    @endif
+                @else
+                    <p> Nothing genres... </p>
+                @endif
 
-                    <form class="form-horizontal" method="POST" action="admin_create_genre">
-                        {{ csrf_field() }}
+                <form class="form-horizontal" method="POST" action="admin_create_genre">
+                    {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
 
-                            <div class="col-md-6">
-                                <input id="genre" type="text" autocomplete="off" placeholder="New genre" class="form-control" name="genre" value="{{ old('genre') }}" required>
+                        <div class="col-md-6">
+                            <input id="genre" type="text" autocomplete="off" placeholder="New genre" class="form-control" name="genre" value="{{ old('genre') }}" required>
 
-                                @if ($errors->has('genre'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('genre') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                            @if ($errors->has('genre'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('genre') }}</strong>
+                                </span>
+                            @endif
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button class="btn btn-info" type="submit">Add genre</button>
-                            </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <button class="btn btn-info" type="submit">Add genre</button>
                         </div>
-                    </form>
-
-                </div>
+                    </div>
+                </form>
+            </div>
         </div>
         </div>
     </div>
-        {{--</div>--}}
 </div>
 
 @endsection

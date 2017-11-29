@@ -20,7 +20,6 @@
     @endif
 
     <div class="row">
-
         <form class="form-inline">
             <input class="form-control" id="mySearchBook" type="text" placeholder="Book name">
             <input class="form-control" id="mySearchAuthor" type="text" placeholder="Author">
@@ -35,16 +34,13 @@
 
             <button type="button" class="btn btn-info" onclick='searchBook(event);'>Search book</button>
         </form>
-
     </div>
     <br>
-
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">Library</div>
 
             <div class="panel-body">
-
                 <div class="row" id="myBooks">
                     @if( count($books) !== 0 )
                         @foreach ($books as $val)
@@ -71,10 +67,8 @@
                         </div>
                     @endif
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
 @endsection
