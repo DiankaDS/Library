@@ -160,12 +160,17 @@ class BooksController extends Controller
 //            ->where('reviews.book_id', $http_response_header)
 //            ->sum('reviews.rating');
 
-        return view('book_details', array(
-            'book_info' => $book_info,
-            'users' => $users,
-            'reviews' => $reviews,
-            'user_reviews' => $user_reviews,
-        ));
+        if($book_info) {
+            return view('book_details', array(
+                'book_info' => $book_info,
+                'users' => $users,
+                'reviews' => $reviews,
+                'user_reviews' => $user_reviews,
+            ));
+        }
+        else{
+            return back();
+        }
 
     }
 

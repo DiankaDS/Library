@@ -41,6 +41,11 @@ class ProfileController extends Controller
         ));
     }
 
+    public function view_update_user()
+    {
+        return view('update_user');
+    }
+
     public function update_user(Request $request)
     {
         $user = User::find(Auth::user()->id);
@@ -68,7 +73,7 @@ class ProfileController extends Controller
 //        $user = User::find(Auth::user()->id);
         $user->update($request->all());
 
-        $message = "You profile updated!";
+        $message = "Your profile updated!";
 
         return back()->with('status', $message);
     }
@@ -148,6 +153,11 @@ class ProfileController extends Controller
         return back()->with('status', $message);
     }
 
+    public function view_set_password()
+    {
+        return view('set_password');
+    }
+
     public function set_password(Request $request)
     {
         $user = User::find(Auth::id());
@@ -159,7 +169,7 @@ class ProfileController extends Controller
 
         if (!Hash::check($request->password, $hashedPassword)) {
 
-            $message = "You password failed!";
+            $message = "Your password failed!";
             return back()->with('status', $message);
         }
 
@@ -177,7 +187,7 @@ class ProfileController extends Controller
                 'password' => Hash::make($request->new_password)
             ])->save();
 
-            $message = "You password changed!";
+            $message = "Your password changed!";
             return back()->with('status', $message);
         }
 

@@ -51,7 +51,6 @@ class AdminController extends Controller
         return back()->with('status', $message);
     }
 
-
     protected function admin_books()
     {
         $books = DB::table('lib_books')
