@@ -147,6 +147,11 @@
                         @endforeach
                         </tbody>
                     </table>
+
+                    <div class="row" align="center">
+                        {{ $user_books->links() }}
+                    </div>
+
                 @else
                     <p> Nothing books... </p>
                 @endif

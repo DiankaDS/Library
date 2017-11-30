@@ -18,7 +18,7 @@ class AdminController extends Controller
 
     protected function adminUsers()
     {
-        $users = User::all();
+        $users = User::simplePaginate(12);
         $confirm_delete_profile_message = "Are you sure to delete this user?";
         $confirm_add_to_admin_message = "Are you sure to add this user to admin?";
         $confirm_delete_from_admin_message = "Are you sure to delete this user from admin?";
@@ -58,7 +58,8 @@ class AdminController extends Controller
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->select('lib_books.*', 'genres.name as genre', 'authors.name as author')
-            ->get();
+//            ->get();
+            ->simplePaginate(12);
 
         $confirm_delete_book_message = 'Are you sure to delete this book?';
 
@@ -86,7 +87,7 @@ class AdminController extends Controller
 
     protected function adminAuthors()
     {
-        $authors = Author::all();
+        $authors = Author::simplePaginate(12);
         $confirm_delete_author_message = 'Are you sure to delete this author?';
         return view('admin/admin_authors', array(
             'authors' => $authors,
@@ -128,7 +129,7 @@ class AdminController extends Controller
 
     protected function adminGenres()
     {
-        $genres = DB::table('genres')->get();
+        $genres = DB::table('genres')->simplePaginate(12);
         $confirm_delete_genre_message = 'Are you sure to delete this genre?';
         return view('admin/admin_genres', array(
             'genres' => $genres,
@@ -167,7 +168,8 @@ class AdminController extends Controller
             ->join('users as users1', 'users1.id', '=', 'orders.giving_id')
             ->join('lib_books', 'orders.book_id', '=', 'lib_books.id')
             ->select('orders.*', 'users.username as taker', 'users1.username as giving', 'lib_books.name as book', 'orders.id as order_id')
-            ->get();
+//            ->get();
+            ->simplePaginate(12);
 
         $confirm_delete_order_message = 'Are you sure to delete this order?';
         return view('admin/admin_orders', array(
@@ -182,7 +184,8 @@ class AdminController extends Controller
             ->join('users', 'users.id', '=', 'reviews.user_id')
             ->join('lib_books', 'reviews.book_id', '=', 'lib_books.id')
             ->select('users.username', 'reviews.*', 'lib_books.name as book')
-            ->get();
+//            ->get();
+            ->simplePaginate(12);
 
         $confirm_delete_review_message = 'Are you sure to delete this review?';
         return view('admin/admin_reviews', array(

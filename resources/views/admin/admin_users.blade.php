@@ -69,6 +69,11 @@
                 @else
                     <p> Nothing users... </p>
                 @endif
+
+                <div class="row" align="center">
+                    {{ $users->links() }}
+                </div>
+
             </div>
         </div>
     </div>

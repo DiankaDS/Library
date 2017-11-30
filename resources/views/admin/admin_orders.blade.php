@@ -54,6 +54,11 @@
                 @else
                     <p> Nothing orders... </p>
                 @endif
+
+                <div class="row" align="center">
+                    {{ $orders->links() }}
+                </div>
+
             </div>
         </div>
     </div>

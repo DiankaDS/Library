@@ -56,6 +56,11 @@
                 @else
                     <p> Nothing books... </p>
                 @endif
+
+                <div class="row" align="center">
+                    {{ $books->links() }}
+                </div>
+
             </div>
         </div>
     </div>

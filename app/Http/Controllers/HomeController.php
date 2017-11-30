@@ -32,7 +32,8 @@ class HomeController extends Controller
 
             ->select('lib_books.*', 'authors.name as author', DB::raw('SUM(reviews.rating) as rating'))
             ->groupBy('lib_books.id', 'authors.name')
-            ->get();
+//            ->get();
+            ->simplePaginate(12);
 
         $genres = DB::table('genres')->get();
 

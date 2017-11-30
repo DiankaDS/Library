@@ -27,7 +27,8 @@ class ProfileController extends Controller
             ->join('user_books', 'lib_books.id', '=', 'user_books.book_id')
             ->select('lib_books.*', 'genres.name as genre', 'authors.name as author', 'user_books.user_id as user')
             ->where('user_books.user_id', $user_id)
-            ->get();
+//            ->get();
+            ->simplePaginate(6);
 
         $confirm_delete_book_message = 'Are you sure to delete book?';
         $confirm_delete_profile_message = 'Are you sure to delete profile?';

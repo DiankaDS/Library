@@ -52,6 +52,11 @@
                 @else
                     <p> Nothing reviews... </p>
                 @endif
+
+                <div class="row" align="center">
+                    {{ $reviews->links() }}
+                </div>
+
             </div>
         </div>
     </div>

@@ -61,12 +61,19 @@
                                 </div>
                             </div>
                         @endforeach
-                    @else
+
+                </div>
+                <div class="row" align="center">
+                    {{ $books->links() }}
+                </div>
+
+                @else
+                    <div class="row">
                         <div class="col-md-3">
                             <p> Nothing books... Add first one! </p>
                         </div>
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
