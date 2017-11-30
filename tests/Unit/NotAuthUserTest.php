@@ -3,10 +3,65 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 
 class NotAuthUserTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->seed('UsersTableSeeder');
+    }
+
+//    --- Auth tests ---
+
+    public function testAuthRoutes()
+    {
+        $response = $this->get('/register');
+        $response->assertStatus(200);
+
+        $response = $this->get('/login');
+        $response->assertStatus(200);
+
+        $response = $this->get('/password/reset');
+        $response->assertStatus(200);
+
+        $response = $this->post('/password/email', [
+            'email' => 'ololo@user.com',
+        ]);
+        $response->assertRedirect('/password/reset');
+
+        $response = $this->post('/password/email', [
+            'email' => User::first()->email,
+        ]);
+        $response->assertRedirect('/password/reset');
+
+
+        $response = $this->get('/auth/facebook');
+        $response->assertStatus(302);
+
+
+        $response = $this->post('/login', [
+            'email' => '1',
+            'password' => '1',
+        ]);
+        $response->assertRedirect('/auth/facebook');
+
+        $response = $this->post('/register', [
+            'username' => 'test',
+            'name' => 'test',
+            'surname' => 'test',
+            'email' => 'test@test.com',
+            'phone' => '12345678',
+            'password' => '1111111',
+        ]);
+        $response->assertRedirect('/auth/facebook');
+    }
+
 //    --- Home tests ---
 
     public function testNotUserHomeRoutes()

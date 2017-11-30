@@ -4,8 +4,8 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use App\User;
+use App\Review;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-//use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 
 class BooksTest extends TestCase
@@ -20,6 +20,23 @@ class BooksTest extends TestCase
 
         $user = User::where('admin', '=', '0')->first();
         $this->actingAs($user);
+    }
+
+//    --- Auth tests ---
+
+    public function testAuthRoutes()
+    {
+        $response = $this->get('/register');
+        $response->assertRedirect('/home');
+
+        $response = $this->get('/login');
+        $response->assertRedirect('/home');
+
+        $response = $this->get('/password/reset');
+        $response->assertRedirect('/home');
+
+        $response = $this->post('/password/email', []);
+        $response->assertRedirect('/home');
     }
 
 //    --- Home tests ---
@@ -53,8 +70,14 @@ class BooksTest extends TestCase
         $response = $this->post('add_book/complete', [
             'name' => 'Some test book',
             'year' => '1999',
+            'photo' => '',
             'author' => 'Some test author',
             'genre' => 1,
+        ]);
+        $response->assertRedirect('/');
+
+        $response = $this->delete('delete/1', [
+            'id' => 1,
         ]);
         $response->assertRedirect('/');
     }
@@ -63,11 +86,16 @@ class BooksTest extends TestCase
     {
         $response = $this->post('/add_review', [
             'book_id' => 1,
-            'user_id' => 1,
-            'text' => 'Some test review',
+            'review' => 'Some test review',
             'rating' => 5,
         ]);
-        $response->assertRedirect('/');
+        $response->assertSee('Your review saved!');
+
+        $response = $this->post('/add_review', [
+            'edit_review_id' => 1,
+            'review' => 'Some test review',
+        ]);
+        $response->assertSee('Your review saved!');
     }
 
     public function testTakeBook()
