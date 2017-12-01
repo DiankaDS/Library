@@ -67,7 +67,7 @@ class BooksController extends Controller
             $file->move(public_path() . '/images/books', $file_name);
         }
         else {
-            $file_name = 'default_book.jpg';
+            $file_name = '';
         }
 
         $book = LibBook::where('name', $request->get('name'))->first();
@@ -77,7 +77,7 @@ class BooksController extends Controller
                 'name' => $request->get('name'),
                 'year' => $request->get('year'),
                 'genre_id' => $request->get('genre'),
-                'description' => '1',
+                'description' => 'Lorem ipsum dolor sit amet',
                 'photo' => $file_name,
             ]);
         }

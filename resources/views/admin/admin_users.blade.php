@@ -30,7 +30,12 @@
                     @foreach ($users as $val)
                         <tr>
                             <td>
-                                <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                                {{--<img src="../images/users/{{$val->photo}}" height="42" width="42">--}}
+                                @if ($val->photo)
+                                    <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                                @else
+                                    <img src="../images/default_user.jpg" height="42" width="42">
+                                @endif
                             </td>
                             <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
                             <td>{{ $val->name }}</td>

@@ -16,7 +16,11 @@
 
                 <div class="panel-body" align="center">
 
-                    <img src="../images/books/{{$book_info->photo}}" height="300" width="250">
+                    @if ($book_info->photo)
+                        <img src="../images/books/{{$book_info->photo}}" height="300" width="250">
+                    @else
+                        <img src="../images/default_book.jpg" height="300" width="250">
+                    @endif
 
                     <table class="table">
                         <tbody>
@@ -71,8 +75,14 @@
                         <tbody>
                         @foreach ($users as $val)
                             <tr>
-                                <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">
-                                        <img src="../images/users/{{$val->photo}}" height="42" width="42"></a>
+                                <td>
+                                    <a href="profile/{{ $val->id }}" name="{{ $val->id }}">
+                                        @if ($val->photo)
+                                            <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                                        @else
+                                            <img src="../images/default_user.jpg" height="42" width="42">
+                                        @endif
+                                    </a>
                                 </td>
                                 <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
                                 <td>{{ $val->name }}</td>
@@ -170,7 +180,12 @@
                         <div class="panel panel-default">
                             <div class="panel-heading" id="review">
                                 <a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">
-                                    <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                                    {{--<img src="../images/users/{{$val->photo}}" height="42" width="42">--}}
+                                    @if ($val->photo)
+                                        <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                                    @else
+                                        <img src="../images/default_user.jpg" height="42" width="42">
+                                    @endif
                                 </a>
                                 <strong><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></strong>
 

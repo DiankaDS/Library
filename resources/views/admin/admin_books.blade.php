@@ -31,7 +31,11 @@
                             <tr>
                                 <td>
                                     <a href="book_{{ $val->id }}" name="{{ $val->id }}">
-                                        <img src="../images/books/{{$val->photo}}" height="42" width="42">
+                                        @if ($val->photo)
+                                            <img src="../images/books/{{$val->photo}}" height="42" width="42">
+                                        @else
+                                            <img src="../images/default_book.jpg" height="42" width="42">
+                                        @endif
                                     </a>
                                 </td>
                                 <td><a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a></td>

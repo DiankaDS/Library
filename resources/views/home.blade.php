@@ -50,17 +50,22 @@
 
             <div class="panel-body">
                 <div class="row" id="myBooks">
-                    @if( count($books) !== 0 )
+                    @if (count($books) !== 0)
                         @foreach ($books as $val)
                             <div class="col-md-3">
                                 <div class="thumbnail">
                                     <a href="book_{{ $val->id }}" name="{{ $val->id }}">
-                                        <img src="../images/books/{{$val->photo}}" style="width: 125px; height: 150px;">
+                                        @if ($val->photo)
+                                            <img src="../images/books/{{$val->photo}}" style="width: 125px; height: 150px;">
+                                        @else
+                                            <img src="../images/default_book.jpg" style="width: 125px; height: 150px;">
+                                        @endif
                                     </a>
+
                                     <div class="caption">
                                         <p align="center"><a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a></p>
                                         <p align="center">{{ $val->author }}, {{ $val->year }}</p>
-                                        @if($val->rating)
+                                        @if ($val->rating)
                                             <p align="center">Rating: {{ $val->rating }} </p>
                                         @else
                                             <p align="center">Rating: 0</p>

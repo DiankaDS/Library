@@ -14,8 +14,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Profile</div>
                 <div class="panel-body" align="center">
-
-                    <img src="../images/users/{{$user_info->photo}}" height="300" width="300">
+                    @if ($user_info->photo)
+                        <img src="../images/users/{{$user_info->photo}}" height="300" width="300">
+                    @else
+                        <img src="../images/default_user.jpg" height="300" width="300">
+                    @endif
 
                     @if ($user_info['id'] == Auth::user()->id)
                         <form class="form-inline" action="/upload_photo" enctype="multipart/form-data" method="POST">

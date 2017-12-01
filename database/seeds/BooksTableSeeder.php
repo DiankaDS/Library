@@ -19,7 +19,7 @@ class BooksTableSeeder extends Seeder
                 'genre_id' => mt_rand(1, 10),
                 'year' => mt_rand(1600, 2017),
                 'description' => str_random(20),
-                'photo' => 'default_book.jpg',
+                'photo' => '',
                 'created_at' => Now(),
                 'updated_at' => Now(),
             ]);

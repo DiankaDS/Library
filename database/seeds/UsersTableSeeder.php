@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@admin.com',
             'phone' => mt_rand(1000, 999999),
             'password' => bcrypt('admin'),
-            'photo' => 'default_user.jpg',
+            'photo' => '',
             'created_at' => Now(),
             'updated_at' => Now(),
             'is_admin' => 1,
@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
                 'email' => str_random(10) . '@user.com',
                 'phone' => mt_rand(1000, 999999),
                 'password' => bcrypt('user'),
-                'photo' => 'default_user.jpg',
+                'photo' => '',
                 'created_at' => Now(),
                 'updated_at' => Now(),
             ]);
