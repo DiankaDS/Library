@@ -16,8 +16,7 @@ class UpdateOrdersTable extends Migration
         Schema::table('orders', function (Blueprint $table) {
             $table->integer('book_id')->unsigned();
             $table->foreign('book_id')->references('id')->on('lib_books');
-            $table->boolean('accept')->default(0); // 0 if wait accept, 1 if user accept order, delete if user not accept.
-
+            $table->boolean('is_accept')->default(0); // 0 if wait accept, 1 if user accept order, delete if user not accept.
         });
     }
 

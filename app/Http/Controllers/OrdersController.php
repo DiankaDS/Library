@@ -50,7 +50,7 @@ class OrdersController extends Controller
     protected function acceptOrder(Request $request){
         $order = Order::find($request->get('order_id'));
 
-        $order->accept = 1;
+        $order->is_accept = 1;
         $order->save();
 
         $message = "Order accepted!";
@@ -75,12 +75,12 @@ class OrdersController extends Controller
             ->select('orders.*', 'users.*', 'lib_books.name as book', 'orders.id as order_id')
             ->where([
                 ['orders.giving_id', Auth::user()->id],
-                ['orders.return', 0],
+                ['orders.is_return', 0],
                 ])
             ->get();
 
-        $orders_to_user_accept = $orders_to_user->where('accept', 1);
-        $orders_to_user_not_accept = $orders_to_user->where('accept', 0);
+        $orders_to_user_accept = $orders_to_user->where('is_accept', 1);
+        $orders_to_user_not_accept = $orders_to_user->where('is_accept', 0);
 
         $confirm_return_form_message = 'Are you sure that the user returned this book?';
 
@@ -99,12 +99,12 @@ class OrdersController extends Controller
             ->select('lib_books.name as book', 'users.*', 'orders.*')
             ->where([
                 ['orders.taker_id', Auth::user()->id],
-                ['orders.return', 0],
+                ['orders.is_return', 0],
             ])
             ->get();
 
-        $orders_from_user_accept = $orders_from_user->where('accept', 1);
-        $orders_from_user_not_accept = $orders_from_user->where('accept', 0);
+        $orders_from_user_accept = $orders_from_user->where('is_accept', 1);
+        $orders_from_user_not_accept = $orders_from_user->where('is_accept', 0);
 
         return view('orders_from_user', array(
             'orders_from_user_accept' => $orders_from_user_accept,

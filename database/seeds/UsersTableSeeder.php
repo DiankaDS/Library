@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'photo' => 'default_user.jpg',
             'created_at' => Now(),
             'updated_at' => Now(),
-            'admin' => 1,
+            'is_admin' => 1,
         ]);
 
         for($i=1; $i<=10; $i++) {

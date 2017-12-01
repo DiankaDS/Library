@@ -34,7 +34,7 @@ class AdminController extends Controller
     protected function addToAdmin(Request $request)
     {
         $order = User::find($request->get('admins_user_id'));
-        $order->admin = 1;
+        $order->is_admin = 1;
         $order->save();
 
         $message = "User added to admin!";
@@ -44,7 +44,7 @@ class AdminController extends Controller
     protected function deleteFromAdmin(Request $request)
     {
         $order = User::find($request->get('admins_user_id'));
-        $order->admin = 0;
+        $order->is_admin = 0;
         $order->save();
 
         $message = "User deleted from admin!";

@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('taker_id')->references('id')->on('users');
             $table->date('date_start');
             $table->date('date_end');
-            $table->boolean('return')->default(0); // 0 if not return
+            $table->boolean('is_return')->default(0); // 0 if not return
             $table->timestamps();
         });
     }

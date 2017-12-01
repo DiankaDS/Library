@@ -37,8 +37,8 @@
                                 <td>{{ $val->date_start }}</td>
                                 <td>{{ $val->date_end }}</td>
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
-                                <td>{{ $val->accept }}</td>
-                                <td>{{ $val->return }}</td>
+                                <td>{{ $val->is_accept }}</td>
+                                <td>{{ $val->is_return }}</td>
                                 <td>
                                     <form action="delete_order" id="{{ $val->id }}" method="post" name="id">
                                         {{csrf_field()}}

@@ -45,7 +45,7 @@
                                     <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>
                                 </form>
 
-                                @if ($val->admin == 0)
+                                @if ($val->is_admin == 0)
                                     <form class="form-inline" action="add_to_admin" method="post" id="add_to_admin_{{ $val->id }}" name="add_to_admin" style ='display:inline;'>
                                         <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                         {{csrf_field()}}
