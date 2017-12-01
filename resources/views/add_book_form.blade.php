@@ -42,7 +42,7 @@
                                 <div class="col-md-6">
 
                                     <a class="dropdown">
-                                        <input class="form-control" data-toggle="dropdown" id="author" type="text" autocomplete="off"name="author" value="{{ old('author') }}" onkeyup='checkTip(event, "author");' required>
+                                        <input class="form-control" data-toggle="dropdown" id="author" type="text" autocomplete="off" name="author" value="{{ old('author') }}" onkeyup='checkTip(event, "author");' required>
                                     </a>
                                     {{--<input id="author" type="text" autocomplete="off" class="form-control" name="author" value="{{ old('author') }}" onkeyup='checkTip(event, "author");' required>--}}
 

@@ -96,7 +96,8 @@
                                         <div class="form-group{{ $errors->has('date_start') ? ' has-error' : '' }}">
                                             <label for="date_start">Date start:</label>
 
-                                            <input name="date_start" type="date" class="form-control" placeholder="date">
+                                            <input class="form-control" id="datepicker" name="date_start" placeholder="YYYY-MM-DD" type="text">
+                                            {{--<input name="date_start" type="date" class="form-control" placeholder="date">--}}
                                             @if ($errors->has('date_start'))
                                                 <span class="help-block">
                                                 <strong>{{ $errors->first('date_start') }}</strong>
@@ -107,7 +108,8 @@
                                         <div class="form-group{{ $errors->has('date_end') ? ' has-error' : '' }}">
                                             <label for="date_end">Date end:</label>
 
-                                            <input name="date_end" type="date" class="form-control">
+                                            <input class="form-control" id="datepicker" name="date_end" placeholder="YYYY-MM-DD" type="text">
+                                            {{--<input name="date_end" type="date" class="form-control">--}}
                                             @if ($errors->has('date_end'))
                                                 <span class="help-block">
                                                 <strong>{{ $errors->first('date_end') }}</strong>
