@@ -37,7 +37,7 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Books') }}
                     </a>
-                    @if(Auth::user() &&  Auth::user()->is_admin == 1)
+                    @if(Auth::user() && (Auth::user()->role_id == 1 || Auth::user()->role_id == 2))
                         <a class="navbar-brand" href="{{ url('admin_users') }}"> Admin page </a>
                     @endif
                 </div>

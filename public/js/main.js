@@ -100,7 +100,13 @@ function searchBook(){
 
                     var a = $('<a href="book_' + source[i].id + '" name="' + source[i].id + '">');
                     a.appendTo(thumb);
-                    var img = $('<img src="../images/books/' + source[i].photo + '" style="width: 125px; height: 150px;">');
+
+                    if (source[i].photo != 0) {
+                        var img = $('<img src="../images/books/' + source[i].photo + '" style="width: 125px; height: 150px;">');
+                    }
+                    else{
+                        var img = $('<img src="../images/default_book.jpg" style="width: 125px; height: 150px;">');
+                    }
                     img.appendTo(a);
 
                     var caption = $('<div class="caption"></div>');

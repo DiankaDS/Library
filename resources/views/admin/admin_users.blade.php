@@ -30,7 +30,6 @@
                     @foreach ($users as $val)
                         <tr>
                             <td>
-                                {{--<img src="../images/users/{{$val->photo}}" height="42" width="42">--}}
                                 @if ($val->photo)
                                     <img src="../images/users/{{$val->photo}}" height="42" width="42">
                                 @else
@@ -50,14 +49,14 @@
                                     <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>
                                 </form>
 
-                                @if ($val->is_admin == 0)
+                                @if ($val->role_id == 0 and Auth::user()->role_id == 2)
                                     <form class="form-inline" action="add_to_admin" method="post" id="add_to_admin_{{ $val->id }}" name="add_to_admin" style ='display:inline;'>
                                         <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                         {{csrf_field()}}
 
                                         <button class="btn btn-info" type="button" onclick="myModal('add_to_admin_{{ $val->id }}', '{{ $confirm_add_to_admin_message }}')">Add to admin</button>
                                     </form>
-                                @else
+                                @elseif (Auth::user()->role_id == 2)
                                     <form class="form-inline" action="delete_from_admin" method="post" id="delete_from_admin_{{ $val->id }}" name="delete_from_admin" style ='display:inline;'>
                                         <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                         {{csrf_field()}}
