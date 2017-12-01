@@ -22,7 +22,11 @@
                                 <label for="name" class="col-md-4 control-label">Book name</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" autocomplete="off" class="form-control" name="name" value="{{ old('name') }}" onkeyup='checkTip(event);' required>
+
+                                    <a class="dropdown">
+                                        <input class="form-control" data-toggle="dropdown" id="name" type="text" autocomplete="off" name="name" value="{{ old('name') }}" onkeyup='checkTip(event, "name");' required>
+                                    </a>
+                                    {{--<input id="name" type="text" autocomplete="off" class="form-control" name="name" value="{{ old('name') }}" onkeyup='checkTip(event, "name");' required>--}}
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -36,7 +40,11 @@
                                 <label for="author" class="col-md-4 control-label">Author</label>
 
                                 <div class="col-md-6">
-                                    <input id="author" type="text" autocomplete="off" class="form-control" name="author" value="{{ old('author') }}" onkeyup='checkTip(event);' required>
+
+                                    <a class="dropdown">
+                                        <input class="form-control" data-toggle="dropdown" id="author" type="text" autocomplete="off"name="author" value="{{ old('author') }}" onkeyup='checkTip(event, "author");' required>
+                                    </a>
+                                    {{--<input id="author" type="text" autocomplete="off" class="form-control" name="author" value="{{ old('author') }}" onkeyup='checkTip(event, "author");' required>--}}
 
                                     @if ($errors->has('author'))
                                         <span class="help-block">

@@ -9,8 +9,8 @@ function myModal(id, paramPamPam) {
     $("#myModal .modal-body").text(paramPamPam);
 }
 
-// --- Ajax in add book (find text in input) ---
-function checkTip(e){
+// --- Ajax in add_book and home (find text in input) ---
+function checkTip(e, id){
 
     clearTips();
     var input = $(e.currentTarget);
@@ -30,27 +30,21 @@ function checkTip(e){
             'url': 'search_value',
             'data': {
                 'str': input.val(),
-                'id': input.attr('id')
+                'id': id
             },
             success: function(data){
                 var source = $.parseJSON(data);
 
                 if(source!='') {
-
-                    var tips = $("<div class='tips'></div>");
-                    tips.css('position', 'absolute');
-                    tips.css('background', 'rgba(255,255,255,0.9)');
-                    tips.css('border', 'solid 1px #ccc');
-                    tips.css('width', '100%');
-                    tips.css('cursor', 'pointer');
-                    tips.css('z-index', '1');
+                    var tips = $("<ul class='tips dropdown-menu'></ul>");
 
                     // console.log(input.val());
                     // console.log(data);
                     // console.log(source);
 
                     for (var i = 0; i < source.length; i++) {
-                        var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+                        // var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+                        var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
                         tip.click(function (e) {
                             $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
                         });

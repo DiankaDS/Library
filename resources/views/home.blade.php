@@ -21,9 +21,17 @@
 
     <div class="row">
         <form class="form-inline">
-            <input class="form-control" id="mySearchBook" type="text" placeholder="Book name">
-            <input class="form-control" id="mySearchAuthor" type="text" placeholder="Author">
-            <input class="form-control" id="mySearchYear" type="text" placeholder="Year">
+            {{--<input class="form-control" id="mySearchBook" type="text" placeholder="Book name" autocomplete="off" onkeyup='checkTip(event, "name");'>--}}
+            {{--<input class="form-control" id="mySearchAuthor" type="text" placeholder="Author" autocomplete="off" onkeyup='checkTip(event, "author");'>--}}
+
+            <a class="dropdown">
+                <input class="form-control" data-toggle="dropdown" id="mySearchBook" type="text" placeholder="Book name" autocomplete="off" onkeyup='checkTip(event, "name");'>
+            </a>
+            <a class="dropdown">
+                <input class="form-control" data-toggle="dropdown" id="mySearchAuthor" type="text" placeholder="Author" autocomplete="off" onkeyup='checkTip(event, "author");'>
+            </a>
+
+            <input class="form-control" id="mySearchYear" type="text" autocomplete="off" placeholder="Year">
 
             <select class="form-control" id="mySearchGenre" name="genre">
                 <option value="">All genres</option>

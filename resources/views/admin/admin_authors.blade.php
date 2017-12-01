@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </form>
-                
+
                 @if (count($authors) !== 0)
                     <table class="table" id="authors_table">
                         <thead>
