@@ -55,8 +55,8 @@ class BooksController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'year' => 'required|integer',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'year' => 'required|integer|max:'.Now()->year,
+            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'author' => 'required|string|max:255',
             'genre' => 'required|string|max:255',
         ]);
