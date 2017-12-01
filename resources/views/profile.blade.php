@@ -107,7 +107,7 @@
                                 <td>{{ $val->genre }}</td>
                                 <td>
                                     @if ($user_info['id'] == Auth::user()->id)
-                                        <form action="delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
+                                        <form action="/delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
                                             {{csrf_field()}}
                                             <input name="_method" type="hidden" value="DELETE">
                                             <input name="id" type="hidden" value="{{ $val->id }}">
