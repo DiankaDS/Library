@@ -9,7 +9,61 @@ function myModal(id, paramPamPam) {
     $("#myModal .modal-body").text(paramPamPam);
 }
 
-// --- Ajax in add_book and home (find text in input) ---
+// // --- Ajax in add_book and home (find text in input) ---
+// function checkTip(e, id){
+//
+//     clearTips();
+//     var input = $(e.currentTarget);
+//
+//     var timer;
+//     clearTimeout(timer);
+//
+//     timer=setTimeout(function(){
+//
+//     if(input.val()!=''){
+//
+//         $.ajax({
+//             'headers': {
+//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//             },
+//             'type': 'post',
+//             'url': 'search_value',
+//             'data': {
+//                 'str': input.val(),
+//                 'id': id
+//             },
+//             success: function(data){
+//                 var source = $.parseJSON(data);
+//
+//                 if(source!='') {
+//                     var tips = $("<ul class='tips dropdown-menu'></ul>");
+//
+//                     // console.log(input.val());
+//                     // console.log(data);
+//                     // console.log(source);
+//
+//                     for (var i = 0; i < source.length; i++) {
+//                         // var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+//                         var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
+//                         tip.click(function (e) {
+//                             $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
+//                         });
+//                         tips.append(tip);
+//                     }
+//                     tips.appendTo((input).parent());
+//                 }
+//             },
+//             error: function(x, e){
+//                 console.log(x);
+//                 console.log(e);
+//             }
+//         });
+//     }
+//     }, 1000);
+// }
+
+
+// --- Google search in add_book (find text in input) ---
 function checkTip(e, id){
 
     clearTips();
@@ -20,47 +74,63 @@ function checkTip(e, id){
 
     timer=setTimeout(function(){
 
-    if(input.val()!=''){
+        if(input.val()!=''){
 
-        $.ajax({
-            'headers': {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            'type': 'post',
-            'url': 'search_value',
-            'data': {
-                'str': input.val(),
-                'id': id
-            },
-            success: function(data){
-                var source = $.parseJSON(data);
+            $.ajax({
+                'headers': {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                'type': 'post',
+                'url': 'search_value',
+                'data': {
+                    'str': input.val(),
+                    'id': id
+                },
+                success: function(data){
+                    var source = $.parseJSON(data);
 
-                if(source!='') {
-                    var tips = $("<ul class='tips dropdown-menu'></ul>");
+                    if(source!='') {
+                        var tips = $("<ul class='tips dropdown-menu'></ul>");
 
-                    // console.log(input.val());
-                    // console.log(data);
-                    // console.log(source);
+                        console.log(input.val());
+                        console.log(data);
+                        console.log(source);
 
-                    for (var i = 0; i < source.length; i++) {
-                        // var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
-                        var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
-                        tip.click(function (e) {
-                            $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
-                        });
-                        tips.append(tip);
+                        for (var i = 0; i < source.length; i++) {
+                            // var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+
+                            if(id == 'name') {
+
+                                var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
+                            }
+                            else{
+                                var tip = $("<li class='tip'><a href='#'>" + source[i]['author'] + "</a></li>");
+                            }
+
+                            tip.click(function (e) {
+                                $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
+                            });
+                            tips.append(tip);
+                        }
+                        tips.appendTo((input).parent());
                     }
-                    tips.appendTo((input).parent());
+                },
+                error: function(x, e){
+                    console.log(x);
+                    console.log(e);
                 }
-            },
-            error: function(x, e){
-                console.log(x);
-                console.log(e);
-            }
-        });
-    }
+            });
+        }
     }, 1000);
 }
+
+
+
+
+
+
+
+
 
 function clearTips(){
     $('.tips').remove();

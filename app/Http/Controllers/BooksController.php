@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use Image;
 
+use App\Services\GoogleBooksSearch;
+
+
 class BooksController extends Controller
 {
     public function __construct()
@@ -28,27 +31,73 @@ class BooksController extends Controller
         ));
     }
 
-    public function addBookSearch(Request $request)
+    public function addBookSearch(GoogleBooksSearch $google, Request $request)
     {
+//        $str = $request['str'];
+//        $id = $request['id'];
+//
+//        if ($id == 'name') {
+//        $source = DB::table('lib_books')
+//            ->select('lib_books.name')
+//            ->where('lib_books.name', 'like', '%' . $str . '%')
+//            ->get();
+//        }
+//
+//        elseif ($id == 'author') {
+//            $source = DB::table('authors')
+//                ->select('authors.name')
+//                ->where('authors.name', 'like', '%' . $str . '%')
+//                ->get();
+//        }
+//        else $source = [];
+//
+//        return json_encode($source);
+
+
+
+
+
         $str = $request['str'];
         $id = $request['id'];
 
-        if ($id == 'name') {
-        $source = DB::table('lib_books')
-            ->select('lib_books.name')
-            ->where('lib_books.name', 'like', '%' . $str . '%')
-            ->get();
+        $result = $google->getBooks($str);
+//        , 'Walden', 'Henry David Thoreau');
+
+
+        if($id == 'name') {
+            $source = [];
+            foreach ($result as $item) {
+                $source[] = [
+                    'name' => $item['volumeInfo']['title'],
+//                    'author' => $item['volumeInfo']['authors'],
+//                    'genre' => $item['volumeInfo']['categories'],
+//                    'year' => $item['volumeInfo']['publishedDate'],
+//                    'description' => $item['volumeInfo']['description'],
+//                    'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
+                ];
+
+            }
         }
 
         elseif ($id == 'author') {
-            $source = DB::table('authors')
-                ->select('authors.name')
-                ->where('authors.name', 'like', '%' . $str . '%')
-                ->get();
+            $source = [];
+            foreach ($result as $item) {
+                $source[] = [
+//                    'name' => $item['volumeInfo']['title'],
+                    'author' => $item['volumeInfo']['authors'],
+//                    'genre' => $item['volumeInfo']['categories'],
+//                    'year' => $item['volumeInfo']['publishedDate'],
+//                    'description' => $item['volumeInfo']['description'],
+//                    'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
+                ];
+
+            }
         }
+
         else $source = [];
 
         return json_encode($source);
+
     }
 
     protected function create(Request $request)

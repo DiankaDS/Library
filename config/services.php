@@ -41,4 +41,10 @@ return [
         'redirect' => env('FACEBOOK_URL'),
     ],
 
+    'google' => [
+        'google_project' => env('GOOGLE_BOOKS_PROJECT'),
+        'google_key' => env('GOOGLE_BOOKS_API_KEY'),
+    ],
+
+
 ];
