@@ -241,7 +241,9 @@ function googleModal(name, author, genre, year, description, photo) {
 
     body.empty();
 
-    var p = '<table class=\"table\"><tbody><tr><th>Book name:</th><td>' + name + '</td>' +
+    // var p = '<table class=\"table\"><tbody><tr><th></th><td><img src="' + photo + '" style="width: 125px; height: 150px;"></td>' +
+    var p = '<img src="' + photo + '" style="width: 125px; height: 150px;"><br><table class=\"table\"><tbody>' +
+        '<tr><th>Book name:</th><td>' + name + '</td>' +
         '<tr><th>Author:</th><td>' + author + '</td>' +
         '<tr><th>Genre:</th><td>' + genre + '</td>' +
         '<tr><th>Year:</th><td>' + year + '</td>' +
