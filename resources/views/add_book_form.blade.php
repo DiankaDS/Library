@@ -10,12 +10,49 @@
         @endif
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            {{--<div class="col-md-8 col-md-offset-2">--}}
                 <div class="panel panel-default">
-                    <div class="panel-heading">Add new book</div>
+                    {{--<div class="panel-heading">Search book to add</div>--}}
 
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapseOne">Search book to add</a>
+                        </h4>
+                    </div>
+
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" autocomplete="off" name="name" onkeyup='googleSearch(event);' placeholder="Please, search your book here">
+                            <br>
+                            </div>
+
+                            <div class="row col-md-12" id="myBooks"></div>
+
+                        </div>
+                    </div>
+                </div>
+            {{--</div>--}}
+        </div>
+
+
+
+
+
+        <div class="row">
+            {{--<div class="col-md-8 col-md-offset-2">--}}
+            <div class="panel panel-default">
+                {{--<div class="panel-heading">Add new book</div>--}}
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapseTwo">Add new book</a>
+                    </h4>
+                </div>
+
+                <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="add_book/complete">
+                        <form class="form-horizontal col-md-8 col-md-offset-2" method="POST" enctype="multipart/form-data" action="add_book/complete">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -30,8 +67,8 @@
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -48,8 +85,8 @@
 
                                     @if ($errors->has('author'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('author') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('author') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -62,8 +99,8 @@
 
                                     @if ($errors->has('year'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('year') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('year') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -91,8 +128,8 @@
 
                                     @if ($errors->has('description'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('description') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('description') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -105,23 +142,41 @@
 
                                     @if ($errors->has('photo'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('photo') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('photo') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary" value="Add_book">
+                                    <button type="submit" class="btn btn-success" value="Add_book">
                                         Add book
-                                    </button> 
+                                    </button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                {{--</div>--}}
             </div>
         </div>
+
+
+        <div id="googleModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">Are you sure to add this book?</h4>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="submit" id="YesButton">Add book</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">No, back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection

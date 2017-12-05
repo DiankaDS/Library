@@ -52,6 +52,8 @@ Route::post('/add_review','BooksController@addReview');
 
 Route::post('search_value','BooksController@addBookSearch');
 
+Route::post('google_search','BooksController@googleBookSearch');
+
 // Orders routes
 
 Route::post('orders','OrdersController@createOrder');

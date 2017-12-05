@@ -9,7 +9,66 @@ function myModal(id, paramPamPam) {
     $("#myModal .modal-body").text(paramPamPam);
 }
 
-// // --- Ajax in add_book and home (find text in input) ---
+// --- Ajax in add_book and home (find text in input) ---
+function checkTip(e, id){
+
+    clearTips();
+    var input = $(e.currentTarget);
+
+    var timer;
+    clearTimeout(timer);
+
+    timer=setTimeout(function(){
+
+    if(input.val()!=''){
+
+        $.ajax({
+            'headers': {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            'type': 'post',
+            'url': 'search_value',
+            'data': {
+                'str': input.val(),
+                'id': id
+            },
+            success: function(data){
+                var source = $.parseJSON(data);
+
+                if(source!='') {
+                    var tips = $("<ul class='tips dropdown-menu'></ul>");
+
+                    // console.log(input.val());
+                    // console.log(data);
+                    // console.log(source);
+
+                    for (var i = 0; i < source.length; i++) {
+                        // var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+                        var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
+                        tip.click(function (e) {
+                            $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
+                        });
+                        tips.append(tip);
+                    }
+                    tips.appendTo((input).parent());
+                }
+            },
+            error: function(x, e){
+                console.log(x);
+                console.log(e);
+            }
+        });
+    }
+    }, 1000);
+}
+
+function clearTips(){
+    $('.tips').remove();
+}
+
+
+
+// // --- Google search in add_book (find text in input) ---
 // function checkTip(e, id){
 //
 //     clearTips();
@@ -20,51 +79,73 @@ function myModal(id, paramPamPam) {
 //
 //     timer=setTimeout(function(){
 //
-//     if(input.val()!=''){
+//         if(input.val()!=''){
 //
-//         $.ajax({
-//             'headers': {
-//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//             },
-//             'type': 'post',
-//             'url': 'search_value',
-//             'data': {
-//                 'str': input.val(),
-//                 'id': id
-//             },
-//             success: function(data){
-//                 var source = $.parseJSON(data);
+//             $.ajax({
+//                 'headers': {
+//                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//                 },
+//                 'type': 'post',
+//                 'url': 'search_value',
+//                 'data': {
+//                     'str': input.val(),
+//                     'id': id
+//                 },
+//                 success: function(data){
+//                     var source = $.parseJSON(data);
 //
-//                 if(source!='') {
-//                     var tips = $("<ul class='tips dropdown-menu'></ul>");
+//                     if(source!='') {
+//                         var tips = $("<ul class='tips dropdown-menu'></ul>");
 //
-//                     // console.log(input.val());
-//                     // console.log(data);
-//                     // console.log(source);
+//                         // console.log(input.val());
+//                         // console.log(data);
+//                         console.log(source);
 //
-//                     for (var i = 0; i < source.length; i++) {
-//                         // var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
-//                         var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
-//                         tip.click(function (e) {
-//                             $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
-//                         });
-//                         tips.append(tip);
+//                         for (var i = 0; i < source.length; i++) {
+//                             // var arr = [source[i]['name'], source[i]['author'], source[i]['genre'], source[i]['year'], source[i]['description']];
+//                             var tip = $("<li class='tip'><a href='#' id='"
+//                                 + i + "' onclick='tip_click("
+//                                 // + '"' + arr + '"'
+//                                 + '"'+ source[i]['name'] + '", "'
+//                                 + source[i]['author'] + '", "'
+//                                 + source[i]['genre'] + '", "'
+//                                 + source[i]['year'] + '", "'
+//                                 + escape(source[i]['description']) + '", "'
+//                                 + source[i]['photo'] + '"'
+//                                 + ")'>" + source[i]['name'] + ', ' + source[i]['author'] + "</a></li>");
+//
+//                             tips.append(tip);
+//                         }
+//                         tips.appendTo((input).parent());
 //                     }
-//                     tips.appendTo((input).parent());
+//                 },
+//                 error: function(x, e){
+//                     console.log(x);
+//                     console.log(e);
 //                 }
-//             },
-//             error: function(x, e){
-//                 console.log(x);
-//                 console.log(e);
-//             }
-//         });
-//     }
+//             });
+//         }
 //     }, 1000);
+// }
+//
+// function tip_click(name, author, genre, year, description, photo){
+//     // function tip_click(a){
+//     // console.log(unescape(description));
+//     console.log(photo);
+//
+//     $('#name').val(name);
+//     $('#author').val(author);
+//     // $('#genre').val(genre);
+//     $('#year').val(year);
+//     $('#description').val(unescape(description));
+//     // $('#photo').val(photo);
 // }
 
 
+
+
 // --- Google search in add_book (find text in input) ---
-function checkTip(e, id){
+function googleSearch(e){
 
     clearTips();
     var input = $(e.currentTarget);
@@ -81,37 +162,55 @@ function checkTip(e, id){
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 'type': 'post',
-                'url': 'search_value',
+                'url': 'google_search',
                 'data': {
-                    'str': input.val(),
-                    'id': id
+                    'str': input.val()
+                    // 'id': id
                 },
                 success: function(data){
                     var source = $.parseJSON(data);
+                    $("#myBooks").empty();
 
                     if(source!='') {
-                        var tips = $("<ul class='tips dropdown-menu'></ul>");
 
                         // console.log(input.val());
                         // console.log(data);
                         console.log(source);
 
                         for (var i = 0; i < source.length; i++) {
-                            // var arr = [source[i]['name'], source[i]['author'], source[i]['genre'], source[i]['year'], source[i]['description']];
-                            var tip = $("<li class='tip'><a href='#' id='"
-                                + i + "' onclick='tip_click("
-                                // + '"' + arr + '"'
-                                + '"'+ source[i]['name'] + '", "'
-                                + source[i]['author'] + '", "'
-                                + source[i]['genre'] + '", "'
-                                + source[i]['year'] + '", "'
-                                + escape(source[i]['description']) + '", "'
-                                + source[i]['photo'] + '"'
-                                + ")'>" + source[i]['name'] + ', ' + source[i]['author'] + "</a></li>");
+                            var container = $('<div class="col-md-3"></div>');
+                            container.appendTo($("#myBooks"));
 
-                            tips.append(tip);
+                            var thumb = $('<div class="thumbnail" style="width: 220px; height: 280px;" onclick="googleModal(' +
+                                '\'' + source[i]['name'] + '\', \'' +
+                                source[i]['author'] + '\', \'' +
+                                source[i]['genre'] + '\', \'' +
+                                source[i]['year'] + '\', \'' +
+                                escape(source[i]['description']) + '\', \'' +
+                                source[i]['photo'] + '\'' +
+                                ')"></div>');
+                            thumb.appendTo(container);
+
+                            var a = $('<a href="#" name="' + source[i].name + '">');
+                            a.appendTo(thumb);
+
+                            if (source[i].photo != null) {
+                                var img = $('<img src="' + source[i].photo + '" style="width: 125px; height: 150px;">');
+                            }
+                            else{
+                                var img = $('<img src="../images/default_book.jpg" style="width: 125px; height: 150px;">');
+                            }
+                            img.appendTo(a);
+
+                            var caption = $('<div class="caption"></div>');
+                            caption.appendTo(thumb);
+
+                            var pa = $('<p align="center"><a href="#" name="' + source[i].id + '">' + source[i].name + '</a></div>');
+                            pa.appendTo(caption);
+
+                            var p = $('<p align="center">' + source[i].author + ', ' + source[i].year + '</p>');
+                            p.appendTo(caption);
                         }
-                        tips.appendTo((input).parent());
                     }
                 },
                 error: function(x, e){
@@ -123,26 +222,57 @@ function checkTip(e, id){
     }, 1000);
 }
 
-function tip_click(name, author, genre, year, description, photo){
-    // function tip_click(a){
+
+function googleModal(name, author, genre, year, description, photo) {
+    $('#googleModal').modal('show');
+    $('#YesButton').off('click');
+    $('#YesButton').on('click', function(){
+        // $('#'+id).submit();
+    });
+
+    // console.log(name);
+    // console.log(author);
+    // console.log(genre);
+    // console.log(year);
     // console.log(unescape(description));
-    console.log(photo);
+    // console.log(photo);
 
-    $('#name').val(name);
-    $('#author').val(author);
-    // $('#genre').val(genre);
-    $('#year').val(year);
-    $('#description').val(unescape(description));
-    // $('#photo').val(photo);
+    var body = $("#googleModal .modal-body");
+
+    body.empty();
+
+    var p = '<table class=\"table\"><tbody><tr><th>Book name:</th><td>' + name + '</td>' +
+        '<tr><th>Author:</th><td>' + author + '</td>' +
+        '<tr><th>Genre:</th><td>' + genre + '</td>' +
+        '<tr><th>Year:</th><td>' + year + '</td>' +
+        '<tr><th>Description:</th><td>' + unescape(description) + '</td></tr></tbody></table>' ;
+
+    body.append(p);
 }
 
+// function googleBookClick(name, author, genre, year, description, photo){
+//     // function tip_click(a){
+//     // console.log(unescape(description));
+//     console.log(name);
+//     console.log(author);
+//     console.log(genre);
+//     console.log(year);
+//     console.log(unescape(description));
+//     console.log(photo);
+//
+//     // $('#name').val(name);
+//     // $('#author').val(author);
+//     // // $('#genre').val(genre);
+//     // $('#year').val(year);
+//     // $('#description').val(unescape(description));
+//     // // $('#photo').val(photo);
+// }
 
 
 
 
-function clearTips(){
-    $('.tips').remove();
-}
+
+
 
 // --- Ajax in Home (search books) ---
 function searchBook(){

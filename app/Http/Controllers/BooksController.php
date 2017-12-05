@@ -31,33 +31,34 @@ class BooksController extends Controller
         ));
     }
 
-    public function addBookSearch(GoogleBooksSearch $google, Request $request)
+    public function addBookSearch(Request $request)
     {
-//        $str = $request['str'];
-//        $id = $request['id'];
-//
-//        if ($id == 'name') {
-//        $source = DB::table('lib_books')
-//            ->select('lib_books.name')
-//            ->where('lib_books.name', 'like', '%' . $str . '%')
-//            ->get();
-//        }
-//
-//        elseif ($id == 'author') {
-//            $source = DB::table('authors')
-//                ->select('authors.name')
-//                ->where('authors.name', 'like', '%' . $str . '%')
-//                ->get();
-//        }
-//        else $source = [];
-//
-//        return json_encode($source);
-
-
-
-
         $str = $request['str'];
         $id = $request['id'];
+
+        if ($id == 'name') {
+        $source = DB::table('lib_books')
+            ->select('lib_books.name')
+            ->where('lib_books.name', 'like', '%' . $str . '%')
+            ->get();
+        }
+
+        elseif ($id == 'author') {
+            $source = DB::table('authors')
+                ->select('authors.name')
+                ->where('authors.name', 'like', '%' . $str . '%')
+                ->get();
+        }
+        else $source = [];
+
+        return json_encode($source);
+    }
+
+
+        public function googleBookSearch(GoogleBooksSearch $google, Request $request)
+    {
+        $str = $request['str'];
+//        $id = $request['id'];
 
         $result = $google->getBooks($str);
 //        , 'Walden', 'Henry David Thoreau');
@@ -67,6 +68,7 @@ class BooksController extends Controller
             $source = [];
             foreach ($result as $item) {
                 $source[] = [
+                    'id' => $item['id'],
                     'name' => $item['volumeInfo']['title'],
                     'author' => $item['volumeInfo']['authors'],
                     'genre' => $item['volumeInfo']['categories'],
@@ -74,7 +76,6 @@ class BooksController extends Controller
                     'description' => $item['volumeInfo']['description'],
                     'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
                 ];
-
             }
 //        }
 
