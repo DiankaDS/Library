@@ -92,24 +92,23 @@ function checkTip(e, id){
                     if(source!='') {
                         var tips = $("<ul class='tips dropdown-menu'></ul>");
 
-                        console.log(input.val());
-                        console.log(data);
+                        // console.log(input.val());
+                        // console.log(data);
                         console.log(source);
 
                         for (var i = 0; i < source.length; i++) {
-                            // var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+                            // var arr = [source[i]['name'], source[i]['author'], source[i]['genre'], source[i]['year'], source[i]['description']];
+                            var tip = $("<li class='tip'><a href='#' id='"
+                                + i + "' onclick='tip_click("
+                                // + '"' + arr + '"'
+                                + '"'+ source[i]['name'] + '", "'
+                                + source[i]['author'] + '", "'
+                                + source[i]['genre'] + '", "'
+                                + source[i]['year'] + '", "'
+                                + escape(source[i]['description']) + '", "'
+                                + source[i]['photo'] + '"'
+                                + ")'>" + source[i]['name'] + ', ' + source[i]['author'] + "</a></li>");
 
-                            if(id == 'name') {
-
-                                var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
-                            }
-                            else{
-                                var tip = $("<li class='tip'><a href='#'>" + source[i]['author'] + "</a></li>");
-                            }
-
-                            tip.click(function (e) {
-                                $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
-                            });
                             tips.append(tip);
                         }
                         tips.appendTo((input).parent());
@@ -124,9 +123,18 @@ function checkTip(e, id){
     }, 1000);
 }
 
+function tip_click(name, author, genre, year, description, photo){
+    // function tip_click(a){
+    // console.log(unescape(description));
+    console.log(photo);
 
-
-
+    $('#name').val(name);
+    $('#author').val(author);
+    // $('#genre').val(genre);
+    $('#year').val(year);
+    $('#description').val(unescape(description));
+    // $('#photo').val(photo);
+}
 
 
 

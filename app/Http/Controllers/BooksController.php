@@ -56,7 +56,6 @@ class BooksController extends Controller
 
 
 
-
         $str = $request['str'];
         $id = $request['id'];
 
@@ -64,37 +63,37 @@ class BooksController extends Controller
 //        , 'Walden', 'Henry David Thoreau');
 
 
-        if($id == 'name') {
+//        if($id == 'name') {
             $source = [];
             foreach ($result as $item) {
                 $source[] = [
                     'name' => $item['volumeInfo']['title'],
-//                    'author' => $item['volumeInfo']['authors'],
-//                    'genre' => $item['volumeInfo']['categories'],
-//                    'year' => $item['volumeInfo']['publishedDate'],
-//                    'description' => $item['volumeInfo']['description'],
-//                    'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
-                ];
-
-            }
-        }
-
-        elseif ($id == 'author') {
-            $source = [];
-            foreach ($result as $item) {
-                $source[] = [
-//                    'name' => $item['volumeInfo']['title'],
                     'author' => $item['volumeInfo']['authors'],
-//                    'genre' => $item['volumeInfo']['categories'],
-//                    'year' => $item['volumeInfo']['publishedDate'],
-//                    'description' => $item['volumeInfo']['description'],
-//                    'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
+                    'genre' => $item['volumeInfo']['categories'],
+                    'year' => $item['volumeInfo']['publishedDate'],
+                    'description' => $item['volumeInfo']['description'],
+                    'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
                 ];
 
             }
-        }
+//        }
 
-        else $source = [];
+//        elseif ($id == 'author') {
+//            $source = [];
+//            foreach ($result as $item) {
+//                $source[] = [
+////                    'name' => $item['volumeInfo']['title'],
+//                    'author' => $item['volumeInfo']['authors'],
+////                    'genre' => $item['volumeInfo']['categories'],
+////                    'year' => $item['volumeInfo']['publishedDate'],
+////                    'description' => $item['volumeInfo']['description'],
+////                    'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
+//                ];
+//
+//            }
+//        }
+//
+//        else $source = [];
 
         return json_encode($source);
 

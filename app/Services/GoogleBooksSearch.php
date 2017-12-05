@@ -27,8 +27,8 @@ class GoogleBooksSearch
 
     public function getBooks($field)
     {
-        $optParams = array('filter' => 'free-ebooks');
-        $results = $this->service->volumes->listVolumes($field, $optParams)->getItems();
+//        $optParams = array('filter' => 'free-ebooks');
+        $results = $this->service->volumes->listVolumes($field)->getItems();
 
 //        dd($results);
         return $results;

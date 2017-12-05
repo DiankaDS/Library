@@ -42,9 +42,9 @@
                                 <div class="col-md-6">
 
                                     <a class="dropdown">
-                                        <input class="form-control" data-toggle="dropdown" id="author" type="text" autocomplete="off" name="author" value="{{ old('author') }}" onkeyup='checkTip(event, "author");' required>
+                                        <input class="form-control" data-toggle="dropdown" id="author" type="text" autocomplete="off" name="author" value="{{ old('author') }}" required>
+                                        {{--<input class="form-control" data-toggle="dropdown" id="author" type="text" autocomplete="off" name="author" value="{{ old('author') }}" onkeyup='checkTip(event, "author");' required>--}}
                                     </a>
-                                    {{--<input id="author" type="text" autocomplete="off" class="form-control" name="author" value="{{ old('author') }}" onkeyup='checkTip(event, "author");' required>--}}
 
                                     @if ($errors->has('author'))
                                         <span class="help-block">
@@ -79,6 +79,21 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                                <label for="description" class="col-md-4 control-label">Description</label>
+
+                                <div class="col-md-6">
+                                    {{--<input id="description" type="text" autocomplete="off" class="form-control" name="description" value="{{ old('description') }}" required>--}}
+                                    <textarea rows="4" cols="50" name="description" id="description" autocomplete="off" class="form-control" required>{{ old('description') }}</textarea>
+
+                                    @if ($errors->has('description'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
 
