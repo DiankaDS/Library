@@ -66,84 +66,6 @@ function clearTips(){
     $('.tips').remove();
 }
 
-
-
-// // --- Google search in add_book (find text in input) ---
-// function checkTip(e, id){
-//
-//     clearTips();
-//     var input = $(e.currentTarget);
-//
-//     var timer;
-//     clearTimeout(timer);
-//
-//     timer=setTimeout(function(){
-//
-//         if(input.val()!=''){
-//
-//             $.ajax({
-//                 'headers': {
-//                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//                 },
-//                 'type': 'post',
-//                 'url': 'search_value',
-//                 'data': {
-//                     'str': input.val(),
-//                     'id': id
-//                 },
-//                 success: function(data){
-//                     var source = $.parseJSON(data);
-//
-//                     if(source!='') {
-//                         var tips = $("<ul class='tips dropdown-menu'></ul>");
-//
-//                         // console.log(input.val());
-//                         // console.log(data);
-//                         console.log(source);
-//
-//                         for (var i = 0; i < source.length; i++) {
-//                             // var arr = [source[i]['name'], source[i]['author'], source[i]['genre'], source[i]['year'], source[i]['description']];
-//                             var tip = $("<li class='tip'><a href='#' id='"
-//                                 + i + "' onclick='tip_click("
-//                                 // + '"' + arr + '"'
-//                                 + '"'+ source[i]['name'] + '", "'
-//                                 + source[i]['author'] + '", "'
-//                                 + source[i]['genre'] + '", "'
-//                                 + source[i]['year'] + '", "'
-//                                 + escape(source[i]['description']) + '", "'
-//                                 + source[i]['photo'] + '"'
-//                                 + ")'>" + source[i]['name'] + ', ' + source[i]['author'] + "</a></li>");
-//
-//                             tips.append(tip);
-//                         }
-//                         tips.appendTo((input).parent());
-//                     }
-//                 },
-//                 error: function(x, e){
-//                     console.log(x);
-//                     console.log(e);
-//                 }
-//             });
-//         }
-//     }, 1000);
-// }
-//
-// function tip_click(name, author, genre, year, description, photo){
-//     // function tip_click(a){
-//     // console.log(unescape(description));
-//     console.log(photo);
-//
-//     $('#name').val(name);
-//     $('#author').val(author);
-//     // $('#genre').val(genre);
-//     $('#year').val(year);
-//     $('#description').val(unescape(description));
-//     // $('#photo').val(photo);
-// }
-
-
-
-
 // --- Google search in add_book (find text in input) ---
 function googleSearch(e){
 
@@ -165,7 +87,6 @@ function googleSearch(e){
                 'url': 'google_search',
                 'data': {
                     'str': input.val()
-                    // 'id': id
                 },
                 success: function(data){
                     var source = $.parseJSON(data);
@@ -175,18 +96,18 @@ function googleSearch(e){
 
                         // console.log(input.val());
                         // console.log(data);
-                        console.log(source);
+                        // console.log(source);
 
                         for (var i = 0; i < source.length; i++) {
                             var container = $('<div class="col-md-3"></div>');
                             container.appendTo($("#myBooks"));
 
                             if (source[i]['description'] == null) {
-                                source[i]['description'] = '';
+                                source[i]['description'] = ' ';
                             }
 
                             var thumb = $('<div class="thumbnail" style="width: 250px; height: 300px;" onclick="googleModal(' +
-                                '\'' + source[i]['name'] + '\', \'' +
+                                '\'' + escape(source[i]['name']) + '\', \'' +
                                 source[i]['author'] + '\', \'' +
                                 source[i]['genre'] + '\', \'' +
                                 source[i]['year'] + '\', \'' +
@@ -209,10 +130,10 @@ function googleSearch(e){
                             var caption = $('<div class="caption"></div>');
                             caption.appendTo(thumb);
 
-                            var pa = $('<p align="center"><a href="#" name="' + source[i].id + '">' + source[i].name + '</a></div>');
+                            var pa = $('<p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><a href="#" name="' + source[i].id + '">' + source[i].name + '</a></div>');
                             pa.appendTo(caption);
 
-                            var p = $('<p align="center">' + source[i].author + ', ' + source[i].year + '</p>');
+                            var p = $('<p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">' + source[i].author + ', ' + source[i].year + '</p>');
                             p.appendTo(caption);
                         }
                     }
@@ -229,28 +150,29 @@ function googleSearch(e){
     }, 1000);
 }
 
-
 function googleModal(name, author, genre, year, description, photo) {
     $('#googleModal').modal('show');
     $('#YesButton').off('click');
     $('#YesButton').on('click', function(){
-        // $('#'+id).submit();
+
+        $('#name').val(unescape(name));
+        $('#author').val(author);
+        $('#genre').val(genre);
+        $('#year').val(year);
+        $('#description').val(unescape(description));
+        $('#google_photo').val(photo);
+
+        $('#create_book_form').submit();
     });
 
     // console.log(name);
-    // console.log(author);
-    // console.log(genre);
-    // console.log(year);
-    // console.log(unescape(description));
-    // console.log(photo);
 
     var body = $("#googleModal .modal-body");
 
     body.empty();
 
-    // var p = '<table class=\"table\"><tbody><tr><th></th><td><img src="' + photo + '" style="width: 125px; height: 150px;"></td>' +
     var p = '<img src="' + photo + '" style="width: 125px; height: 150px;"><br><table class=\"table\"><tbody>' +
-        '<tr><th>Book name:</th><td>' + name + '</td>' +
+        '<tr><th>Book name:</th><td>' + unescape(name) + '</td>' +
         '<tr><th>Author:</th><td>' + author + '</td>' +
         '<tr><th>Genre:</th><td>' + genre + '</td>' +
         '<tr><th>Year:</th><td>' + year + '</td>' +
@@ -259,22 +181,18 @@ function googleModal(name, author, genre, year, description, photo) {
     body.append(p);
 }
 
-// function googleBookClick(name, author, genre, year, description, photo){
+
+// function tip_click(name, author, genre, year, description, photo){
 //     // function tip_click(a){
 //     // console.log(unescape(description));
-//     console.log(name);
-//     console.log(author);
-//     console.log(genre);
-//     console.log(year);
-//     console.log(unescape(description));
 //     console.log(photo);
 //
-//     // $('#name').val(name);
-//     // $('#author').val(author);
-//     // // $('#genre').val(genre);
-//     // $('#year').val(year);
-//     // $('#description').val(unescape(description));
-//     // // $('#photo').val(photo);
+//     $('#name').val(name);
+//     $('#author').val(author);
+//     // $('#genre').val(genre);
+//     $('#year').val(year);
+//     $('#description').val(unescape(description));
+//     // $('#photo').val(photo);
 // }
 
 
@@ -319,7 +237,7 @@ function searchBook(){
                     a.appendTo(thumb);
 
                     if (source[i].photo != 0) {
-                        var img = $('<img src="../images/books/' + source[i].photo + '" style="width: 125px; height: 150px;">');
+                        var img = $('<img src="' + source[i].photo + '" style="width: 125px; height: 150px;">');
                     }
                     else{
                         var img = $('<img src="../images/default_book.jpg" style="width: 125px; height: 150px;">');

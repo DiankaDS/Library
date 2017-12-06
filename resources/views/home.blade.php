@@ -56,7 +56,7 @@
                                 <div class="thumbnail">
                                     <a href="book_{{ $val->id }}" name="{{ $val->id }}">
                                         @if ($val->photo)
-                                            <img src="../images/books/{{$val->photo}}" style="width: 125px; height: 150px;">
+                                            <img src="{{$val->photo}}" style="width: 125px; height: 150px;">
                                         @else
                                             <img src="../images/default_book.jpg" style="width: 125px; height: 150px;">
                                         @endif

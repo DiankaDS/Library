@@ -49,7 +49,7 @@
 
                 <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <form class="form-horizontal col-md-8 col-md-offset-2" method="POST" enctype="multipart/form-data" action="add_book/complete">
+                        <form class="form-horizontal col-md-8 col-md-offset-2" method="POST" enctype="multipart/form-data" action="/add_book/complete" id="create_book_form">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -102,19 +102,34 @@
                                 </div>
                             </div>
 
+
                             <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
                                 <label for="genre" class="col-md-4 control-label">Genre</label>
 
-                                <div class="form-group">
-                                    <div class="col-md-4">
-                                        <select class="form-control" id="genre" name="genre">
-                                            @foreach ($genres as $val)
-                                                <option value="{{ $val->id }}">{{ $val->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                <div class="col-md-6">
+                                    <input id="genre" type="text" autocomplete="off" class="form-control" name="genre" value="{{ old('genre') }}" required>
+
+                                    @if ($errors->has('genre'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('genre') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
+
+                            {{--<div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">--}}
+                                {{--<label for="genre" class="col-md-4 control-label">Genre</label>--}}
+
+                                {{--<div class="form-group">--}}
+                                    {{--<div class="col-md-4">--}}
+                                        {{--<select class="form-control" id="genre" name="genre">--}}
+                                            {{--@foreach ($genres as $val)--}}
+                                                {{--<option value="{{ $val->id }}">{{ $val->name }}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
                             <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                                 <label for="description" class="col-md-4 control-label">Description</label>
@@ -136,6 +151,7 @@
 
                                 <div class="col-md-6">
                                     <input id="photo" type="file" name="photo" required>
+                                    <input id="google_photo" name="google_photo" type="hidden">
 
                                     @if ($errors->has('photo'))
                                         <span class="help-block">

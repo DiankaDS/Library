@@ -57,18 +57,34 @@ class BooksController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'year' => 'required|integer|max:'.Now()->year,
-            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'author' => 'required|string|max:255',
             'genre' => 'required|string|max:255',
         ]);
 
         if ($request->file('photo')) {
             $file = $request->file('photo');
-            $file_name = time() . '_' . $_FILES['photo']['name'];
-            $file->move(public_path() . '/images/books', $file_name);
+            $file_move_name = time() . '_' . $_FILES['photo']['name'];
+            $file->move(public_path() . '/images/books', $file_move_name);
+            $file_name = '/images/books/' . $file_move_name;
+        }
+
+        elseif ($request->get('google_photo')) {
+            $file_name = $request->get('google_photo');
         }
         else {
             $file_name = '';
+        }
+
+        $genre_id = DB::table('genres')
+            ->select('id')
+            ->where('name', $request->get('genre'))
+            ->first();
+
+        if (!$genre_id) {
+            $genre_id = DB::table('genres')->insertGetId([
+                'name' => $request->get('genre'),
+            ]);
         }
 
         $book = LibBook::where('name', $request->get('name'))->first();
@@ -77,24 +93,28 @@ class BooksController extends Controller
             $book = LibBook::create([
                 'name' => $request->get('name'),
                 'year' => $request->get('year'),
-                'genre_id' => $request->get('genre'),
-                'description' => 'Lorem ipsum dolor sit amet',
+                'genre_id' => $genre_id,
+                'description' => $request->get('description'),
                 'photo' => $file_name,
             ]);
         }
 
+        $user = User::find(Auth::user()->id);
 //        $author = Author::find($request->get('author'));
-        $author = Author::where('name', $request->get('author'))->first();
 
-        if (!$author) {
-            $author = Author::create([
-                'name' => $request->get('author'),
-            ]);
+        foreach(explode(',', $request->get('author')) as $val) {
+
+            $author = Author::where('name', $val)->first();
+
+            if (!$author) {
+                $author = Author::create([
+                    'name' => $val,
+                ]);
+            }
+
+            $book->authors()->save($author);
         }
 
-        $user = User::find(Auth::user()->id);
-
-        $book->authors()->save($author);
         $book->users()->save($user);
 
         $message = "Book created!";

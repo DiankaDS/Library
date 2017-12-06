@@ -17,7 +17,7 @@
                 <div class="panel-body" align="center">
 
                     @if ($book_info->photo)
-                        <img src="../images/books/{{$book_info->photo}}" height="300" width="250">
+                        <img src="{{$book_info->photo}}" height="300" width="250">
                     @else
                         <img src="../images/default_book.jpg" height="300" width="250">
                     @endif
