@@ -52,7 +52,9 @@ Route::post('/add_review','BooksController@addReview');
 
 Route::post('search_value','BooksController@addBookSearch');
 
-Route::post('google_search','BooksController@googleBookSearch');
+// Google Books Api routes
+
+Route::post('google_search','GoogleBooksController@googleBookSearch');
 
 // Orders routes
 

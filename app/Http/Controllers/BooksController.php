@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use Image;
 
-use App\Services\GoogleBooksSearch;
-
 
 class BooksController extends Controller
 {
@@ -52,53 +50,6 @@ class BooksController extends Controller
         else $source = [];
 
         return json_encode($source);
-    }
-
-
-    public function googleBookSearch(GoogleBooksSearch $google, Request $request)
-    {
-        $str = $request['str'];
-//        $id = $request['id'];
-
-        $result = $google->getBooks($str);
-//        , 'Walden', 'Henry David Thoreau');
-
-
-        $source = [];
-        foreach ($result as $item) {
-            if ($item['volumeInfo']['title'] != null
-                and $item['volumeInfo']['authors'] != null
-                and $item['volumeInfo']['categories'] != null
-                and $item['volumeInfo']['publishedDate'] != null) {
-                $source[] = [
-                    'id' => $item['id'],
-                    'name' => $item['volumeInfo']['title'],
-                    'author' => $item['volumeInfo']['authors'],
-                    'genre' => $item['volumeInfo']['categories'][0],
-                    'year' => substr($item['volumeInfo']['publishedDate'], 0, 4),
-                    'description' => $item['volumeInfo']['description'],
-                    'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
-                ];
-            }
-        }
-
-//        elseif ($id == 'author') {
-//            $source = [];
-//            foreach ($result as $item) {
-//                $source[] = [
-////                    'name' => $item['volumeInfo']['title'],
-//                    'author' => $item['volumeInfo']['authors'],
-////                    'genre' => $item['volumeInfo']['categories'],
-////                    'year' => $item['volumeInfo']['publishedDate'],
-////                    'description' => $item['volumeInfo']['description'],
-////                    'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
-//                ];
-//            }
-//        }
-//        else $source = [];
-
-        return json_encode($source);
-
     }
 
     protected function create(Request $request)
