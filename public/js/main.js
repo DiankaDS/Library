@@ -20,7 +20,7 @@ function checkTip(e, id){
 
     timer=setTimeout(function(){
 
-    if(input.val()!=''){
+    if (input.val()!='') {
 
         $.ajax({
             'headers': {
@@ -35,7 +35,7 @@ function checkTip(e, id){
             success: function(data){
                 var source = $.parseJSON(data);
 
-                if(source!='') {
+                if (source!='') {
                     var tips = $("<ul class='tips dropdown-menu'></ul>");
 
                     // console.log(input.val());
@@ -155,7 +155,7 @@ function googleSearch(e){
 
     timer=setTimeout(function(){
 
-        if(input.val()!=''){
+        if (input.val()!='') {
 
             $.ajax({
                 'headers': {
@@ -171,7 +171,7 @@ function googleSearch(e){
                     var source = $.parseJSON(data);
                     $("#myBooks").empty();
 
-                    if(source!='') {
+                    if (source.length !== 0) {
 
                         // console.log(input.val());
                         // console.log(data);
@@ -181,7 +181,11 @@ function googleSearch(e){
                             var container = $('<div class="col-md-3"></div>');
                             container.appendTo($("#myBooks"));
 
-                            var thumb = $('<div class="thumbnail" style="width: 220px; height: 280px;" onclick="googleModal(' +
+                            if (source[i]['description'] == null) {
+                                source[i]['description'] = '';
+                            }
+
+                            var thumb = $('<div class="thumbnail" style="width: 250px; height: 300px;" onclick="googleModal(' +
                                 '\'' + source[i]['name'] + '\', \'' +
                                 source[i]['author'] + '\', \'' +
                                 source[i]['genre'] + '\', \'' +
@@ -197,7 +201,7 @@ function googleSearch(e){
                             if (source[i].photo != null) {
                                 var img = $('<img src="' + source[i].photo + '" style="width: 125px; height: 150px;">');
                             }
-                            else{
+                            else {
                                 var img = $('<img src="../images/default_book.jpg" style="width: 125px; height: 150px;">');
                             }
                             img.appendTo(a);
@@ -211,6 +215,9 @@ function googleSearch(e){
                             var p = $('<p align="center">' + source[i].author + ', ' + source[i].year + '</p>');
                             p.appendTo(caption);
                         }
+                    }
+                    else{
+                        $('<p align="center">No result found...</p>').appendTo($("#myBooks"));
                     }
                 },
                 error: function(x, e){
@@ -301,7 +308,7 @@ function searchBook(){
             // console.log(data);
             // console.log(source);
 
-            if(source.length !== 0) {
+            if (source.length !== 0) {
                 for (var i = 0; i < source.length; i++) {
                     var container = $('<div class="col-md-3"></div>');
                     container.appendTo($("#myBooks"));
@@ -392,7 +399,8 @@ function sortTable(id, n) {
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             switchcount ++;
-        } else {
+        }
+        else {
             if (switchcount == 0 && dir == "asc") {
                 dir = "desc";
                 switching = true;

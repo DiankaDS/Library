@@ -55,7 +55,7 @@ class BooksController extends Controller
     }
 
 
-        public function googleBookSearch(GoogleBooksSearch $google, Request $request)
+    public function googleBookSearch(GoogleBooksSearch $google, Request $request)
     {
         $str = $request['str'];
 //        $id = $request['id'];
@@ -64,20 +64,23 @@ class BooksController extends Controller
 //        , 'Walden', 'Henry David Thoreau');
 
 
-//        if($id == 'name') {
-            $source = [];
-            foreach ($result as $item) {
+        $source = [];
+        foreach ($result as $item) {
+            if ($item['volumeInfo']['title'] != null
+                and $item['volumeInfo']['authors'] != null
+                and $item['volumeInfo']['categories'] != null
+                and $item['volumeInfo']['publishedDate'] != null) {
                 $source[] = [
                     'id' => $item['id'],
                     'name' => $item['volumeInfo']['title'],
                     'author' => $item['volumeInfo']['authors'],
-                    'genre' => $item['volumeInfo']['categories'],
-                    'year' => $item['volumeInfo']['publishedDate'],
+                    'genre' => $item['volumeInfo']['categories'][0],
+                    'year' => substr($item['volumeInfo']['publishedDate'], 0, 4),
                     'description' => $item['volumeInfo']['description'],
                     'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
                 ];
             }
-//        }
+        }
 
 //        elseif ($id == 'author') {
 //            $source = [];
@@ -90,10 +93,8 @@ class BooksController extends Controller
 ////                    'description' => $item['volumeInfo']['description'],
 ////                    'photo' => $item['volumeInfo']['imageLinks']['thumbnail'],
 //                ];
-//
 //            }
 //        }
-//
 //        else $source = [];
 
         return json_encode($source);

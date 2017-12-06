@@ -16,7 +16,7 @@
 
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#collapseOne">Search book to add</a>
+                            <a data-toggle="collapse" href="#collapseOne">Search your book in library</a>
                         </h4>
                     </div>
 
@@ -24,11 +24,11 @@
                         <div class="panel-body">
 
                             <div class="col-md-6">
-                                <input class="form-control" type="text" autocomplete="off" name="name" onkeyup='googleSearch(event);' placeholder="Please, search your book here">
+                                <input class="form-control" type="text" autocomplete="off" name="name" onkeyup='googleSearch(event);' placeholder="Please, search your book here" autofocus>
                             <br>
                             </div>
 
-                            <div class="row col-md-12" id="myBooks"></div>
+                            <div class="row col-md-12" id="myBooks"><p align="center"> You will see books here. </p></div>
 
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                 {{--<div class="panel-heading">Add new book</div>--}}
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapseTwo">Add new book</a>
+                        <a data-toggle="collapse" href="#collapseTwo">Not found your book? Add new one</a>
                     </h4>
                 </div>
 
