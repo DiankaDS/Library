@@ -41,13 +41,24 @@ class BooksController extends Controller
             ->get();
         }
 
-        elseif ($id == 'author') {
-            $source = DB::table('authors')
-                ->select('authors.name')
-                ->where('authors.name', 'like', '%' . $str . '%')
-                ->get();
+        else {
+            if ($id == 'author') {
+                $source = DB::table('authors')
+                    ->select('authors.name')
+                    ->where('authors.name', 'like', '%' . $str . '%')
+                    ->get();
+            }
+
+            elseif ($id == 'genre') {
+                $source = DB::table('genres')
+                    ->select('genres.name')
+                    ->where('genres.name', 'like', '%' . $str . '%')
+                    ->get();
+            }
+
+            else $source = [];
+
         }
-        else $source = [];
 
         return json_encode($source);
     }

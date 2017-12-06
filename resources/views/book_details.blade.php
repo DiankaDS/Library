@@ -33,16 +33,16 @@
                             <td>{{ $book_info->author }}</td>
                         </tr>
                         <tr>
+                            <th>Genre</th>
+                            <td>{{ $book_info->genre }}</td>
+                        </tr>
+                        <tr>
                             <th>Year</th>
                             <td>{{ $book_info->year }}</td>
                         </tr>
                         <tr>
                             <th>Description</th>
                             <td>{{ $book_info->description }}</td>
-                        </tr>
-                        <tr>
-                            <th>Genre</th>
-                            <td>{{ $book_info->genre }}</td>
                         </tr>
                         <tr>
                             <th>Date add</th>
