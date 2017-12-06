@@ -57,7 +57,8 @@ class AdminController extends Controller
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
-            ->select('lib_books.*', 'genres.name as genre', 'authors.name as author')
+            ->select('lib_books.*', 'genres.name as genre', DB::raw('group_concat(authors.name) as author'))
+            ->groupBy('lib_books.id', 'genres.name')
 //            ->get();
             ->simplePaginate(12);
 

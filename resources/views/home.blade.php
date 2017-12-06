@@ -53,7 +53,7 @@
                     @if (count($books) !== 0)
                         @foreach ($books as $val)
                             <div class="col-md-3">
-                                <div class="thumbnail">
+                                <div class="thumbnail" style="width: 250px; height: 300px;">
                                     <a href="book_{{ $val->id }}" name="{{ $val->id }}">
                                         @if ($val->photo)
                                             <img src="{{$val->photo}}" style="width: 125px; height: 150px;">
@@ -63,8 +63,8 @@
                                     </a>
 
                                     <div class="caption">
-                                        <p align="center"><a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a></p>
-                                        <p align="center">{{ $val->author }}, {{ $val->year }}</p>
+                                        <p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a></p>
+                                        <p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $val->author }}, {{ $val->year }}</p>
                                         @if ($val->rating)
                                             <p align="center">Rating: {{ $val->rating }} </p>
                                         @else

@@ -181,26 +181,6 @@ function googleModal(name, author, genre, year, description, photo) {
     body.append(p);
 }
 
-
-// function tip_click(name, author, genre, year, description, photo){
-//     // function tip_click(a){
-//     // console.log(unescape(description));
-//     console.log(photo);
-//
-//     $('#name').val(name);
-//     $('#author').val(author);
-//     // $('#genre').val(genre);
-//     $('#year').val(year);
-//     $('#description').val(unescape(description));
-//     // $('#photo').val(photo);
-// }
-
-
-
-
-
-
-
 // --- Ajax in Home (search books) ---
 function searchBook(){
     var input_book = $("#mySearchBook");
@@ -230,7 +210,7 @@ function searchBook(){
                 for (var i = 0; i < source.length; i++) {
                     var container = $('<div class="col-md-3"></div>');
                     container.appendTo($("#myBooks"));
-                    var thumb = $('<div class="thumbnail"></div>');
+                    var thumb = $('<div class="thumbnail" style="width: 250px; height: 300px;"></div>');
                     thumb.appendTo(container);
 
                     var a = $('<a href="book_' + source[i].id + '" name="' + source[i].id + '">');
@@ -247,10 +227,10 @@ function searchBook(){
                     var caption = $('<div class="caption"></div>');
                     caption.appendTo(thumb);
 
-                    var pa = $('<p align="center"><a href="book_' + source[i].id + '" name="' + source[i].id + '">' + source[i].name + '</a></div>');
+                    var pa = $('<p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><a href="book_' + source[i].id + '" name="' + source[i].id + '">' + source[i].name + '</a></div>');
                     pa.appendTo(caption);
 
-                    var p = $('<p align="center">' + source[i].author + ', ' + source[i].year + '</p>');
+                    var p = $('<p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">' + source[i].author + ', ' + source[i].year + '</p>');
                     p.appendTo(caption);
 
                     if (source[i].rating) {

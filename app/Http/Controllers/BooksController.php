@@ -138,8 +138,9 @@ class BooksController extends Controller
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
-            ->select('lib_books.*', 'genres.name as genre', 'authors.name as author')
+            ->select('lib_books.*', 'genres.name as genre', DB::raw('group_concat(authors.name) as author'))
             ->where('lib_books.id', $http_response_header)
+            ->groupBy('lib_books.id')
             ->first();
 
         $users = DB::table('user_books')

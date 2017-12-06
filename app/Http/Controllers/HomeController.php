@@ -30,8 +30,8 @@ class HomeController extends Controller
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->leftJoin('reviews', 'reviews.book_id', '=', 'lib_books.id')
 
-            ->select('lib_books.*', 'authors.name as author', DB::raw('SUM(reviews.rating) as rating'))
-            ->groupBy('lib_books.id', 'authors.name')
+            ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw('SUM(reviews.rating) as rating'))
+            ->groupBy('lib_books.id')
 //            ->get();
             ->simplePaginate(12);
 
@@ -56,14 +56,14 @@ class HomeController extends Controller
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
             ->leftJoin('reviews', 'reviews.book_id', '=', 'lib_books.id')
 
-            ->select('lib_books.*', 'authors.name as author', DB::raw('SUM(reviews.rating) as rating'))
+            ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw('SUM(reviews.rating) as rating'))
             ->where([
                 ['lib_books.name', 'like', '%' . $str_book . '%'],
-                ['authors.name', 'like', '%' .$str_author. '%'],
                 ['lib_books.year', 'like', '%' . $str_year . '%'],
                 ['genres.name', 'like', '%' . $str_genre . '%'],
             ])
-            ->groupBy('lib_books.id', 'authors.name')
+            ->groupBy('lib_books.id')
+            ->having('author', 'like', '%' .$str_author. '%')
             ->get();
 
         return json_encode($source);
