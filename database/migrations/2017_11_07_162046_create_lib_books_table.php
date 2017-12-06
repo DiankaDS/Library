@@ -19,7 +19,7 @@ class CreateLibBooksTable extends Migration
             $table->integer('genre_id')->unsigned();
             $table->foreign('genre_id')->references('id')->on('genres');
             $table->integer('year');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

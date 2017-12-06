@@ -60,6 +60,7 @@ class BooksController extends Controller
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'author' => 'required|string|max:255',
             'genre' => 'required|string|max:255',
+            'description' => 'required',
         ]);
 
         if ($request->file('photo')) {
