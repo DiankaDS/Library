@@ -11,7 +11,14 @@
 
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading">Waiting orders</div>
+            {{--<div class="panel-heading">Waiting orders</div>--}}
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapseOne">Waiting orders</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+
             <div class="panel-body">
 
                 @if (count($orders_to_user_not_accept) != 0)
@@ -70,10 +77,18 @@
                     <p> No one orders... </p>
                 @endif
             </div>
+            </div>
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">Given books</div>
+            {{--<div class="panel-heading">Given books</div>--}}
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapseTwo">Given books</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+
             <div class="panel-body">
 
                 @if (count($orders_to_user_accept) != 0)
@@ -131,6 +146,7 @@
                 @else
                     <p> No one orders... </p>
                 @endif
+            </div>
             </div>
         </div>
     </div>

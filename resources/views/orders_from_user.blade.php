@@ -12,7 +12,13 @@
     <div class="row">
 
         <div class="panel panel-default">
-            <div class="panel-heading">My waiting orders</div>
+            {{--<div class="panel-heading">My waiting orders</div>--}}
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapseOne">My waiting orders</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
 
             <div class="panel-body">
 
@@ -58,10 +64,17 @@
                     <p> No one orders... </p>
                 @endif
             </div>
+            </div>
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">Taken books</div>
+            {{--<div class="panel-heading">Taken books</div>--}}
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapseTwo">Taken books</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
 
             <div class="panel-body">
 
@@ -112,6 +125,7 @@
                 @else
                     <p> No one orders... </p>
                 @endif
+            </div>
             </div>
         </div>
     </div>
