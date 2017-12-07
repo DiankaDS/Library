@@ -20,4 +20,9 @@ class LibBook extends Model
         return $this->belongsToMany('App\User', 'user_books', 'book_id', 'user_id')->withTimestamps();
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('App\Author', 'tags_books', 'book_id', 'tag_id');
+    }
+
 }
