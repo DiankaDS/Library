@@ -74,15 +74,15 @@ class BooksController extends Controller
             'description' => 'required',
         ]);
 
-        if ($request->file('photo')) {
+        if ($request->get('google_photo')) {
+            $file_name = $request->get('google_photo');
+        }
+
+        elseif ($request->file('photo')) {
             $file = $request->file('photo');
             $file_move_name = time() . '_' . $_FILES['photo']['name'];
             $file->move(public_path() . '/images/books', $file_move_name);
             $file_name = '/images/books/' . $file_move_name;
-        }
-
-        elseif ($request->get('google_photo')) {
-            $file_name = $request->get('google_photo');
         }
         else {
             $file_name = '';

@@ -22,7 +22,7 @@
                             <th scope="col">Author <button class="glyphicon glyphicon-sort" onclick="sortTable('books_table', 2)"></button></th>
                             <th scope="col">Genre <button class="glyphicon glyphicon-sort" onclick="sortTable('books_table', 3)"></button></th>
                             <th scope="col">Year <button class="glyphicon glyphicon-sort" onclick="sortTable('books_table', 4)"></button></th>
-                            <th scope="col">Description</th>
+                            {{--<th scope="col">Description</th>--}}
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>
@@ -42,7 +42,7 @@
                                 <td>{{ $val->author }}</td>
                                 <td>{{ $val->genre }}</td>
                                 <td>{{ $val->year }}</td>
-                                <td>{{ $val->description }}</td>
+{{--                                <td>{{ $val->description }}</td>--}}
                                 <td>
 
                                     <form action="admin_del_book/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">

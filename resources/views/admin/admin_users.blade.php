@@ -42,27 +42,30 @@
                             <td>{{ $val->email }}</td>
                             <td>{{ $val->phone }}</td>
                             <td>
-                                <form class="form-inline" action="delete_user" method="post" id="{{ $val->id }}" name="delete_user" style ='display:inline;'>
-                                    <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
-                                    {{csrf_field()}}
-
-                                    <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>
-                                </form>
-
-                                @if ($val->role_id == 0 and Auth::user()->role_id == 2)
-                                    <form class="form-inline" action="add_to_admin" method="post" id="add_to_admin_{{ $val->id }}" name="add_to_admin" style ='display:inline;'>
+                                @if ($val->role_id == 2)
+                                    <button class="btn btn-primary" type="button">Superadmin</button>
+                                @else
+                                    <form class="form-inline" action="delete_user" method="post" id="{{ $val->id }}" name="delete_user" style ='display:inline;'>
                                         <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                         {{csrf_field()}}
 
-                                        <button class="btn btn-info" type="button" onclick="myModal('add_to_admin_{{ $val->id }}', '{{ $confirm_add_to_admin_message }}')">Add to admin</button>
+                                        <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>
                                     </form>
-                                @elseif (Auth::user()->role_id == 2)
-                                    <form class="form-inline" action="delete_from_admin" method="post" id="delete_from_admin_{{ $val->id }}" name="delete_from_admin" style ='display:inline;'>
-                                        <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
-                                        {{csrf_field()}}
+                                    @if ($val->role_id == 0 and Auth::user()->role_id == 2)
+                                        <form class="form-inline" action="add_to_admin" method="post" id="add_to_admin_{{ $val->id }}" name="add_to_admin" style ='display:inline;'>
+                                            <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
+                                            {{csrf_field()}}
 
-                                        <button class="btn btn-warning" type="button" onclick="myModal('delete_from_admin_{{ $val->id }}', '{{ $confirm_delete_from_admin_message }}')">Delete from admin</button>
-                                    </form>
+                                            <button class="btn btn-info" type="button" onclick="myModal('add_to_admin_{{ $val->id }}', '{{ $confirm_add_to_admin_message }}')">Add to admin</button>
+                                        </form>
+                                    @elseif (Auth::user()->role_id == 2)
+                                        <form class="form-inline" action="delete_from_admin" method="post" id="delete_from_admin_{{ $val->id }}" name="delete_from_admin" style ='display:inline;'>
+                                            <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
+                                            {{csrf_field()}}
+
+                                            <button class="btn btn-warning" type="button" onclick="myModal('delete_from_admin_{{ $val->id }}', '{{ $confirm_delete_from_admin_message }}')">Delete from admin</button>
+                                        </form>
+                                    @endif
                                 @endif
 
                             </td>
