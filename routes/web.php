@@ -90,6 +90,8 @@ Route::get('/admin_orders', 'AdminController@adminOrders');
 
 Route::get('/admin_reviews', 'AdminController@adminReviews');
 
+Route::get('/admin_tags', 'AdminController@adminTags');
+
 Route::post('admin_del_book/{book_id}', 'AdminController@adminBookDelete');
 
 Route::post('admin_del_author/{author_id}', 'AdminController@adminAuthorDelete');

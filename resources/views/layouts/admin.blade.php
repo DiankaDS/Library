@@ -62,6 +62,8 @@
 
                         <li><a href="admin_reviews"> Reviews </a></li>
 
+                        <li><a href="admin_tags"> Tags </a></li>
+
                     </ul>
                 </div>
             </div>
