@@ -89,9 +89,9 @@ class BooksController extends Controller
         }
 
         $genre_id = DB::table('genres')
-            ->select('id')
             ->where('name', $request->get('genre'))
-            ->first();
+            ->first()
+            ->id;
 
         if (!$genre_id) {
             $genre_id = DB::table('genres')->insertGetId([
@@ -112,7 +112,6 @@ class BooksController extends Controller
         }
 
         $user = User::find(Auth::user()->id);
-//        $author = Author::find($request->get('author'));
 
         foreach(explode(',', $request->get('author')) as $val) {
 
@@ -123,7 +122,6 @@ class BooksController extends Controller
                     'name' => $val,
                 ]);
             }
-
             $book->authors()->save($author);
         }
 

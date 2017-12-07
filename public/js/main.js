@@ -103,7 +103,7 @@ function googleSearch(e){
                             container.appendTo($("#myBooks"));
 
                             if (source[i]['description'] == null) {
-                                source[i]['description'] = ' ';
+                                source[i]['description'] = '-';
                             }
 
                             var thumb = $('<div class="thumbnail" style="width: 250px; height: 300px;" onclick="googleModal(' +
