@@ -104,6 +104,10 @@ Route::post('admin_create_genre', 'AdminController@adminGenreCreate');
 
 Route::post('admin_del_review/{review_id}', 'AdminController@adminReviewDelete');
 
+Route::post('admin_del_tag/{tag_id}', 'AdminController@adminTagDelete');
+
+Route::post('admin_create_tag', 'AdminController@adminTagCreate');
+
 Route::post('add_to_admin', 'AdminController@addToAdmin');
 
 Route::post('delete_from_admin', 'AdminController@deleteFromAdmin');
