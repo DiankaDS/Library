@@ -88,15 +88,17 @@ class BooksController extends Controller
             $file_name = '';
         }
 
-        $genre_id = DB::table('genres')
+        $genre = DB::table('genres')
             ->where('name', $request->get('genre'))
-            ->first()
-            ->id;
+            ->first();
 
-        if (!$genre_id) {
+        if (!$genre) {
             $genre_id = DB::table('genres')->insertGetId([
                 'name' => $request->get('genre'),
             ]);
+        }
+        else {
+            $genre_id = $genre->id;
         }
 
         $book = LibBook::where('name', $request->get('name'))->first();
