@@ -12,18 +12,16 @@ function myModal(id, textBody, textTitle) {
     $("#myModal .modal-body").text(textBody);
 }
 
-function addTagModal(id, tags) {
+function addTagModal(id, all_tags) {
 
     $('#myModal').modal('show');
     $('#YesButton').off('click');
     $('#YesButton').on('click', function(){
 
         var checked = [];
-        // var checked_names = [];
-            $("input:checkbox:checked").each(function(){
-                checked.unshift($(this).val());
-                // checked_names.unshift($(this).name);
-            });
+        $("input:checkbox:checked").each(function(){
+            checked.unshift($(this).val());
+        });
 
         $.ajax({
             'headers': {
@@ -34,8 +32,6 @@ function addTagModal(id, tags) {
             'data': {
                 'checkbox': checked,
                 'book_id': id
-                // 'str_year': input_year.val(),
-                // 'str_genre': input_genre.val()
             },
             success: function (data) {
 
@@ -50,7 +46,6 @@ function addTagModal(id, tags) {
                     if (i!=source.length-1) {
                         tags += ','
                     }
-                    // $('#tag_' + id).text(source[i].name)
                 }
                 $('#tag_' + id).html(tags)
             },
@@ -59,21 +54,27 @@ function addTagModal(id, tags) {
                 console.log(e);
             }
         });
-
-
-
-        // $('#add_tags').submit();
     });
 
     $("#myModal .modal-title").text("Select tags:");
 
-    tags = $.parseJSON(tags);
+    all_tags = $.parseJSON(all_tags);
+
+    var arr = $('#tag_' + id).text().split(',');
+    for (var j = 0; j < arr.length; j++) {
+        arr[j] = $.trim(arr[j]);
+    }
 
     var body = $("#myModal .modal-body");
     body.empty();
 
-    for (var i = 0; i < tags.length; i++) {
-        var p = '<label><input type="checkbox" name="' + tags[i]['name'] + '" value="' + tags[i]['id'] + '">' + tags[i]['name'] + '</label><br>';
+    for (var i = 0; i < all_tags.length; i++) {
+        if (arr.indexOf(all_tags[i]['name']) != -1) {
+            var p = '<label><input type="checkbox" name="' + all_tags[i]['name'] + '" value="' + all_tags[i]['id'] + '" disabled>' + all_tags[i]['name'] + '</label><br>';
+        }
+        else {
+            var p = '<label><input type="checkbox" name="' + all_tags[i]['name'] + '" value="' + all_tags[i]['id'] + '">' + all_tags[i]['name'] + '</label><br>';
+        }
         body.append(p);
     }
 }
@@ -87,7 +88,7 @@ function checkTip(e, id){
     var timer;
     clearTimeout(timer);
 
-    timer=setTimeout(function(){
+    timer=setTimeout(function() {
 
     if (input.val()!='') {
 

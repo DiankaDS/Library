@@ -54,58 +54,33 @@ class AdminController extends Controller
 
     protected function adminBooks()
     {
-//        $books = DB::table('lib_books')
-//            ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
-//            ->leftJoin('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
-//            ->leftJoin('authors', 'authors.id', '=', 'authors_books.author_id')
-//
-//            ->leftJoin('tags_books', 'tags_books.book_id', '=', 'lib_books.id')
-//            ->leftJoin('tags', 'tags.id', '=', 'tags_books.tag_id')
-//
-//            ->select('lib_books.*', 'genres.name as genre', DB::raw('group_concat(authors.name) as author'), DB::raw('group_concat(tags.name) as tag'))
-//            ->groupBy('lib_books.id', 'genres.name')
-////            ->get();
-//            ->simplePaginate(12);
-
-
         $books = DB::table('lib_books')
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
             ->leftJoin('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->leftJoin('authors', 'authors.id', '=', 'authors_books.author_id')
-
-            ->leftJoin('tags_books', 'tags_books.book_id', '=', 'lib_books.id')
-            ->leftJoin('tags', 'tags.id', '=', 'tags_books.tag_id')
-
-            ->select('lib_books.*', 'genres.name as genre')
-            ->addSelect(DB::raw('group_concat(tags.name) as tag'))
-            ->addSelect(DB::raw('group_concat(authors.name) as author'))
-
+//            ->leftJoin('tags_books', 'tags_books.book_id', '=', 'lib_books.id')
+//            ->leftJoin('tags', 'tags.id', '=', 'tags_books.tag_id')
+            ->select('lib_books.*', 'genres.name as genre', DB::raw('group_concat(authors.name) as author'))
+//                , DB::raw('group_concat(tags.name) as tag')
             ->groupBy('lib_books.id', 'genres.name')
 //            ->get();
             ->simplePaginate(12);
 
-
-
-
-//        $query2->groupBy('products.id', 'parameters.id')->toSql();
-//        $query = \DB::table(\DB::raw('(' .$query->toSql() . ') t'))
-//            ->select(\DB::raw('t.*, count(t.id) count'))
-//            ->groupBy('t.id')
-//            ->having('count', '=', count($parameters));
-//        ->get();
-
-
-
-
-
+        $tags = DB::table('lib_books')
+            ->leftJoin('tags_books', 'tags_books.book_id', '=', 'lib_books.id')
+            ->leftJoin('tags', 'tags.id', '=', 'tags_books.tag_id')
+            ->select('lib_books.id as book_id',  DB::raw('group_concat(tags.name) as tag'))
+            ->groupBy('lib_books.id')
+            ->get();
 
         $confirm_delete_book_message = 'Are you sure to delete this book?';
 
-        $tags = DB::table('tags')->get();
+        $all_tags = DB::table('tags')->get();
 
         return view('admin/admin_books', array(
             'books' => $books,
             'tags' => $tags,
+            'all_tags' => $all_tags,
             'confirm_delete_book_message' => $confirm_delete_book_message,
         ));
     }

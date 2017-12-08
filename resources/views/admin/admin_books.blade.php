@@ -42,9 +42,14 @@
                                 <td>{{ $val->author }}</td>
                                 <td>{{ $val->genre }}</td>
                                 <td>{{ $val->year }}</td>
-                                <td id="tag_{{ $val->id }}">{{ $val->tag }}</td>
+                                <td id="tag_{{ $val->id }}">
+                                    @foreach ($tags as $tag)
+                                        @if ($tag->book_id == $val->id)
+                                            {{ $tag->tag }}
+                                        @endif
+                                    @endforeach
+                                </td>
                                 <td>
-
                                     <form action="admin_del_book/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
                                         {{csrf_field()}}
                                         <input name="admins_book_id" type="hidden" value="{{ $val->id }}">
@@ -52,13 +57,7 @@
                                         <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')">Delete</button>
                                     </form>
 
-                                    {{--<form class="form-inline" action="add_tag" method="post" id="add_tag" name="add_tag" style ='display:inline;'>--}}
-                                        {{--<input name="admins_book_id" type="hidden" value="{{ $val->id }}">--}}
-{{--                                        {{csrf_field()}}--}}
-
-                                    <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', '{{ $tags }}')">Add tag</button>
-                                    {{--</form>--}}
-
+                                    <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', '{{ $all_tags }}')">Add tag</button>
                                 </td>
                             </tr>
                         @endforeach
