@@ -96,6 +96,7 @@ class AdminController extends Controller
 
         $book->users()->detach();
         $book->authors()->detach();
+        $book->tags()->detach();
         $book->delete();
 
         $message = "Book deleted!";
