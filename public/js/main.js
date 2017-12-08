@@ -70,7 +70,7 @@ function addTagModal(id, all_tags) {
 
     for (var i = 0; i < all_tags.length; i++) {
         if (arr.indexOf(all_tags[i]['name']) != -1) {
-            var p = '<label><input type="checkbox" name="' + all_tags[i]['name'] + '" value="' + all_tags[i]['id'] + '" disabled>' + all_tags[i]['name'] + '</label><br>';
+            var p = '<label><input type="checkbox" name="' + all_tags[i]['name'] + '" value="' + all_tags[i]['id'] + '" checked>' + all_tags[i]['name'] + '</label><br>';
         }
         else {
             var p = '<label><input type="checkbox" name="' + all_tags[i]['name'] + '" value="' + all_tags[i]['id'] + '">' + all_tags[i]['name'] + '</label><br>';

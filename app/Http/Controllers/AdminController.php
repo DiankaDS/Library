@@ -267,6 +267,7 @@ class AdminController extends Controller
         $book_id = $request['book_id'];
 
         $book = LibBook::find($book_id);
+        $book->tags()->detach();
 
         foreach($tags as $val) {
             $tag = Tag::where('id', $val)->first();
