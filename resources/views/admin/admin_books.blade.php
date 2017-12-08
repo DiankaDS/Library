@@ -45,7 +45,7 @@
                                 <td id="tag_{{ $val->id }}">
                                     @foreach ($tags as $tag)
                                         @if ($tag->book_id == $val->id)
-                                            {{ $tag->tag }}
+                                            <span class="label label-primary" >{{ $tag->tag }}</span>
                                         @endif
                                     @endforeach
                                 </td>
@@ -57,7 +57,7 @@
                                         <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')">Delete</button>
                                     </form>
 
-                                    <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', '{{ $all_tags }}')">Add tag</button>
+                                    <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', '{{ $all_tags }}')">Edit tags</button>
                                 </td>
                             </tr>
                         @endforeach

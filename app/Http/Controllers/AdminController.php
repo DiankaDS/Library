@@ -69,8 +69,9 @@ class AdminController extends Controller
         $tags = DB::table('lib_books')
             ->leftJoin('tags_books', 'tags_books.book_id', '=', 'lib_books.id')
             ->leftJoin('tags', 'tags.id', '=', 'tags_books.tag_id')
-            ->select('lib_books.id as book_id',  DB::raw('group_concat(tags.name) as tag'))
-            ->groupBy('lib_books.id')
+//            ->select('lib_books.id as book_id',  DB::raw('group_concat(tags.name) as tag'))
+            ->select('lib_books.id as book_id',  'tags.name as tag')
+//            ->groupBy('lib_books.id')
             ->get();
 
         $confirm_delete_book_message = 'Are you sure to delete this book?';

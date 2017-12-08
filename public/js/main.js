@@ -42,10 +42,7 @@ function addTagModal(id, all_tags) {
 
                 var tags = '';
                 for (var i = 0; i < source.length; i++) {
-                    tags += source[i].name;
-                    if (i!=source.length-1) {
-                        tags += ','
-                    }
+                    tags += '<span class="label label-primary">' + source[i].name + '</span> ';
                 }
                 $('#tag_' + id).html(tags)
             },
@@ -60,7 +57,7 @@ function addTagModal(id, all_tags) {
 
     all_tags = $.parseJSON(all_tags);
 
-    var arr = $('#tag_' + id).text().split(',');
+    var arr = $('#tag_' + id).text().split(' ');
     for (var j = 0; j < arr.length; j++) {
         arr[j] = $.trim(arr[j]);
     }
