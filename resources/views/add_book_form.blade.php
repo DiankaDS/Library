@@ -161,22 +161,5 @@
                 {{--</div>--}}
             </div>
         </div>
-
-
-        <div id="googleModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
-                        <h4 class="modal-title">Are you sure to add this book?</h4>
-                    </div>
-                    <div class="modal-body" align="center"></div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" type="submit" id="YesButton">Add book</button>
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">No, back</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 @endsection

@@ -22,7 +22,7 @@ class LibBook extends Model
 
     public function tags()
     {
-        return $this->belongsToMany('App\Author', 'tags_books', 'book_id', 'tag_id');
+        return $this->belongsToMany('App\Tag', 'tags_books', 'book_id', 'tag_id');
     }
 
 }

@@ -22,7 +22,7 @@
                             <th scope="col">Author <button class="glyphicon glyphicon-sort" onclick="sortTable('books_table', 2)"></button></th>
                             <th scope="col">Genre <button class="glyphicon glyphicon-sort" onclick="sortTable('books_table', 3)"></button></th>
                             <th scope="col">Year <button class="glyphicon glyphicon-sort" onclick="sortTable('books_table', 4)"></button></th>
-                            {{--<th scope="col">Description</th>--}}
+                            <th scope="col">Tags <button class="glyphicon glyphicon-sort" onclick="sortTable('books_table', 5)"></button></th>
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>
@@ -42,7 +42,7 @@
                                 <td>{{ $val->author }}</td>
                                 <td>{{ $val->genre }}</td>
                                 <td>{{ $val->year }}</td>
-{{--                                <td>{{ $val->description }}</td>--}}
+                                <td id="tag_{{ $val->id }}">{{ $val->tag }}</td>
                                 <td>
 
                                     <form action="admin_del_book/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
@@ -51,6 +51,13 @@
 
                                         <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')">Delete</button>
                                     </form>
+
+                                    {{--<form class="form-inline" action="add_tag" method="post" id="add_tag" name="add_tag" style ='display:inline;'>--}}
+                                        {{--<input name="admins_book_id" type="hidden" value="{{ $val->id }}">--}}
+{{--                                        {{csrf_field()}}--}}
+
+                                    <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', '{{ $tags }}')">Add tag</button>
+                                    {{--</form>--}}
 
                                 </td>
                             </tr>

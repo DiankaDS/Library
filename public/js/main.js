@@ -1,12 +1,81 @@
 // --- Confirm window ---
-function myModal(id, paramPamPam) {
+function myModal(id, textBody, textTitle) {
+    textTitle = "Please, confirm action!";
+
     $('#myModal').modal('show');
     $('#YesButton').off('click');
     $('#YesButton').on('click', function(){
         $('#'+id).submit();
     });
 
-    $("#myModal .modal-body").text(paramPamPam);
+    $("#myModal .modal-title").text(textTitle);
+    $("#myModal .modal-body").text(textBody);
+}
+
+function addTagModal(id, tags) {
+
+    $('#myModal').modal('show');
+    $('#YesButton').off('click');
+    $('#YesButton').on('click', function(){
+
+        var checked = [];
+        // var checked_names = [];
+            $("input:checkbox:checked").each(function(){
+                checked.unshift($(this).val());
+                // checked_names.unshift($(this).name);
+            });
+
+        $.ajax({
+            'headers': {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            'type': 'post',
+            'url': 'add_tags',
+            'data': {
+                'checkbox': checked,
+                'book_id': id
+                // 'str_year': input_year.val(),
+                // 'str_genre': input_genre.val()
+            },
+            success: function (data) {
+
+                var source = $.parseJSON(data);
+                // console.log(source.length);
+
+                $('#myModal').modal('hide');
+
+                var tags = '';
+                for (var i = 0; i < source.length; i++) {
+                    tags += source[i].name;
+                    if (i!=source.length-1) {
+                        tags += ','
+                    }
+                    // $('#tag_' + id).text(source[i].name)
+                }
+                $('#tag_' + id).html(tags)
+            },
+            error: function (x, e) {
+                console.log(x);
+                console.log(e);
+            }
+        });
+
+
+
+        // $('#add_tags').submit();
+    });
+
+    $("#myModal .modal-title").text("Select tags:");
+
+    tags = $.parseJSON(tags);
+
+    var body = $("#myModal .modal-body");
+    body.empty();
+
+    for (var i = 0; i < tags.length; i++) {
+        var p = '<label><input type="checkbox" name="' + tags[i]['name'] + '" value="' + tags[i]['id'] + '">' + tags[i]['name'] + '</label><br>';
+        body.append(p);
+    }
 }
 
 // --- Ajax in add_book and home (find text in input) ---
@@ -151,7 +220,7 @@ function googleSearch(e){
 }
 
 function googleModal(name, author, genre, year, description, photo) {
-    $('#googleModal').modal('show');
+    $('#myModal').modal('show');
     $('#YesButton').off('click');
     $('#YesButton').on('click', function(){
 
@@ -167,7 +236,9 @@ function googleModal(name, author, genre, year, description, photo) {
 
     // console.log(name);
 
-    var body = $("#googleModal .modal-body");
+    $("#myModal .modal-title").text("Are you sure to add this book?");
+
+    var body = $("#myModal .modal-body");
 
     body.empty();
 

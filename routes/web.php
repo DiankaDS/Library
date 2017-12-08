@@ -112,6 +112,8 @@ Route::post('add_to_admin', 'AdminController@addToAdmin');
 
 Route::post('delete_from_admin', 'AdminController@deleteFromAdmin');
 
+Route::post('add_tags', 'AdminController@addTagsToBook');
+
 // Register with Facebook routes
 
 Route::get('auth/{provider}', 'Auth\SocialAuthController@redirectToProvider');

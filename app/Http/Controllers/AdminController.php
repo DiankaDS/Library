@@ -54,19 +54,58 @@ class AdminController extends Controller
 
     protected function adminBooks()
     {
+//        $books = DB::table('lib_books')
+//            ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
+//            ->leftJoin('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
+//            ->leftJoin('authors', 'authors.id', '=', 'authors_books.author_id')
+//
+//            ->leftJoin('tags_books', 'tags_books.book_id', '=', 'lib_books.id')
+//            ->leftJoin('tags', 'tags.id', '=', 'tags_books.tag_id')
+//
+//            ->select('lib_books.*', 'genres.name as genre', DB::raw('group_concat(authors.name) as author'), DB::raw('group_concat(tags.name) as tag'))
+//            ->groupBy('lib_books.id', 'genres.name')
+////            ->get();
+//            ->simplePaginate(12);
+
+
         $books = DB::table('lib_books')
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
-            ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
-            ->join('authors', 'authors.id', '=', 'authors_books.author_id')
-            ->select('lib_books.*', 'genres.name as genre', DB::raw('group_concat(authors.name) as author'))
+            ->leftJoin('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
+            ->leftJoin('authors', 'authors.id', '=', 'authors_books.author_id')
+
+            ->leftJoin('tags_books', 'tags_books.book_id', '=', 'lib_books.id')
+            ->leftJoin('tags', 'tags.id', '=', 'tags_books.tag_id')
+
+            ->select('lib_books.*', 'genres.name as genre')
+            ->addSelect(DB::raw('group_concat(tags.name) as tag'))
+            ->addSelect(DB::raw('group_concat(authors.name) as author'))
+
             ->groupBy('lib_books.id', 'genres.name')
 //            ->get();
             ->simplePaginate(12);
 
+
+
+
+//        $query2->groupBy('products.id', 'parameters.id')->toSql();
+//        $query = \DB::table(\DB::raw('(' .$query->toSql() . ') t'))
+//            ->select(\DB::raw('t.*, count(t.id) count'))
+//            ->groupBy('t.id')
+//            ->having('count', '=', count($parameters));
+//        ->get();
+
+
+
+
+
+
         $confirm_delete_book_message = 'Are you sure to delete this book?';
+
+        $tags = DB::table('tags')->get();
 
         return view('admin/admin_books', array(
             'books' => $books,
+            'tags' => $tags,
             'confirm_delete_book_message' => $confirm_delete_book_message,
         ));
     }
@@ -245,5 +284,22 @@ class AdminController extends Controller
         }
 
         return back()->with('status', $message);
+    }
+
+    protected function addTagsToBook(Request $request)
+    {
+        $tags = $request['checkbox'];
+        $book_id = $request['book_id'];
+
+        $book = LibBook::find($book_id);
+
+        foreach($tags as $val) {
+            $tag = Tag::where('id', $val)->first();
+            $book->tags()->save($tag);
+        }
+
+        $source = $book->tags()->get();
+
+        return json_encode($source);
     }
 }
