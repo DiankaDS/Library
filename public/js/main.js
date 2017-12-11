@@ -337,7 +337,7 @@ function searchBook(){
     var input_tags = $("#mySearchTags");
 
 
-    // console.log($("#mySearchTags").val())
+    // console.log(input_tags.val());
 
     $.ajax({
         'headers': {
@@ -355,6 +355,8 @@ function searchBook(){
         success: function (data) {
             var source = $.parseJSON(data);
             $("#myBooks").empty();
+
+            // console.log(input_tags.val());
             // console.log(data);
             // console.log(source);
 

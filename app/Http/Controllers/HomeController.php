@@ -52,26 +52,65 @@ class HomeController extends Controller
 
         $arr_tags = $request['arr_tags'];
 
-        $source = DB::table('lib_books')
-            ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
-            ->join('authors', 'authors.id', '=', 'authors_books.author_id')
-            ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
-            ->leftJoin('reviews', 'reviews.book_id', '=', 'lib_books.id')
+        if($arr_tags == '') {
 
-//            ->leftJoin('tags_books', 'tags_books.book_id', '=', 'lib_books.id')
-//            ->leftJoin('tags', 'tags.id', '=', 'tags_books.tag_id')
+            $source = DB::table('lib_books')
+                ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
+                ->join('authors', 'authors.id', '=', 'authors_books.author_id')
+                ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
+                ->leftJoin('reviews', 'reviews.book_id', '=', 'lib_books.id')
+                ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw('SUM(reviews.rating) as rating'))
+                ->where([
+                    ['lib_books.name', 'like', '%' . $str_book . '%'],
+                    ['lib_books.year', 'like', '%' . $str_year . '%'],
+                    ['genres.name', 'like', '%' . $str_genre . '%'],
+                ])
+                ->groupBy('lib_books.id')
+                ->having('author', 'like', '%' . $str_author . '%')
+                ->get();
+        }
+        else {
+            $arr = [];
+            $i = 0;
+            foreach (explode(',', $arr_tags) as $tag) {
+                $tags_books = DB::table('tags_books')
+                    ->join('tags', 'tags.id', '=', 'tags_books.tag_id')
+                    ->distinct()
+                    ->select('tags_books.book_id as book_id')
+                    ->where([
+                        ['tags.name', 'like', '%' . $tag . '%'],
+                    ])
+                    ->get()
+                    ->toArray();
 
-            ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw('SUM(reviews.rating) as rating'))
-            ->where([
-                ['lib_books.name', 'like', '%' . $str_book . '%'],
-                ['lib_books.year', 'like', '%' . $str_year . '%'],
-                ['genres.name', 'like', '%' . $str_genre . '%'],
-//                ['tags.name', 'like', '%' . $arr_tags . '%'],
-            ])
-            ->groupBy('lib_books.id')
-            ->having('author', 'like', '%' .$str_author. '%')
-            ->get();
+                foreach ($tags_books as $obj) {
+                    $arr[] = $obj->book_id;
+                }
+                $i++;
+            }
 
+            $arr2 = array_count_values($arr);
+            foreach($arr2 as $key => $val) {
+                if ($val < $i)
+                    unset($arr2[$key]);
+            }
+
+            $source = DB::table('lib_books')
+                ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
+                ->join('authors', 'authors.id', '=', 'authors_books.author_id')
+                ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
+                ->leftJoin('reviews', 'reviews.book_id', '=', 'lib_books.id')
+                ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw('SUM(reviews.rating) as rating'))
+                ->where([
+                    ['lib_books.name', 'like', '%' . $str_book . '%'],
+                    ['lib_books.year', 'like', '%' . $str_year . '%'],
+                    ['genres.name', 'like', '%' . $str_genre . '%'],
+                ])
+                ->whereIn('lib_books.id', array_keys($arr2))
+                ->groupBy('lib_books.id')
+                ->having('author', 'like', '%' . $str_author . '%')
+                ->get();
+        }
         return json_encode($source);
     }
 }
