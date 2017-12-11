@@ -124,7 +124,11 @@ setTimeout(function() {
                                 // var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
                                 var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
                                 tip.click(function (e) {
+                                    var x = $(e.currentTarget).parent().parent().find('span[data-role="remove"]');
+                                    x.eq(x.length-1).trigger('click');
+
                                     $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
+                                    $(e.currentTarget).parent().parent().find('input').blur();
 
                                     clearTips();
                                 });
