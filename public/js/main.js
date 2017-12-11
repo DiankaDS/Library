@@ -125,6 +125,8 @@ setTimeout(function() {
                                 var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
                                 tip.click(function (e) {
                                     $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
+
+                                    clearTips();
                                 });
                                 tips.append(tip);
                             }
@@ -134,7 +136,7 @@ setTimeout(function() {
                             // $(".bootstrap-tagsinput input").attr("data-toggle", "dropdown");
 
                             // tips.appendTo($(".bootstrap-tagsinput input"));
-                            tips.appendTo($(".bootstrap-tagsinput"));
+                            tips.appendTo(input.parent());
                         }
                     },
                     error: function (x, e) {
