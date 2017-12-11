@@ -57,7 +57,7 @@
                                         <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')">Delete</button>
                                     </form>
 
-                                    <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', '{{ $all_tags }}')">Edit tags</button>
+                                    <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', '{{ $all_tags }}')" style="margin: 2px">Edit tags</button>
                                 </td>
                             </tr>
                         @endforeach

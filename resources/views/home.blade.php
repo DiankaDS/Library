@@ -21,8 +21,6 @@
 
     <div class="row">
         <form class="form-inline">
-            {{--<input class="form-control" id="mySearchBook" type="text" placeholder="Book name" autocomplete="off" onkeyup='checkTip(event, "name");'>--}}
-            {{--<input class="form-control" id="mySearchAuthor" type="text" placeholder="Author" autocomplete="off" onkeyup='checkTip(event, "author");'>--}}
 
             <a class="dropdown">
                 <input class="form-control" data-toggle="dropdown" id="mySearchBook" type="text" placeholder="Book name" autocomplete="off" onkeyup='checkTip(event, "name");'>
@@ -39,6 +37,12 @@
                     <option value="{{ $val->name }}">{{ $val->name }}</option>
                 @endforeach
             </select>
+
+            <a class="dropdown form-group">
+            {{--<div class="form-group">--}}
+                <input class="form-control" id="mySearchTags" type="text" name="tags" data-role="tagsinput" autocomplete="off">
+            {{--</div>--}}
+            </a>
 
             <button type="button" class="btn btn-info" onclick='searchBook(event);'>Search book</button>
         </form>

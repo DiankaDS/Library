@@ -35,33 +35,35 @@ class BooksController extends Controller
         $id = $request['id'];
 
         if ($id == 'name') {
-        $source = DB::table('lib_books')
-            ->select('lib_books.name')
-            ->where('lib_books.name', 'like', '%' . $str . '%')
-            ->get();
+            $source = DB::table('lib_books')
+                ->select('lib_books.name')
+                ->where('lib_books.name', 'like', '%' . $str . '%')
+                ->get();
         }
-
+        elseif ($id == 'author') {
+            $source = DB::table('authors')
+                ->select('authors.name')
+                ->where('authors.name', 'like', '%' . $str . '%')
+                ->get();
+        }
+        elseif ($id == 'genre') {
+            $source = DB::table('genres')
+                ->select('genres.name')
+                ->where('genres.name', 'like', '%' . $str . '%')
+                ->get();
+        }
+        elseif ($id == 'tags') {
+            $source = DB::table('tags')
+                ->select('tags.name')
+                ->where('tags.name', 'like', '%' . $str . '%')
+                ->get();
+        }
         else {
-            if ($id == 'author') {
-                $source = DB::table('authors')
-                    ->select('authors.name')
-                    ->where('authors.name', 'like', '%' . $str . '%')
-                    ->get();
-            }
-
-            elseif ($id == 'genre') {
-                $source = DB::table('genres')
-                    ->select('genres.name')
-                    ->where('genres.name', 'like', '%' . $str . '%')
-                    ->get();
-            }
-
-            else $source = [];
-
-        }
-
-        return json_encode($source);
+            $source = [];
     }
+
+    return json_encode($source);
+}
 
     protected function create(Request $request)
     {

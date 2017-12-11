@@ -76,6 +76,78 @@ function addTagModal(id, all_tags) {
     }
 }
 
+// --- Ajax in home (find tags) ---
+setTimeout(function() {
+
+    $(".bootstrap-tagsinput input").keyup(function () {
+
+        // console.log($(".bootstrap-tagsinput input").val());
+
+        timer=setTimeout(function() {
+            clearTips();
+            var timer;
+            clearTimeout(timer);
+
+            var input = $(".bootstrap-tagsinput input");
+
+            if (input.val() != '') {
+
+                $.ajax({
+                    'headers': {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    'type': 'post',
+                    'url': 'search_value',
+                    'data': {
+                        'str': input.val(),
+                        'id': 'tags'
+                    },
+                    success: function (data) {
+                        var source = $.parseJSON(data);
+
+                        if (source != '') {
+                            // var tips = $("<ul class='tips dropdown-menu'></ul>");
+                            var tips = $("<div class='tips'></div>");
+                            tips.css('position', 'absolute');
+                            tips.css('background', 'rgba(255,255,255,0.9)');
+                            tips.css('border', 'solid 1px #ccc');
+                            tips.css('width', '100%');
+                            tips.css('cursor', 'pointer');
+                            tips.css('z-index', '1');
+
+                            // console.log(input.val());
+                            // console.log(data);
+                            // console.log(source);
+
+                            for (var i = 0; i < source.length; i++) {
+                                // var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+                                // var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
+                                var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+                                tip.click(function (e) {
+                                    $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
+                                });
+                                tips.append(tip);
+                            }
+
+                            // var a = $("<a class='dropdown'></a>");
+                            // $(".bootstrap-tagsinput input").appendTo(a);
+                            // $(".bootstrap-tagsinput input").attr("data-toggle", "dropdown");
+
+                            // tips.appendTo($(".bootstrap-tagsinput input"));
+                            tips.appendTo($(".bootstrap-tagsinput"));
+                        }
+                    },
+                    error: function (x, e) {
+                        console.log(x);
+                        console.log(e);
+                    }
+                });
+            }
+        }, 1000);
+
+    });
+}, 1000);
+
 // --- Ajax in add_book and home (find text in input) ---
 function checkTip(e, id){
 
@@ -84,6 +156,10 @@ function checkTip(e, id){
 
     var timer;
     clearTimeout(timer);
+
+    // console.log(input.val());
+//     console.log( $(".bootstrap-tagsinput input").val());
+// debugger;
 
     timer=setTimeout(function() {
 
@@ -256,6 +332,10 @@ function searchBook(){
     var input_author = $("#mySearchAuthor");
     var input_year = $("#mySearchYear");
     var input_genre = $("#mySearchGenre");
+    var input_tags = $("#mySearchTags");
+
+
+    // console.log($("#mySearchTags").val())
 
     $.ajax({
         'headers': {
@@ -267,7 +347,8 @@ function searchBook(){
             'str_book': input_book.val(),
             'str_author': input_author.val(),
             'str_year': input_year.val(),
-            'str_genre': input_genre.val()
+            'str_genre': input_genre.val(),
+            'arr_tags': input_tags.val()
         },
         success: function (data) {
             var source = $.parseJSON(data);

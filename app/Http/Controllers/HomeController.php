@@ -50,17 +50,23 @@ class HomeController extends Controller
         $str_year = $request['str_year'];
         $str_genre = $request['str_genre'];
 
+        $arr_tags = $request['arr_tags'];
+
         $source = DB::table('lib_books')
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
             ->leftJoin('reviews', 'reviews.book_id', '=', 'lib_books.id')
 
+//            ->leftJoin('tags_books', 'tags_books.book_id', '=', 'lib_books.id')
+//            ->leftJoin('tags', 'tags.id', '=', 'tags_books.tag_id')
+
             ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw('SUM(reviews.rating) as rating'))
             ->where([
                 ['lib_books.name', 'like', '%' . $str_book . '%'],
                 ['lib_books.year', 'like', '%' . $str_year . '%'],
                 ['genres.name', 'like', '%' . $str_genre . '%'],
+//                ['tags.name', 'like', '%' . $arr_tags . '%'],
             ])
             ->groupBy('lib_books.id')
             ->having('author', 'like', '%' .$str_author. '%')
