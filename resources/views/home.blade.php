@@ -42,7 +42,9 @@
             <div class="form-group">
                 <label for="tags" class="control-label">Tags:</label>
                 {{--<br>--}}
-                <input class="form-control" id="mySearchTags" type="text" name="tags" data-role="tagsinput" autocomplete="off">
+                <a class="dropdown">
+                    <input class="form-control" id="mySearchTags" type="text" name="tags" data-role="tagsinput" autocomplete="off">
+                </a>
             </div>
 
             <button type="button" class="btn btn-info" onclick='searchBook(event);'>Search book</button>
