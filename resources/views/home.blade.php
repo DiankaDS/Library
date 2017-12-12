@@ -19,6 +19,7 @@
         </div>
     @endif
 
+    @auth
     <div class="row">
         <form class="form-inline">
 
@@ -47,6 +48,8 @@
             <button type="button" class="btn btn-info" onclick='searchBook(event);'>Search book</button>
         </form>
     </div>
+    @endauth
+
     <br>
     <div class="row">
         <div class="panel panel-default">
