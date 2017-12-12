@@ -73,9 +73,9 @@
                                         <p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a></p>
                                         <p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $val->author }}, {{ $val->year }}</p>
                                         @if ($val->rating)
-                                            <p align="center">Rating: {{ $val->rating }} </p>
+                                            <p align="center">Rating: <b>{{ $val->rating }}</b></p>
                                         @else
-                                            <p align="center">Rating: 0</p>
+                                            <p align="center">Rating: <b>0</b></p>
                                         @endif
                                     </div>
                                 </div>

@@ -82,7 +82,7 @@
     <div class="row">
 
         <div class="panel panel-default">
-            <div class="panel-heading">Books</div>
+            <div class="panel-heading">Books <span class="label label-primary">{{ $user_books_count }}</span></div>
             <div class="panel-body">
 
                 @if (count($user_books) !== 0)

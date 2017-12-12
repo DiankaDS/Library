@@ -28,8 +28,11 @@ class ProfileController extends Controller
             ->select('lib_books.*', 'genres.name as genre', 'user_books.user_id as user', DB::raw('group_concat(authors.name) as author'))
             ->where('user_books.user_id', $user_id)
             ->groupBy('lib_books.id', 'genres.name', 'user_books.user_id')
-//            ->get();
             ->simplePaginate(6);
+
+        $user_books_count = DB::table('user_books')
+            ->where('user_books.user_id', $user_id)
+            ->count();
 
         $confirm_delete_book_message = 'Are you sure to delete book?';
         $confirm_delete_profile_message = 'Are you sure to delete profile?';
@@ -39,6 +42,7 @@ class ProfileController extends Controller
             'user_books' => $user_books,
             'confirm_delete_book_message' => $confirm_delete_book_message,
             'confirm_delete_profile_message' => $confirm_delete_profile_message,
+            'user_books_count' => $user_books_count,
         ));
     }
 

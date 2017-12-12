@@ -392,10 +392,10 @@ function searchBook(){
                     p.appendTo(caption);
 
                     if (source[i].rating) {
-                        var rating = $('<p align="center">Rating: ' + source[i].rating + '</p>');
+                        var rating = $('<p align="center">Rating: <b>' + source[i].rating + '</b></p>');
                     }
                     else {
-                        var rating = $('<p align="center">Rating: 0</p>');
+                        var rating = $('<p align="center">Rating: <b>0</b></p>');
                     }
                     rating.appendTo(caption);
                 }

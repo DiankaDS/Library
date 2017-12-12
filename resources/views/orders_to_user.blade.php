@@ -15,6 +15,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseOne">Waiting orders</a>
+                    <span class="label label-primary">{{ count($orders_to_user_not_accept) }}</span>
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse">
@@ -85,6 +86,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseTwo">Given books</a>
+                    <span class="label label-primary">{{ count($orders_to_user_accept) }}</span>
                 </h4>
             </div>
             <div id="collapseTwo" class="panel-collapse collapse">

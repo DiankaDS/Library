@@ -61,6 +61,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseOne">Users who have a book</a>
+                    <span class="label label-primary">{{ count($users) }}</span>
                 </h4>
             </div>
 
