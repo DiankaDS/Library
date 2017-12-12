@@ -38,11 +38,11 @@
                 @endforeach
             </select>
 
-            <a class="dropdown form-group">
-            {{--<div class="form-group">--}}
+            <div class="form-group">
+                <label for="tags" class="control-label">Tags:</label>
+                {{--<br>--}}
                 <input class="form-control" id="mySearchTags" type="text" name="tags" data-role="tagsinput" autocomplete="off">
-            {{--</div>--}}
-            </a>
+            </div>
 
             <button type="button" class="btn btn-info" onclick='searchBook(event);'>Search book</button>
         </form>
