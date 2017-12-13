@@ -314,9 +314,24 @@ function googleModal(name, author, genre, year, description, photo) {
         $('#create_book_form').submit();
     });
 
-    // console.log(name);
+    $('#WishButton').on('click', function(){
+
+        $('#name').val(unescape(name));
+        $('#author').val(author);
+        $('#genre').val(genre);
+        $('#year').val(year);
+        $('#description').val(unescape(description));
+        $('#google_photo').val(photo);
+        $('#wish').val(1);
+
+        $('#create_book_form').submit();
+    });
 
     $("#myModal .modal-title").text("Are you sure to add this book?");
+
+    if($("#myModal .modal-footer #WishButton").val() != "1") {
+        $("#myModal .modal-footer").prepend($('<button type="button" class="btn btn-info" id="WishButton" value="1">Wish book</button>'));
+    }
 
     var body = $("#myModal .modal-body");
 
