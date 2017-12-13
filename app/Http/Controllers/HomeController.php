@@ -28,6 +28,7 @@ class HomeController extends Controller
         $books = DB::table('lib_books')
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
+            ->join('user_books', 'lib_books.id', '=', 'user_books.book_id')
             ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw("(
                 SELECT sum(reviews.rating) 
                 FROM reviews
@@ -60,6 +61,7 @@ class HomeController extends Controller
                 ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
                 ->join('authors', 'authors.id', '=', 'authors_books.author_id')
                 ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
+                ->join('user_books', 'lib_books.id', '=', 'user_books.book_id')
                 ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw("(
                 SELECT sum(reviews.rating) 
                 FROM reviews
@@ -105,6 +107,7 @@ class HomeController extends Controller
                 ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
                 ->join('authors', 'authors.id', '=', 'authors_books.author_id')
                 ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
+                ->join('user_books', 'lib_books.id', '=', 'user_books.book_id')
                 ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw("(
                     SELECT sum(reviews.rating) 
                     FROM reviews
