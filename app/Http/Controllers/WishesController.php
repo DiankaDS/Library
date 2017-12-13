@@ -44,7 +44,6 @@ class WishesController extends Controller
             ->where('wishes.user_id', '=', Auth::user()->id)
             ->get();
 
-
         return view('wishes', [
             'wished_books' => $wished_books,
             'vote_users' => $vote_users,

@@ -150,11 +150,14 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-success" value="Add_book">
-                                        Add book
-                                    </button>
+                                    <button type="submit" class="btn btn-success" value="Add_book">Add book</button>
+
+                                    <input id="wish" type="hidden" name="wish" value="0">
+                                    <button type="button" class="btn btn-info" value="Wish_book" onclick="wishBook()">Wish book</button>
+
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>

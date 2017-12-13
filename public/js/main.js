@@ -476,3 +476,9 @@ $(document).ready(function(){
         autoclose: true
     })
 });
+
+// --- Add book to wished ---
+function wishBook(){
+    $('#wish').val(1);
+    $('#create_book_form').submit();
+}

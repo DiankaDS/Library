@@ -67,6 +67,14 @@ class BooksController extends Controller
 
     protected function create(Request $request)
     {
+
+//        if($request->get('wish') == 0)
+//            return "Add";
+//        else
+//            return "Wish";
+
+
+
         $request->validate([
             'name' => 'required|string|max:255',
             'year' => 'required|integer|max:'.Now()->year,
@@ -115,9 +123,7 @@ class BooksController extends Controller
             ]);
         }
 
-        $user = User::find(Auth::user()->id);
-
-        foreach(explode(',', $request->get('author')) as $val) {
+        foreach (explode(',', $request->get('author')) as $val) {
 
             $author = Author::where('name', $val)->first();
 
@@ -129,9 +135,20 @@ class BooksController extends Controller
             $book->authors()->save($author);
         }
 
-        $book->users()->save($user);
+        if ($request->get('wish') == 0) {
+            $user = User::find(Auth::user()->id);
+            $book->users()->save($user);
 
-        $message = "Book created!";
+            $message = "Book created!";
+        }
+        else {
+            DB::table('wishes')->insert([
+                'book_id' => $book->id,
+                'user_id' => Auth::user()->id,
+            ]);
+
+            $message = "Wish created!";
+        }
 
         return back()->with('status', $message);
     }
