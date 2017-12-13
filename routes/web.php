@@ -28,6 +28,10 @@ Route::post('search_books','HomeController@searchBooks');
 
 Route::get('/wishes', 'WishesController@wishes');
 
+Route::post('/add_vote', 'WishesController@addVote');
+
+Route::post('/delete_vote', 'WishesController@deleteVote');
+
 // Profile routes
 
 Route::get('profile/{user_id}', 'ProfileController@userProfile');
