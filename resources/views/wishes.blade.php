@@ -54,11 +54,15 @@
                                                 <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Show votes
                                                 <span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
+                                                    @if (count($vote_users->where('book_id', $val->id)) != 0)
                                                     @foreach ($vote_users as $user)
                                                         @if ($user->book_id == $val->id)
                                                             <li><a href="profile/{{ $user->user_id }}">{{ $user->username }}</a></li>
                                                         @endif
                                                     @endforeach
+                                                    @else
+                                                        <li><a href="#">No one...</a></li>
+                                                    @endif
                                                 </ul>
                                                 @if (count($auth_books_votes->where('book_id', $val->id)) == 0)
                                                     <form class="form-inline" action="/add_vote" method="post" id="add_vote" name="add_vote" style ='display:inline;'>
