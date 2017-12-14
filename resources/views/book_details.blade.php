@@ -136,6 +136,15 @@
                     <p> This book has nothing... </p>
                 @endif
 
+                @if (count($users->where('id', Auth::user()->id)) == 0)
+                    <form class="form-inline" action="add_book_user" method="post" id="{{ $book_info->id }}" name="delete_user" style ='display:inline;'>
+                        <input name="book_id" type="hidden" value="{{ $book_info->id }}">
+                        {{csrf_field()}}
+
+                        <button type="submit" class="btn btn-info" onclick="myModal('{{ $book_info->id }}', 'Are you have this book?')">Add me to owners!</button>
+                    </form>
+                @endif
+
             </div>
             </div>
         </div>

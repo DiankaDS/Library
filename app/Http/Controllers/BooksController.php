@@ -232,4 +232,15 @@ class BooksController extends Controller
         return back()->with('status', $message);
     }
 
+    protected function addBookUser(Request $request)
+    {
+        $book = LibBook::where('id', $request->get('book_id'))->first();
+        $user = User::find(Auth::user()->id);
+        $book->users()->save($user);
+
+        $message = "You added to owners!";
+
+        return back()->with('status', $message);
+    }
+
 }

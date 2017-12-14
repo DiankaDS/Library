@@ -50,6 +50,8 @@ Route::post('/upload_photo','ProfileController@uploadPhoto');
 
 Route::get('add_book', 'BooksController@addBookForm');
 
+Route::post('add_book_user', 'BooksController@addBookUser');
+
 Route::post('add_book/complete', 'BooksController@create');
 
 Route::delete('delete/{book_id}','BooksController@delete');
