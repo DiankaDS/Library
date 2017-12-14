@@ -25,6 +25,10 @@
                     <table class="table">
                         <tbody>
                         <tr>
+                            <th>Rating</th>
+                            <td>{{ $book_info->rating }}</td>
+                        </tr>
+                        <tr>
                             <th>Book name</th>
                             <td>{{ $book_info->name }}</td>
                         </tr>
