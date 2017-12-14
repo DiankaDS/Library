@@ -145,7 +145,7 @@
                         <input name="book_id" type="hidden" value="{{ $book_info->id }}">
                         {{csrf_field()}}
 
-                        <button type="submit" class="btn btn-info" onclick="myModal('{{ $book_info->id }}', 'Are you have this book?')">Add me to owners!</button>
+                        <button type="button" class="btn btn-info" onclick="myModal('{{ $book_info->id }}', 'Are you have this book?')">Add me to owners!</button>
                     </form>
                 @endif
 
