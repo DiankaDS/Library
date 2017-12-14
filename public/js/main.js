@@ -1,3 +1,148 @@
+function newCheckTip(e, data, id){
+
+    clearTips();
+    var input = $(e.currentTarget);
+
+    var array = $.parseJSON(data);
+
+    var body = $('#'+id);
+
+    var timer;
+    clearTimeout(timer);
+
+    timer=setTimeout(function() {
+
+        if (input.val()!='') {
+
+            console.log(input.val());
+            console.log(array);
+
+            var search = new RegExp(input.val());
+            var source = $.map(array, function (value) {
+                return value.name.match(search) ? value : null;
+            });
+
+            body.empty();
+
+            if (source.length!=0) {
+
+                console.log(source);
+
+                if (source.length < 5) {
+                    var max = source.length;
+                }
+                else {
+                    var max = 5;
+                }
+
+                for (var i = 0; i < max; i++) {
+                    var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="">'+ source[i].name +'</label></a>');
+                    body.append(tip);
+                }
+            }
+            else {
+                body.text('No results');
+            }
+        }
+    }, 1000);
+}
+
+//=============================================================================================================================================
+
+function newSearchBook(){
+
+
+    var checked = [];
+    $(".list-group-item .checkbox:checkbox:checked").each(function(){
+    // $("#genres_checkbox:checkbox:checked").each(function(){
+        checked.unshift($(this).val());
+    });
+
+    console.log( checked );
+
+
+    // var input_book = $("#mySearchBook");
+    // var input_author = $("#mySearchAuthor");
+    // var input_year = $("#mySearchYear");
+    // var input_genre = $("#mySearchGenre");
+    // var input_tags = $("#mySearchTags");
+    //
+    //
+    // // console.log(input_tags.val());
+    //
+    // $.ajax({
+    //     'headers': {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     'type': 'post',
+    //     'url': 'search_books',
+    //     'data': {
+    //         'str_book': input_book.val(),
+    //         'str_author': input_author.val(),
+    //         'str_year': input_year.val(),
+    //         'str_genre': input_genre.val(),
+    //         'arr_tags': input_tags.val()
+    //     },
+    //     success: function (data) {
+    //         var source = $.parseJSON(data);
+    //         $("#myBooks").empty();
+    //
+    //         // console.log(input_tags.val());
+    //         // console.log(data);
+    //         // console.log(source);
+    //
+    //         if (source.length !== 0) {
+    //             for (var i = 0; i < source.length; i++) {
+    //                 var container = $('<div class="col-md-3"></div>');
+    //                 container.appendTo($("#myBooks"));
+    //                 var thumb = $('<div class="thumbnail" style="width: 250px; height: 300px;"></div>');
+    //                 thumb.appendTo(container);
+    //
+    //                 var a = $('<a href="book_' + source[i].id + '" name="' + source[i].id + '">');
+    //                 a.appendTo(thumb);
+    //
+    //                 if (source[i].photo != 0) {
+    //                     var img = $('<img src="' + source[i].photo + '" style="width: 125px; height: 150px;">');
+    //                 }
+    //                 else{
+    //                     var img = $('<img src="../images/default_book.jpg" style="width: 125px; height: 150px;">');
+    //                 }
+    //                 img.appendTo(a);
+    //
+    //                 var caption = $('<div class="caption"></div>');
+    //                 caption.appendTo(thumb);
+    //
+    //                 var pa = $('<p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><a href="book_' + source[i].id + '" name="' + source[i].id + '">' + source[i].name + '</a></div>');
+    //                 pa.appendTo(caption);
+    //
+    //                 var p = $('<p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">' + source[i].author + ', ' + source[i].year + '</p>');
+    //                 p.appendTo(caption);
+    //
+    //                 if (source[i].rating) {
+    //                     var rating = $('<p align="center">Rating: <b>' + source[i].rating + '</b></p>');
+    //                 }
+    //                 else {
+    //                     var rating = $('<p align="center">Rating: <b>0</b></p>');
+    //                 }
+    //                 rating.appendTo(caption);
+    //             }
+    //         }
+    //         else{
+    //             $('<p align="center">No result found...</p>').appendTo($("#myBooks"));
+    //         }
+    //     },
+    //     error: function (x, e) {
+    //         console.log(x);
+    //         console.log(e);
+    //     }
+    // });
+}
+
+//=============================================================================================================================================
+//=============================================================================================================================================
+
+
+
 // --- Confirm window ---
 function myModal(id, textBody, textTitle) {
     textTitle = "Please, confirm action!";
