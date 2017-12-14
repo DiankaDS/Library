@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('search_books','HomeController@searchBooks');
+Route::post('search_books','SearchController@searchBooks');
 
 // Wishes routes
 
@@ -36,31 +36,33 @@ Route::post('/delete_vote', 'WishesController@deleteVote');
 
 Route::get('profile/{user_id}', 'ProfileController@userProfile');
 
-Route::get('/update_user', 'ProfileController@viewUpdateUser');
-Route::post('/update_user/complete', 'ProfileController@updateUser');
+Route::get('/update_user', 'UpdateUserController@viewUpdateUser');
+Route::post('/update_user/complete', 'UpdateUserController@updateUser');
 
-Route::get('/set_password', 'ProfileController@viewSetPassword');
-Route::post('/set_password/complete', 'ProfileController@setPassword');
+Route::get('/set_password', 'UpdateUserController@viewSetPassword');
+Route::post('/set_password/complete', 'UpdateUserController@setPassword');
 
-Route::post('/delete_user','ProfileController@deleteUser');
+Route::post('/delete_user','DeleteUserController@deleteUser');
 
-Route::post('/upload_photo','ProfileController@uploadPhoto');
+Route::post('/upload_photo','UpdateUserController@uploadPhoto');
+
+// Create book routes
+
+Route::get('add_book', 'CreateBookController@addBookForm');
+
+Route::post('add_book/complete', 'CreateBookController@createBook');
+
+Route::post('search_value','SearchController@addBookSearch');
 
 // Books routes
 
-Route::get('add_book', 'BooksController@addBookForm');
+Route::post('add_book_user', 'UsersBookController@addBookUser');
 
-Route::post('add_book_user', 'BooksController@addBookUser');
+Route::delete('delete/{book_id}','UsersBookController@deleteBook');
 
-Route::post('add_book/complete', 'BooksController@create');
+Route::get('book_{book_id}', 'BookDetailsController@bookDetails');
 
-Route::delete('delete/{book_id}','BooksController@delete');
-
-Route::get('book_{book_id}', 'BooksController@bookDetails');
-
-Route::post('/add_review','BooksController@addReview');
-
-Route::post('search_value','BooksController@addBookSearch');
+Route::post('/add_review','ReviewController@addReview');
 
 // Google Books Api routes
 
@@ -88,41 +90,55 @@ Route::get('admin', function () {
     return redirect('/admin_users');
 });
 
-Route::get('/admin_users', 'AdminController@adminUsers');
+// Admin users routes
 
-Route::get('/admin_books', 'AdminController@adminBooks');
+Route::get('/admin_users', 'AdminUsersController@adminUsers');
 
-Route::get('/admin_authors', 'AdminController@adminAuthors');
+Route::post('add_to_admin', 'AdminUsersController@addToAdmin');
 
-Route::get('/admin_genres', 'AdminController@adminGenres');
+Route::post('delete_from_admin', 'AdminUsersController@deleteFromAdmin');
 
-Route::get('/admin_orders', 'AdminController@adminOrders');
+// Admin books routes
 
-Route::get('/admin_reviews', 'AdminController@adminReviews');
+Route::get('/admin_books', 'AdminBooksController@adminBooks');
 
-Route::get('/admin_tags', 'AdminController@adminTags');
+Route::post('admin_del_book/{book_id}', 'AdminBooksController@adminBookDelete');
 
-Route::post('admin_del_book/{book_id}', 'AdminController@adminBookDelete');
+// Admin authors routes
 
-Route::post('admin_del_author/{author_id}', 'AdminController@adminAuthorDelete');
+Route::get('/admin_authors', 'AdminAuthorsController@adminAuthors');
 
-Route::post('admin_create_author', 'AdminController@adminAuthorCreate');
+Route::post('admin_del_author/{author_id}', 'AdminAuthorsController@adminAuthorDelete');
 
-Route::post('admin_del_genre/{genre_id}', 'AdminController@adminGenreDelete');
+Route::post('admin_create_author', 'AdminAuthorsController@adminAuthorCreate');
 
-Route::post('admin_create_genre', 'AdminController@adminGenreCreate');
+// Admin genres routes
 
-Route::post('admin_del_review/{review_id}', 'AdminController@adminReviewDelete');
+Route::get('/admin_genres', 'AdminGenresController@adminGenres');
 
-Route::post('admin_del_tag/{tag_id}', 'AdminController@adminTagDelete');
+Route::post('admin_del_genre/{genre_id}', 'AdminGenresController@adminGenreDelete');
 
-Route::post('admin_create_tag', 'AdminController@adminTagCreate');
+Route::post('admin_create_genre', 'AdminGenresController@adminGenreCreate');
 
-Route::post('add_to_admin', 'AdminController@addToAdmin');
+// Admin orders routes
 
-Route::post('delete_from_admin', 'AdminController@deleteFromAdmin');
+Route::get('/admin_orders', 'AdminOrdersController@adminOrders');
 
-Route::post('add_tags', 'AdminController@addTagsToBook');
+// Admin reviews routes
+
+Route::get('/admin_reviews', 'AdminReviewsController@adminReviews');
+
+Route::post('admin_del_review/{review_id}', 'AdminReviewsController@adminReviewDelete');
+
+// Admin tags routes
+
+Route::get('/admin_tags', 'AdminTagsController@adminTags');
+
+Route::post('admin_del_tag/{tag_id}', 'AdminTagsController@adminTagDelete');
+
+Route::post('admin_create_tag', 'AdminTagsController@adminTagCreate');
+
+Route::post('add_tags', 'AdminTagsController@addTagsToBook');
 
 // Register with Facebook routes
 
