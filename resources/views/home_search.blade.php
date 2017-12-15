@@ -38,12 +38,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Genre</div>
                 <div class="panel-body">
-                    <form class="searchbox">
+                    <form id="searchbox_genre">
                         <input class="form-control" type="text" name="genre" placeholder="Search genre..." autocomplete="off" onkeyup="newCheckTip(event, '{{ $genres }}', 'genres_list')">
 
                         <div class="list-group" id="genres_list">
                             @foreach ($genres->take(5) as $val)
-                                <a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="{{ $val->name }}">{{ $val->name }}</label></a>
+                                <a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="{{ $val->id }}">{{ $val->name }}</label></a>
                             @endforeach
                         </div>
                     </form>
@@ -53,11 +53,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Year</div>
                 <div class="panel-body">
-                    <form class="searchbox">
+                    <form id="searchbox_year">
 
                         <div class="list-group" id="year_list">
                             @foreach ($years as $val)
-                                <a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="">{{ $val->name }}</label></a>
+                                <a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="{{ $val->name }}">{{ $val->name }}</label></a>
                             @endforeach
                         </div>
                     </form>
@@ -124,12 +124,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Tags</div>
                 <div class="panel-body">
-                    <form class="searchbox">
+                    <form id="searchbox_tag">
                         <input class="form-control" type="text" name="tags" placeholder="Search tag..." autocomplete="off" onkeyup="newCheckTip(event, '{{ $tags }}', 'tags_list')">
 
                         <div class="list-group" id="tags_list">
                             @foreach ($tags->take(5) as $val)
-                                <a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="">{{ $val->name }}</label></a>
+                                <a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="{{ $val->id }}">{{ $val->name }}</label></a>
                             @endforeach
                         </div>
                     </form>
@@ -139,13 +139,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Rating</div>
                 <div class="panel-body">
-                    <form class="searchbox">
+                    <form id="searchbox_rating">
                         <div class="list-group" id="rating_list">
 
                             @for($n = 5; $n > 0; $n--)
                                 <a href="#" class="list-group-item radio">
                                     <label>
-                                        <input type="radio" value="" name="optradio">
+                                        <input type="radio" value="{{ $n }}" name="optradio">
                                         @for($i = 0; $i < $n; $i++)
                                             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                         @endfor

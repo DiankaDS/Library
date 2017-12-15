@@ -43,7 +43,7 @@ class HomeController extends Controller
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw("(
-                SELECT sum(reviews.rating) 
+                SELECT round(avg(reviews.rating))
                 FROM reviews
                 WHERE reviews.book_id = lib_books.id
                 ) as rating"))
@@ -60,12 +60,12 @@ class HomeController extends Controller
 
         $years = DB::table('lib_books')
             ->select('lib_books.year as name')
+            ->distinct()
             ->whereIn('lib_books.id',function($query) {
                 $query->select('book_id')->from('user_books');
             })
             ->orderBy('name', 'DESC')
             ->get();
-
 
 //        $authors = Author::all();
 
@@ -76,5 +76,90 @@ class HomeController extends Controller
             'years' => $years,
 //            'authors' => $authors,
         ]);
+    }
+
+    public function homeSearchBooks(Request $request)
+    {
+        $input = $request['input'];
+        $genres_id = $request['genres'];
+        $tags_id = $request['tags'];
+        $years = $request['years'];
+        $rating = $request['rating'];
+
+        $input_books =  DB::table('lib_books')
+            ->select('lib_books.id as id')
+            ->distinct()
+            ->where('lib_books.name', 'like', '%' . $input . '%')
+            ->whereIn('lib_books.id',function($query) {
+                $query->select('book_id')->from('user_books');
+            });
+
+        $input_all = DB::table('authors_books')
+            ->join('authors', 'authors.id', '=', 'authors_books.author_id')
+            ->select('authors_books.book_id as id')
+            ->distinct()
+            ->where('authors.name', 'like', '%' . $input . '%')
+            ->whereIn('authors_books.book_id',function($query) {
+                $query->select('book_id')->from('user_books');
+            })
+            ->union($input_books)
+            ->get()
+            ->toArray();
+
+        $books_id = [];
+
+        if($input_all) {
+            foreach ($input_all as $obj) {
+                $books_id[] = $obj->id;
+            }
+
+            $books = DB::table('lib_books')
+                ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
+                ->join('authors', 'authors.id', '=', 'authors_books.author_id')
+                ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
+                ->leftJoin('tags_books', 'lib_books.id', '=', 'tags_books.book_id')
+                ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw("(
+                SELECT round(avg(reviews.rating))
+                FROM reviews
+                WHERE reviews.book_id = lib_books.id
+                ) as rating"))
+//            ->where('lib_books.name', 'like', '%' . $input . '%')
+
+                ->whereIn('lib_books.id', $books_id)
+//            ->whereIn('lib_books.year', $years)
+//            ->whereIn('lib_books.genre_id', $genres_id)
+//            ->whereIn('tags_books.tag_id', $tags_id)
+                ->groupBy('lib_books.id')
+                ->orderBy('rating', 'DESC');
+
+
+            if ($genres_id != '') {
+                $books = $books->whereIn('lib_books.genre_id', $genres_id);
+            }
+
+            if ($tags_id != '') {
+                $books = $books->whereIn('tags_books.tag_id', $tags_id);
+            }
+
+            if ($years != '') {
+                $books = $books->whereIn('lib_books.year', $years);
+            }
+
+            if ($rating) {
+                $books = $books->having('rating', '=', $rating);
+            }
+
+            if($books) {
+                $source = $books->get();
+            }
+
+            else
+                $source = [];
+        }
+
+        else
+            $source = [];
+
+        return json_encode($source);
     }
 }

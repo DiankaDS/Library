@@ -24,7 +24,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('search_books','SearchController@searchBooks');
 
+
+
 Route::get('/home_search', 'HomeController@homeSearch');
+
+Route::post('/home_search_books', 'HomeController@homeSearchBooks');
 
 // Wishes routes
 

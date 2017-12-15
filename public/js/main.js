@@ -14,8 +14,8 @@ function newCheckTip(e, data, id){
 
         if (input.val()!='') {
 
-            console.log(input.val());
-            console.log(array);
+            // console.log(input.val());
+            // console.log(array);
 
             var search = new RegExp(input.val());
             var source = $.map(array, function (value) {
@@ -24,9 +24,11 @@ function newCheckTip(e, data, id){
 
             body.empty();
 
+            // console.log(source);
+
             if (source.length!=0) {
 
-                console.log(source);
+                // console.log(source);
 
                 if (source.length < 5) {
                     var max = source.length;
@@ -36,7 +38,7 @@ function newCheckTip(e, data, id){
                 }
 
                 for (var i = 0; i < max; i++) {
-                    var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="">'+ source[i].name +'</label></a>');
+                    var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="'+ source[i].id +'">'+ source[i].name +'</label></a>');
                     body.append(tip);
                 }
             }
@@ -51,91 +53,103 @@ function newCheckTip(e, data, id){
 
 function newSearchBook(){
 
+    var input = $('#mySearch').val();
+    var checked_genres = [];
+    var checked_tags = [];
+    var checked_years = [];
+    var checked_rating = $("#searchbox_rating input:checked").val();
 
-    var checked = [];
-    $(".list-group-item .checkbox:checkbox:checked").each(function(){
-    // $("#genres_checkbox:checkbox:checked").each(function(){
-        checked.unshift($(this).val());
+    $("#searchbox_genre input:checked").each(function(){
+        checked_genres.unshift($(this).val());
     });
 
-    console.log( checked );
+    $("#searchbox_tag input:checked").each(function(){
+        checked_tags.unshift($(this).val());
+    });
 
+    $("#searchbox_year input:checked").each(function(){
+        checked_years.unshift($(this).val());
+    });
 
-    // var input_book = $("#mySearchBook");
-    // var input_author = $("#mySearchAuthor");
-    // var input_year = $("#mySearchYear");
-    // var input_genre = $("#mySearchGenre");
-    // var input_tags = $("#mySearchTags");
-    //
-    //
-    // // console.log(input_tags.val());
-    //
-    // $.ajax({
-    //     'headers': {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     },
-    //     'type': 'post',
-    //     'url': 'search_books',
-    //     'data': {
-    //         'str_book': input_book.val(),
-    //         'str_author': input_author.val(),
-    //         'str_year': input_year.val(),
-    //         'str_genre': input_genre.val(),
-    //         'arr_tags': input_tags.val()
-    //     },
-    //     success: function (data) {
-    //         var source = $.parseJSON(data);
-    //         $("#myBooks").empty();
-    //
-    //         // console.log(input_tags.val());
-    //         // console.log(data);
-    //         // console.log(source);
-    //
-    //         if (source.length !== 0) {
-    //             for (var i = 0; i < source.length; i++) {
-    //                 var container = $('<div class="col-md-3"></div>');
-    //                 container.appendTo($("#myBooks"));
-    //                 var thumb = $('<div class="thumbnail" style="width: 250px; height: 300px;"></div>');
-    //                 thumb.appendTo(container);
-    //
-    //                 var a = $('<a href="book_' + source[i].id + '" name="' + source[i].id + '">');
-    //                 a.appendTo(thumb);
-    //
-    //                 if (source[i].photo != 0) {
-    //                     var img = $('<img src="' + source[i].photo + '" style="width: 125px; height: 150px;">');
-    //                 }
-    //                 else{
-    //                     var img = $('<img src="../images/default_book.jpg" style="width: 125px; height: 150px;">');
-    //                 }
-    //                 img.appendTo(a);
-    //
-    //                 var caption = $('<div class="caption"></div>');
-    //                 caption.appendTo(thumb);
-    //
-    //                 var pa = $('<p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><a href="book_' + source[i].id + '" name="' + source[i].id + '">' + source[i].name + '</a></div>');
-    //                 pa.appendTo(caption);
-    //
-    //                 var p = $('<p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">' + source[i].author + ', ' + source[i].year + '</p>');
-    //                 p.appendTo(caption);
-    //
-    //                 if (source[i].rating) {
-    //                     var rating = $('<p align="center">Rating: <b>' + source[i].rating + '</b></p>');
-    //                 }
-    //                 else {
-    //                     var rating = $('<p align="center">Rating: <b>0</b></p>');
-    //                 }
-    //                 rating.appendTo(caption);
-    //             }
-    //         }
-    //         else{
-    //             $('<p align="center">No result found...</p>').appendTo($("#myBooks"));
-    //         }
-    //     },
-    //     error: function (x, e) {
-    //         console.log(x);
-    //         console.log(e);
-    //     }
-    // });
+    console.log( checked_genres );
+    // console.log( checked_tags );
+    // console.log( checked_years );
+    // console.log( input );
+    // console.log( checked_rating );
+
+    $.ajax({
+        'headers': {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        'type': 'post',
+        'url': 'home_search_books',
+        'data': {
+            'input': input,
+            'genres': checked_genres,
+            'tags': checked_tags,
+            'years': checked_years,
+            'rating': checked_rating
+        },
+        success: function (data) {
+
+            // console.log(data);
+
+            var source = $.parseJSON(data);
+
+            $("#myBooks").empty();
+
+            // console.log(input_tags.val());
+            // console.log(data);
+            // console.log(source);
+
+            if (source.length !== 0) {
+
+                // console.log(source);
+
+                for (var i = 0; i < source.length; i++) {
+                    var container = $('<div class="col-md-6"></div>');
+                    container.appendTo($("#myBooks"));
+                    var thumb = $('<div class="thumbnail" style="width: 250px; height: 300px;"></div>');
+                    thumb.appendTo(container);
+
+                    var a = $('<a href="book_' + source[i].id + '" name="' + source[i].id + '">');
+                    a.appendTo(thumb);
+
+                    if (source[i].photo != 0) {
+                        var img = $('<img src="' + source[i].photo + '" style="width: 125px; height: 150px;">');
+                    }
+                    else{
+                        var img = $('<img src="../images/default_book.jpg" style="width: 125px; height: 150px;">');
+                    }
+                    img.appendTo(a);
+
+                    var caption = $('<div class="caption"></div>');
+                    caption.appendTo(thumb);
+
+                    var pa = $('<p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><a href="book_' + source[i].id + '" name="' + source[i].id + '">' + source[i].name + '</a></div>');
+                    pa.appendTo(caption);
+
+                    var p = $('<p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">' + source[i].author + ', ' + source[i].year + '</p>');
+                    p.appendTo(caption);
+
+                    if (source[i].rating) {
+                        var rating = $('<p align="center">Rating: <b>' + source[i].rating + '</b></p>');
+                    }
+                    else {
+                        var rating = $('<p align="center">Rating: <b>0</b></p>');
+                    }
+                    rating.appendTo(caption);
+                }
+            }
+            else{
+                $('<p align="center">No result found...</p>').appendTo($("#myBooks"));
+            }
+        },
+        error: function (x, e) {
+            console.log(x);
+            console.log(e);
+        }
+    });
 }
 
 //=============================================================================================================================================
