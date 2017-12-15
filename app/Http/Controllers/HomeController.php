@@ -43,7 +43,7 @@ class HomeController extends Controller
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw("(
-                SELECT round(avg(reviews.rating))
+                SELECT round(avg(reviews.rating), 1)
                 FROM reviews
                 WHERE reviews.book_id = lib_books.id
                 ) as rating"))
@@ -117,11 +117,9 @@ class HomeController extends Controller
                 ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
                 ->join('authors', 'authors.id', '=', 'authors_books.author_id')
                 ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
-
-                ->leftJoin('tags_books', 'lib_books.id', '=', 'tags_books.book_id')
-
+//                ->leftJoin('tags_books', 'lib_books.id', '=', 'tags_books.book_id')
                 ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw("(
-                SELECT round(avg(reviews.rating))
+                SELECT round(avg(reviews.rating), 1)
                 FROM reviews
                 WHERE reviews.book_id = lib_books.id
                 ) as rating"))
@@ -171,7 +169,8 @@ class HomeController extends Controller
             }
 
             if ($rating) {
-                $books = $books->having('rating', '=', $rating);
+                $books = $books->having('rating', '>=', $rating);
+                $books = $books->having('rating', '<', $rating + 1);
             }
 
             if($books) {

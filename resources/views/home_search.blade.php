@@ -22,12 +22,13 @@
     <div class="row">
 
         <div class="col-md-6 col-md-offset-3">
-            <input class="form-control" id="mySearch" type="search" placeholder="Search for book or authors..." autocomplete="off">
+            <input class="form-control" id="mySearch" type="search" placeholder="Search for book or authors..." autocomplete="off" onkeyup='newSearchBook(event);'>
+
         </div>
         <div class="col-md-2">
-            {{--<button type="button" class="btn btn-info">Clear filters</button>--}}
+            <button type="button" class="btn btn-info" onclick='location.reload();'>Clear filters</button>
 
-            <button type="button" class="btn btn-info" onclick='newSearchBook(event);'>Search</button>
+            {{--<button type="button" class="btn btn-info" onclick='newSearchBook(event);'>Search</button>--}}
         </div>
         <br>
     </div>
@@ -43,7 +44,12 @@
 
                         <div class="list-group" id="genres_list">
                             @foreach ($genres->take(5) as $val)
-                                <a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="{{ $val->id }}">{{ $val->name }}</label></a>
+                                <a href="#" class="list-group-item checkbox">
+                                    <label>
+                                        <input type="checkbox" value="{{ $val->id }}" onclick='newSearchBook(event);'>
+                                        {{ $val->name }}
+                                    </label>
+                                </a>
                             @endforeach
                         </div>
                     </form>
@@ -57,7 +63,12 @@
 
                         <div class="list-group" id="year_list">
                             @foreach ($years as $val)
-                                <a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="{{ $val->name }}">{{ $val->name }}</label></a>
+                                <a href="#" class="list-group-item checkbox">
+                                    <label>
+                                        <input type="checkbox" value="{{ $val->name }}" onclick='newSearchBook(event);'>
+                                        {{ $val->name }}
+                                    </label>
+                                </a>
                             @endforeach
                         </div>
                     </form>
@@ -129,7 +140,12 @@
 
                         <div class="list-group" id="tags_list">
                             @foreach ($tags->take(5) as $val)
-                                <a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="{{ $val->id }}">{{ $val->name }}</label></a>
+                                <a href="#" class="list-group-item checkbox">
+                                    <label>
+                                        <input type="checkbox" value="{{ $val->id }}" onclick='newSearchBook(event);'>
+                                        {{ $val->name }}
+                                    </label>
+                                </a>
                             @endforeach
                         </div>
                     </form>
@@ -145,7 +161,7 @@
                             @for($n = 5; $n > 0; $n--)
                                 <a href="#" class="list-group-item radio">
                                     <label>
-                                        <input type="radio" value="{{ $n }}" name="optradio">
+                                        <input type="radio" value="{{ $n }}" name="optradio" onclick='newSearchBook(event);'>
                                         @for($i = 0; $i < $n; $i++)
                                             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                         @endfor

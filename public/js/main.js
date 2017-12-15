@@ -53,6 +53,11 @@ function newCheckTip(e, data, id){
 
 function newSearchBook(){
 
+    var timer;
+    clearTimeout(timer);
+
+    timer=setTimeout(function() {
+
     var input = $('#mySearch').val();
     var checked_genres = [];
     var checked_tags = [];
@@ -150,6 +155,7 @@ function newSearchBook(){
             console.log(e);
         }
     });
+    }, 1000);
 }
 
 //=============================================================================================================================================
