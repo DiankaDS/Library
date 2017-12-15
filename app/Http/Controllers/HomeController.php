@@ -117,7 +117,9 @@ class HomeController extends Controller
                 ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
                 ->join('authors', 'authors.id', '=', 'authors_books.author_id')
                 ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
+
                 ->leftJoin('tags_books', 'lib_books.id', '=', 'tags_books.book_id')
+
                 ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw("(
                 SELECT round(avg(reviews.rating))
                 FROM reviews
@@ -138,7 +140,30 @@ class HomeController extends Controller
             }
 
             if ($tags_id != '') {
-                $books = $books->whereIn('tags_books.tag_id', $tags_id);
+                $arr = [];
+                $i = 0;
+
+                foreach ($tags_id as $tag) {
+                    $tags = DB::table('tags_books')
+                        ->select('tags_books.book_id as id')
+                        ->distinct()
+                        ->where('tags_books.tag_id', $tag)
+                        ->get()
+                        ->toArray();
+
+                    foreach ($tags as $obj) {
+                        $arr[] = $obj->id;
+                    }
+                    $i++;
+                }
+
+                $arr2 = array_count_values($arr);
+                foreach($arr2 as $key => $val) {
+                    if ($val < $i)
+                        unset($arr2[$key]);
+                }
+
+                $books = $books->whereIn('lib_books.id', array_keys($arr2));
             }
 
             if ($years != '') {

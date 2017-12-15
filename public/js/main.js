@@ -71,7 +71,7 @@ function newSearchBook(){
         checked_years.unshift($(this).val());
     });
 
-    console.log( checked_genres );
+    // console.log( checked_genres );
     // console.log( checked_tags );
     // console.log( checked_years );
     // console.log( input );
