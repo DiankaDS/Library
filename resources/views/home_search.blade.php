@@ -26,12 +26,15 @@
 
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-info" onclick='location.reload();'>Clear filters</button>
+            {{--<button type="button" class="btn btn-info" onclick='location.reload();'>Clear filters</button>--}}
 
+            <a href="/home_search"><button type="button" class="btn btn-info">Clear filters</button></a>
             {{--<button type="button" class="btn btn-info" onclick='newSearchBook(event);'>Search</button>--}}
         </div>
         <br>
     </div>
+
+    <div class="row"><br></div>
 
         <div class="row">
 
@@ -46,7 +49,7 @@
                             @foreach ($genres->take(5) as $val)
                                 <a href="#" class="list-group-item checkbox">
                                     <label>
-                                        <input type="checkbox" value="{{ $val->id }}" onclick='newSearchBook(event);'>
+                                        <input type="checkbox" id="genre_{{ $val->id }}" value="{{ $val->id }}" onclick='newSearchBook(event);'>
                                         {{ $val->name }}
                                     </label>
                                 </a>
@@ -65,7 +68,7 @@
                             @foreach ($years as $val)
                                 <a href="#" class="list-group-item checkbox">
                                     <label>
-                                        <input type="checkbox" value="{{ $val->name }}" onclick='newSearchBook(event);'>
+                                        <input type="checkbox" id="year_{{ $val->name }}" value="{{ $val->name }}" onclick='newSearchBook(event);'>
                                         {{ $val->name }}
                                     </label>
                                 </a>
@@ -112,9 +115,69 @@
                 @endif
 
             </div>
+
+
+
+
             <div class="row" align="center">
-                {{ $books->links() }}
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                    <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+                    {{--<li class="page-item"><a class="page-link" href="?page=3">3</a></li>--}}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=2" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
+
+            {{--============================================================================--}}
+            {{--@if ($paginator->hasPages())--}}
+                {{--<ul class="pager">--}}
+                    {{-- Previous Page Link --}}
+                    {{--@if ($paginator->onFirstPage())--}}
+                        {{--<li class="disabled"><span>? Previous</span></li>--}}
+                    {{--@else--}}
+                        {{--<li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">? Previous</a></li>--}}
+                    {{--@endif--}}
+                    {{-- Pagination Elements --}}
+                    {{--@foreach ($elements as $element)--}}
+                        {{-- "Three Dots" Separator --}}
+                        {{--@if (is_string($element))--}}
+                            {{--<li class="disabled"><span>{{ $element }}</span></li>--}}
+                        {{--@endif--}}
+                        {{-- Array Of Links --}}
+                        {{--@if (is_array($element))--}}
+                            {{--@foreach ($element as $page => $url)--}}
+                                {{--@if ($page == $paginator->currentPage())--}}
+                                    {{--<li class="active my-active"><span>{{ $page }}</span></li>--}}
+                                {{--@else--}}
+                                    {{--<li><a href="{{ $url }}">{{ $page }}</a></li>--}}
+                                {{--@endif--}}
+                            {{--@endforeach--}}
+                        {{--@endif--}}
+                    {{--@endforeach--}}
+                    {{-- Next Page Link --}}
+                    {{--@if ($paginator->hasMorePages())--}}
+                        {{--<li><a href="{{ $paginator->nextPageUrl() }}" rel="next">Next ?</a></li>--}}
+                    {{--@else--}}
+                        {{--<li class="disabled"><span>Next ?</span></li>--}}
+                    {{--@endif--}}
+                {{--</ul>--}}
+            {{--@endif--}}
+            {{--============================================================================--}}
+
+            {{--<div class="row" align="center">--}}
+                {{--{{ $books->links() }}--}}
+            {{--</div>--}}
         </div>
 
 
@@ -142,7 +205,7 @@
                             @foreach ($tags->take(5) as $val)
                                 <a href="#" class="list-group-item checkbox">
                                     <label>
-                                        <input type="checkbox" value="{{ $val->id }}" onclick='newSearchBook(event);'>
+                                        <input type="checkbox" id="tag_{{ $val->id }}" value="{{ $val->id }}" onclick='newSearchBook(event);'>
                                         {{ $val->name }}
                                     </label>
                                 </a>
@@ -161,7 +224,7 @@
                             @for($n = 5; $n > 0; $n--)
                                 <a href="#" class="list-group-item radio">
                                     <label>
-                                        <input type="radio" value="{{ $n }}" name="optradio" onclick='newSearchBook(event);'>
+                                        <input type="radio" id="rating_{{ $n }}" value="{{ $n }}" name="optradio" onclick='newSearchBook(event);'>
                                         @for($i = 0; $i < $n; $i++)
                                             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                         @endfor

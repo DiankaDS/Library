@@ -50,8 +50,71 @@ function newCheckTip(e, data, id){
 }
 
 //=============================================================================================================================================
+// Parse url
 
-function newSearchBook(){
+window.onload = function() {
+    if (window.location.search) {
+        // var query = window.location.search;
+        // console.log(query);
+
+        function getParameterByName(variable)
+        {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            var result = [];
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    result.push(pair[1]);
+                }
+            }
+            if (result != []) {
+                return (result);
+            }
+            else {
+                return (false);
+            }
+        }
+
+        var input = getParameterByName('name');
+        var checked_genres = getParameterByName('genre[]');
+        var checked_tags = getParameterByName('tag[]');
+        var checked_years = getParameterByName('year[]');
+        var checked_rating = getParameterByName('rating');
+
+        // console.log(input);
+        // console.log(checked_genres);
+        // console.log(checked_tags);
+        // console.log(checked_years);
+        // console.log(checked_rating);
+
+        if (input.length != 0) {
+            for (var i = 0; i < input.length; i++) {
+                $('#mySearch').val(input[i]);
+            }
+        }
+
+        function checkBoxes(arr, id) {
+            if (arr.length != 0) {
+                for (var i = 0; i < arr.length; i++) {
+                    // console.log(arr[i]);
+                    $(id + arr[i]).attr("checked", "checked");
+                }
+            }
+        }
+
+        checkBoxes(checked_genres, '#genre_');
+        checkBoxes(checked_tags, '#tag_');
+        checkBoxes(checked_years, '#year_');
+        checkBoxes(checked_rating, '#rating_');
+
+        newSearchBook(event);
+    }
+};
+
+//=============================================================================================================================================
+
+function newSearchBook(e){
 
     var timer;
     clearTimeout(timer);
@@ -75,6 +138,51 @@ function newSearchBook(){
     $("#searchbox_year input:checked").each(function(){
         checked_years.unshift($(this).val());
     });
+
+
+
+    var query = '?';
+
+    if (input) {
+        query += 'name=' + input;
+    }
+
+    if (checked_rating) {
+        if (query != '?') {
+            query += '&';
+        }
+        query += 'rating=' + checked_rating;
+    }
+
+    if ($("#searchbox_genre input:checked")) {
+        $("#searchbox_genre input:checked").each(function(){
+            if (query != '?') {
+                query += '&';
+            }
+            query += 'genre[]=' + $(this).val();
+        });
+    }
+
+    if ($("#searchbox_tag input:checked")) {
+        $("#searchbox_tag input:checked").each(function(){
+            if (query != '?') {
+                query += '&';
+            }
+            query += 'tag[]=' + $(this).val();
+        });
+    }
+
+    if ($("#searchbox_year input:checked")) {
+        $("#searchbox_year input:checked").each(function(){
+            if (query != '?') {
+                query += '&';
+            }
+            query += 'year[]=' + $(this).val();
+        });
+    }
+
+    window.history.pushState(null, null, query);
+    // console.log(window.location.search);
 
     // console.log( checked_genres );
     // console.log( checked_tags );
