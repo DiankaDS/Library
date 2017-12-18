@@ -22,7 +22,7 @@
     <div class="row">
 
         <div class="col-md-6 col-md-offset-3">
-            <input class="form-control" id="mySearch" type="search" placeholder="Search for book or authors..." autocomplete="off" onkeyup='newSearchBook(event);'>
+            <input class="form-control" id="mySearch" type="search" placeholder="Search for book or authors..." autocomplete="off" onkeyup='setTimeout(newSearchBook(event), 1000);'>
 
         </div>
         <div class="col-md-2">
@@ -42,18 +42,28 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Genre</div>
                 <div class="panel-body">
-                    <form id="searchbox_genre">
-                        <input class="form-control" type="text" name="genre" placeholder="Search genre..." autocomplete="off" onkeyup="newCheckTip(event, '{{ $genres }}', 'genres_list')">
+                    <form id="searchbox_genres">
+                        <input class="form-control" type="text" name="genre" placeholder="Search genre..." autocomplete="off" onkeyup="newCheckTip(event, '{{ $genres }}', 'genres')">
 
                         <div class="list-group" id="genres_list">
+
+
+                            <div class="list-group" id="genres_list_checked"></div>
+                            <div class="list-group" id="genres_list_unchecked">
                             @foreach ($genres->take(5) as $val)
                                 <a href="#" class="list-group-item checkbox">
                                     <label>
-                                        <input type="checkbox" id="genre_{{ $val->id }}" value="{{ $val->id }}" onclick='newSearchBook(event);'>
+                                        {{--<input type="checkbox" id="genre_{{ $val->id }}" value="{{ $val->id }}" onclick='newSearchBook(event);'>--}}
+                                        <input type="checkbox" id="genres_{{ $val->id }}" value="{{ $val->id }}" onclick='clickCheckbox(event, "genres");'>
+
                                         {{ $val->name }}
                                     </label>
                                 </a>
                             @endforeach
+                            </div>
+
+
+
                         </div>
                     </form>
                 </div>
@@ -62,17 +72,22 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Year</div>
                 <div class="panel-body">
-                    <form id="searchbox_year">
+                    <form id="searchbox_years">
 
-                        <div class="list-group" id="year_list">
+                        <div class="list-group" id="years_list">
+
+                            <div class="list-group" id="years_list_checked"></div>
+                            <div class="list-group" id="years_list_unchecked">
                             @foreach ($years as $val)
                                 <a href="#" class="list-group-item checkbox">
                                     <label>
-                                        <input type="checkbox" id="year_{{ $val->name }}" value="{{ $val->name }}" onclick='newSearchBook(event);'>
+                                        <input type="checkbox" id="years_{{ $val->name }}" value="{{ $val->name }}" onclick='clickCheckbox(event, "years");'>
                                         {{ $val->name }}
                                     </label>
                                 </a>
                             @endforeach
+                            </div>
+
                         </div>
                     </form>
                 </div>
@@ -198,18 +213,23 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Tags</div>
                 <div class="panel-body">
-                    <form id="searchbox_tag">
-                        <input class="form-control" type="text" name="tags" placeholder="Search tag..." autocomplete="off" onkeyup="newCheckTip(event, '{{ $tags }}', 'tags_list')">
+                    <form id="searchbox_tags">
+                        <input class="form-control" type="text" name="tags" placeholder="Search tag..." autocomplete="off" onkeyup="newCheckTip(event, '{{ $tags }}', 'tags')">
 
                         <div class="list-group" id="tags_list">
+
+                            <div class="list-group" id="tags_list_checked"></div>
+                            <div class="list-group" id="tags_list_unchecked">
                             @foreach ($tags->take(5) as $val)
                                 <a href="#" class="list-group-item checkbox">
                                     <label>
-                                        <input type="checkbox" id="tag_{{ $val->id }}" value="{{ $val->id }}" onclick='newSearchBook(event);'>
+                                        <input type="checkbox" id="tags_{{ $val->id }}" value="{{ $val->id }}" onclick='clickCheckbox(event, "tags");'>
                                         {{ $val->name }}
                                     </label>
                                 </a>
                             @endforeach
+                            </div>
+
                         </div>
                     </form>
                 </div>
@@ -218,13 +238,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Rating</div>
                 <div class="panel-body">
-                    <form id="searchbox_rating">
-                        <div class="list-group" id="rating_list">
+                    <form id="searchbox_ratings">
+                        <div class="list-group" id="ratings_list">
 
                             @for($n = 5; $n > 0; $n--)
                                 <a href="#" class="list-group-item radio">
                                     <label>
-                                        <input type="radio" id="rating_{{ $n }}" value="{{ $n }}" name="optradio" onclick='newSearchBook(event);'>
+                                        <input type="radio" id="ratings_{{ $n }}" value="{{ $n }}" name="optradio" onclick='newSearchBook(event);'>
                                         @for($i = 0; $i < $n; $i++)
                                             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                         @endfor

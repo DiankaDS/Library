@@ -1,11 +1,12 @@
 function newCheckTip(e, data, id){
 
-    clearTips();
+    // clearTips();
     var input = $(e.currentTarget);
 
     var array = $.parseJSON(data);
 
-    var body = $('#'+id);
+    // var body = $('#'+id);
+    var body = $('#' + id + '_list_unchecked');
 
     var timer;
     clearTimeout(timer);
@@ -19,6 +20,7 @@ function newCheckTip(e, data, id){
 
             var search = new RegExp(input.val());
             var source = $.map(array, function (value) {
+
                 return value.name.match(search) ? value : null;
             });
 
@@ -28,22 +30,29 @@ function newCheckTip(e, data, id){
 
             if (source.length!=0) {
 
-                // console.log(source);
+                var checked = [];
 
-                if (source.length < 5) {
-                    var max = source.length;
-                }
-                else {
-                    var max = 5;
-                }
+                $("#searchbox_"+ id +" input:checked").each(function(){
+                    checked.unshift($(this).val());
+                });
 
-                for (var i = 0; i < max; i++) {
-                    var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="'+ source[i].id +'">'+ source[i].name +'</label></a>');
-                    body.append(tip);
+                var max = 0;
+                for (var i = 0; i < source.length; i++) {
+                    if (max >= 5) {
+                        break;
+                    }
+                    if (checked.indexOf(String(source[i].id)) == -1) {
+                        // console.log(source[i].id);
+                        var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="' + source[i].id + '" onclick="clickCheckbox(event, \'' + id + '\');">' + source[i].name + '</label></a>');
+                        body.append(tip);
+                        max ++;
+                    }
                 }
             }
             else {
-                body.text('No results');
+                // body.text('No results');
+                var tip = $('<a href="#" class="list-group-item checkbox">No results</a>');
+                body.append(tip);
             }
         }
     }, 1000);
@@ -53,7 +62,7 @@ function newCheckTip(e, data, id){
 // Parse url
 
 window.onload = function() {
-    if (window.location.search) {
+    if (window.location.pathname == "/home_search" && window.location.search) {
         // var query = window.location.search;
         // console.log(query);
 
@@ -94,48 +103,66 @@ window.onload = function() {
             }
         }
 
+        if (checked_rating.length != 0) {
+            for (var i = 0; i < checked_rating.length; i++) {
+                // console.log(arr[i]);
+                $('#ratings_' + checked_rating[i]).attr("checked", "checked");
+            }
+        }
+
         function checkBoxes(arr, id) {
             if (arr.length != 0) {
                 for (var i = 0; i < arr.length; i++) {
                     // console.log(arr[i]);
+
                     $(id + arr[i]).attr("checked", "checked");
+                    $(id + arr[i]).parent().parent().appendTo(id + "list_checked");
+
                 }
             }
         }
 
-        checkBoxes(checked_genres, '#genre_');
-        checkBoxes(checked_tags, '#tag_');
-        checkBoxes(checked_years, '#year_');
-        checkBoxes(checked_rating, '#rating_');
+        checkBoxes(checked_genres, '#genres_');
+        checkBoxes(checked_tags, '#tags_');
+        checkBoxes(checked_years, '#years_');
 
         newSearchBook(event);
     }
 };
 
 //=============================================================================================================================================
+function clickCheckbox(e, id) {
+    if ($(e.currentTarget).prop('checked')) {
+        $('#' + id + '_list_checked').append($(e.currentTarget).parent().parent());
+    }
+    else {
+        $('#' + id + '_list_unchecked').append($(e.currentTarget).parent().parent());
+    }
+    newSearchBook(event);
+}
 
 function newSearchBook(e){
 
-    var timer;
-    clearTimeout(timer);
-
-    timer=setTimeout(function() {
+    // var timer;
+    // clearTimeout(timer);
+    //
+    // timer=setTimeout(function() {
 
     var input = $('#mySearch').val();
     var checked_genres = [];
     var checked_tags = [];
     var checked_years = [];
-    var checked_rating = $("#searchbox_rating input:checked").val();
+    var checked_rating = $("#searchbox_ratings input:checked").val();
 
-    $("#searchbox_genre input:checked").each(function(){
+    $("#searchbox_genres input:checked").each(function(){
         checked_genres.unshift($(this).val());
     });
 
-    $("#searchbox_tag input:checked").each(function(){
+    $("#searchbox_tags input:checked").each(function(){
         checked_tags.unshift($(this).val());
     });
 
-    $("#searchbox_year input:checked").each(function(){
+    $("#searchbox_years input:checked").each(function(){
         checked_years.unshift($(this).val());
     });
 
@@ -154,8 +181,8 @@ function newSearchBook(e){
         query += 'rating=' + checked_rating;
     }
 
-    if ($("#searchbox_genre input:checked")) {
-        $("#searchbox_genre input:checked").each(function(){
+    if ($("#searchbox_genres input:checked")) {
+        $("#searchbox_genres input:checked").each(function(){
             if (query != '?') {
                 query += '&';
             }
@@ -163,8 +190,8 @@ function newSearchBook(e){
         });
     }
 
-    if ($("#searchbox_tag input:checked")) {
-        $("#searchbox_tag input:checked").each(function(){
+    if ($("#searchbox_tags input:checked")) {
+        $("#searchbox_tags input:checked").each(function(){
             if (query != '?') {
                 query += '&';
             }
@@ -172,8 +199,8 @@ function newSearchBook(e){
         });
     }
 
-    if ($("#searchbox_year input:checked")) {
-        $("#searchbox_year input:checked").each(function(){
+    if ($("#searchbox_years input:checked")) {
+        $("#searchbox_years input:checked").each(function(){
             if (query != '?') {
                 query += '&';
             }
@@ -263,7 +290,7 @@ function newSearchBook(e){
             console.log(e);
         }
     });
-    }, 1000);
+    // }, 1000);
 }
 
 //=============================================================================================================================================
