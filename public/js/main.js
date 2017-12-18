@@ -13,8 +13,7 @@ function newCheckTip(e, data, id){
 
     timer=setTimeout(function() {
 
-        if (input.val()!='') {
-
+        // if (input.val()!='') {
             // console.log(input.val());
             // console.log(array);
 
@@ -45,7 +44,7 @@ function newCheckTip(e, data, id){
                         // console.log(source[i].id);
                         var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="' + source[i].id + '" onclick="clickCheckbox(event, \'' + id + '\');">' + source[i].name + '</label></a>');
                         body.append(tip);
-                        max ++;
+                        max++;
                     }
                 }
             }
@@ -54,9 +53,56 @@ function newCheckTip(e, data, id){
                 var tip = $('<a href="#" class="list-group-item checkbox">No results</a>');
                 body.append(tip);
             }
-        }
+        // }
     }, 1000);
 }
+
+//=============================================================================================================================================
+
+// // Show years
+// $(document).ready(function(){
+//     var list = $("#years_list_unchecked a");
+//     var numToShow = 5;
+//     var button = $("#nextYears");
+//     var numInList = list.length;
+//     list.hide();
+//     if (numInList > numToShow) {
+//         button.show();
+//     }
+//     list.slice(0, numToShow).show();
+//
+//     button.click(function(){
+//         var showing = list.filter(':visible').length;
+//         list.slice(showing - 1, showing + numToShow).fadeIn();
+//         var nowShowing = list.filter(':visible').length;
+//         if (nowShowing >= numInList) {
+//             button.hide();
+//         }
+//     });
+// });
+
+
+// Show years
+$(document).ready(function(){
+    var list = $("#years_list_unchecked a");
+    var numToShow = 5;
+    var button = $("#nextYears");
+    var numInList = list.length;
+    list.hide();
+    if (numInList > numToShow) {
+        button.show();
+    }
+    list.slice(0, numToShow).show();
+
+    button.click(function(){
+        var showing = list.filter(':visible').length;
+        list.slice(showing - 1, showing + numToShow).fadeIn();
+        var nowShowing = list.filter(':visible').length;
+        if (nowShowing >= numInList) {
+            button.hide();
+        }
+    });
+});
 
 //=============================================================================================================================================
 // Parse url
@@ -115,8 +161,14 @@ window.onload = function() {
                 for (var i = 0; i < arr.length; i++) {
                     // console.log(arr[i]);
 
-                    $(id + arr[i]).attr("checked", "checked");
-                    $(id + arr[i]).parent().parent().appendTo(id + "list_checked");
+                    // if ($(id + arr[i])) {
+                        $(id + arr[i]).attr("checked", "checked");
+                        $(id + arr[i]).parent().parent().appendTo(id + "list_checked");
+                    // }
+                    // else{
+                    //     var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="' + id + '" onclick="clickCheckbox(event, \'' + id + '\');"></label></a>');
+                    //     $(id + 'list_checked').append(tip);
+                    // }
 
                 }
             }
