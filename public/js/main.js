@@ -53,34 +53,12 @@ function newCheckTip(e, data, id){
 
 //=============================================================================================================================================
 
-// // Show years
-// $(document).ready(function(){
-//     var list = $("#years_list_unchecked a");
-//     var numToShow = 5;
-//     var button = $("#nextYears");
-//     var numInList = list.length;
-//     list.hide();
-//     if (numInList > numToShow) {
-//         button.show();
-//     }
-//     list.slice(0, numToShow).show();
-//
-//     button.click(function(){
-//         var showing = list.filter(':visible').length;
-//         list.slice(showing - 1, showing + numToShow).fadeIn();
-//         var nowShowing = list.filter(':visible').length;
-//         if (nowShowing >= numInList) {
-//             button.hide();
-//         }
-//     });
-// });
-
-
 // Show years
 $(document).ready(function(){
     var list = $("#years_list_unchecked a");
     var numToShow = 5;
     var button = $("#nextYears");
+    var prev = $("#prevYears");
     var numInList = list.length;
     list.hide();
     if (numInList > numToShow) {
@@ -90,10 +68,22 @@ $(document).ready(function(){
 
     button.click(function(){
         var showing = list.filter(':visible').length;
-        list.slice(showing - 1, showing + numToShow).fadeIn();
+        if(showing==0) list.slice(0,5).fadeIn();
+        else list.slice(showing - 1, showing + numToShow).fadeIn();
         var nowShowing = list.filter(':visible').length;
         if (nowShowing >= numInList) {
             button.hide();
+        }
+        prev.show();
+    });
+
+    prev.click(function(){
+        var showing = list.filter(':visible').length;
+        if( showing >= 5) {
+            if (showing < numToShow) showing = numToShow;
+            list.slice(showing - numToShow, showing, 0).fadeOut();
+            if (showing - numToShow < 5) prev.hide();
+            button.show();
         }
     });
 });
@@ -155,22 +145,23 @@ window.onload = function() {
                 for (var i = 0; i < arr.length; i++) {
                     // console.log(arr[i]);
 
-                    // if ($(id + arr[i])) {
-                        $(id + arr[i]).attr("checked", "checked");
-                        $(id + arr[i]).parent().parent().appendTo(id + "list_checked");
-                    // }
-                    // else{
-                    //     var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="' + id + '" onclick="clickCheckbox(event, \'' + id + '\');"></label></a>');
-                    //     $(id + 'list_checked').append(tip);
-                    // }
+                    // console.log( $(id + arr[i]).length );
+                    if ($('#' + id + '_' + arr[i]).length != 0) {
+                        $('#' + id + '_' + arr[i]).attr("checked", "checked");
+                        $('#' + id + '_' + arr[i]).parent().parent().appendTo('#' + id + '_' + "list_checked");
+                    }
+                    else{
+                        var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" checked value="' + arr[i] + '" onclick="clickCheckbox(event, \'' + id + '\');"></label></a>');
+                        $('#' + id + '_' + 'list_checked').append(tip);
+                    }
 
                 }
             }
         }
 
-        checkBoxes(checked_genres, '#genres_');
-        checkBoxes(checked_tags, '#tags_');
-        checkBoxes(checked_years, '#years_');
+        checkBoxes(checked_genres, 'genres');
+        checkBoxes(checked_tags, 'tags');
+        checkBoxes(checked_years, 'years');
 
         newSearchBook(event);
     }

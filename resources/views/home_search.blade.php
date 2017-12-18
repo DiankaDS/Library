@@ -91,6 +91,7 @@
                         </div>
                     </form>
                     <button id="nextYears">Show More</button>
+                    <button id="prevYears">Show Less</button>
                 </div>
             </div>
 
