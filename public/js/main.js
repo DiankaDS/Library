@@ -13,47 +13,41 @@ function newCheckTip(e, data, id){
 
     timer=setTimeout(function() {
 
-        // if (input.val()!='') {
-            // console.log(input.val());
-            // console.log(array);
+        var search = new RegExp(input.val().toLowerCase());
+        var source = $.map(array, function (value) {
 
-            var search = new RegExp(input.val());
-            var source = $.map(array, function (value) {
+            return value.name.toLowerCase().match(search) ? value : null;
+        });
 
-                return value.name.match(search) ? value : null;
+        body.empty();
+
+        // console.log(source);
+
+        if (source.length!=0) {
+
+            var checked = [];
+            $("#searchbox_"+ id +" input:checked").each(function(){
+                checked.unshift($(this).val());
             });
 
-            body.empty();
-
-            // console.log(source);
-
-            if (source.length!=0) {
-
-                var checked = [];
-
-                $("#searchbox_"+ id +" input:checked").each(function(){
-                    checked.unshift($(this).val());
-                });
-
-                var max = 0;
-                for (var i = 0; i < source.length; i++) {
-                    if (max >= 5) {
-                        break;
-                    }
-                    if (checked.indexOf(String(source[i].id)) == -1) {
-                        // console.log(source[i].id);
-                        var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="' + source[i].id + '" onclick="clickCheckbox(event, \'' + id + '\');">' + source[i].name + '</label></a>');
-                        body.append(tip);
-                        max++;
-                    }
+            var max = 0;
+            for (var i = 0; i < source.length; i++) {
+                if (max >= 5) {
+                    break;
+                }
+                if (checked.indexOf(String(source[i].id)) == -1) {
+                    // console.log(source[i].id);
+                    var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="' + source[i].id + '" onclick="clickCheckbox(event, \'' + id + '\');">' + source[i].name + '</label></a>');
+                    body.append(tip);
+                    max++;
                 }
             }
-            else {
-                // body.text('No results');
-                var tip = $('<a href="#" class="list-group-item checkbox">No results</a>');
-                body.append(tip);
-            }
-        // }
+        }
+        else {
+            // body.text('No results');
+            var tip = $('<a href="#" class="list-group-item checkbox">No results</a>');
+            body.append(tip);
+        }
     }, 1000);
 }
 
