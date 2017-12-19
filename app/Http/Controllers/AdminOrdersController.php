@@ -20,7 +20,7 @@ class AdminOrdersController extends Controller
             ->join('lib_books', 'orders.book_id', '=', 'lib_books.id')
             ->select('orders.*', 'users.username as taker', 'users1.username as giving', 'lib_books.name as book', 'orders.id as order_id')
 //            ->get();
-            ->simplePaginate(12);
+            ->paginate(12);
 
         $confirm_delete_order_message = 'Are you sure to delete this order?';
         return view('admin/admin_orders', array(

@@ -141,67 +141,75 @@
             </div>
 
 
-
+            {{--============================================================================--}}
 
             <div class="row" align="center">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="?page=1" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-                    <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
-                    {{--<li class="page-item"><a class="page-link" href="?page=3">3</a></li>--}}
-                    <li class="page-item">
-                        <a class="page-link" href="?page=2" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
+            {{ $books->links() }}
+
+                {{--<p>count {{ $books->count() }}</p>--}}
+                {{--<p>currentPage {{ $books->currentPage() }}</p>--}}
+                {{--<p>firstItem {{ $books->firstItem() }}</p>--}}
+                {{--<p>hasMorePages {{ $books->hasMorePages() }}</p>--}}
+                {{--<p>lastItem {{ $books->lastItem() }}</p>--}}
+                {{--<p>nextPageUrl {{ $books->nextPageUrl() }}</p>--}}
+                {{--<p>perPage {{ $books->perPage() }}</p>--}}
+                {{--<p>previousPageUrl {{ $books->previousPageUrl() }}</p>--}}
+                {{--<p>total {{ $books->firstItem() }}</p>--}}
+                {{--<p>url {{ $books->firstItem() }}</p>--}}
+
             </div>
 
             {{--============================================================================--}}
-            {{--@if ($paginator->hasPages())--}}
-                {{--<ul class="pager">--}}
-                    {{-- Previous Page Link --}}
-                    {{--@if ($paginator->onFirstPage())--}}
-                        {{--<li class="disabled"><span>? Previous</span></li>--}}
+            {{--<div class="row" align="center">--}}
+                {{--<ul class="pagination">--}}
+                    {{--@if ($books->onFirstPage())--}}
+                        {{--<li class="page-item disabled">--}}
+                            {{--<a class="page-link" href="#">--}}
+                                {{--<span aria-hidden="true">&laquo;</span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     {{--@else--}}
-                        {{--<li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">? Previous</a></li>--}}
+                        {{--<li class="page-item">--}}
+                            {{--<a class="page-link" href="{{ $books->previousPageUrl() }}">--}}
+                                {{--<span aria-hidden="true">&laquo;</span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     {{--@endif--}}
-                    {{-- Pagination Elements --}}
-                    {{--@foreach ($elements as $element)--}}
-                        {{-- "Three Dots" Separator --}}
-                        {{--@if (is_string($element))--}}
-                            {{--<li class="disabled"><span>{{ $element }}</span></li>--}}
-                        {{--@endif--}}
-                        {{-- Array Of Links --}}
-                        {{--@if (is_array($element))--}}
-                            {{--@foreach ($element as $page => $url)--}}
-                                {{--@if ($page == $paginator->currentPage())--}}
-                                    {{--<li class="active my-active"><span>{{ $page }}</span></li>--}}
-                                {{--@else--}}
-                                    {{--<li><a href="{{ $url }}">{{ $page }}</a></li>--}}
-                                {{--@endif--}}
-                            {{--@endforeach--}}
-                        {{--@endif--}}
-                    {{--@endforeach--}}
-                    {{-- Next Page Link --}}
-                    {{--@if ($paginator->hasMorePages())--}}
-                        {{--<li><a href="{{ $paginator->nextPageUrl() }}" rel="next">Next ?</a></li>--}}
+
+                    {{--@if ($books->currentPage() > 1)--}}
+                        {{--@for ($i = $books->currentPage() - 2; $i < $books->currentPage(); $i++)--}}
+                            {{--@if ($i > 0)--}}
+                            {{--<li class="page-item"><a class="page-link" href="{{ $books->url($i) }}">{{ $i }}</a></li>--}}
+                            {{--@endif--}}
+                        {{--@endfor--}}
+                    {{--@endif--}}
+
+                    {{--<li class="page-item active"><a class="page-link" href="#">{{ $books->currentPage() }}</a></li>--}}
+
+                    {{--@if ($books->hasMorePages())--}}
+                        {{--@for ($i = $books->currentPage() + 1; $i <= $books->currentPage() + 2; $i++)--}}
+                            {{--@if ($i != $books->lastPage() + 1)--}}
+                                {{--<li class="page-item"><a class="page-link" href="{{ $books->url($i) }}">{{ $i }}</a></li>--}}
+                            {{--@endif--}}
+                        {{--@endfor--}}
+                    {{--@endif--}}
+
+                    {{--@if ($books->hasMorePages())--}}
+                        {{--<li class="page-item">--}}
+                            {{--<a class="page-link" href="{{ $books->nextPageUrl() }}">--}}
+                                {{--<span aria-hidden="true">&raquo;</span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     {{--@else--}}
-                        {{--<li class="disabled"><span>Next ?</span></li>--}}
+                        {{--<li class="page-item disabled">--}}
+                            {{--<a class="page-link" href="#">--}}
+                                {{--<span aria-hidden="true">&raquo;</span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     {{--@endif--}}
                 {{--</ul>--}}
-            {{--@endif--}}
-            {{--============================================================================--}}
-
-            {{--<div class="row" align="center">--}}
-                {{--{{ $books->links() }}--}}
             {{--</div>--}}
+            {{--============================================================================--}}
         </div>
 
 

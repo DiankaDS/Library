@@ -20,7 +20,7 @@ class AdminReviewsController extends Controller
             ->join('lib_books', 'reviews.book_id', '=', 'lib_books.id')
             ->select('users.username', 'reviews.*', 'lib_books.name as book')
 //            ->get();
-            ->simplePaginate(12);
+            ->paginate(12);
 
         $confirm_delete_review_message = 'Are you sure to delete this review?';
         return view('admin/admin_reviews', array(

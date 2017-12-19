@@ -26,7 +26,7 @@ class HomeController extends Controller
             })
             ->groupBy('lib_books.id')
             ->orderBy('rating', 'DESC')
-            ->simplePaginate(12);
+            ->paginate(12);
 
         $genres = DB::table('genres')->get();
 
@@ -52,7 +52,7 @@ class HomeController extends Controller
             })
             ->groupBy('lib_books.id')
             ->orderBy('rating', 'DESC')
-            ->simplePaginate(6);
+            ->paginate(1);
 
         $genres = DB::table('genres')->get();
 

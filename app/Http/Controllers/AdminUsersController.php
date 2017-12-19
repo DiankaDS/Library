@@ -14,7 +14,7 @@ class AdminUsersController extends Controller
 
     protected function adminUsers()
     {
-        $users = User::simplePaginate(12);
+        $users = User::paginate(12);
         $confirm_delete_profile_message = "Are you sure to delete this user?";
         $confirm_add_to_admin_message = "Are you sure to add this user to admin?";
         $confirm_delete_from_admin_message = "Are you sure to delete this user from admin?";

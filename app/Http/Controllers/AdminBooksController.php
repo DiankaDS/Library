@@ -26,7 +26,7 @@ class AdminBooksController extends Controller
 //                , DB::raw('group_concat(tags.name) as tag')
             ->groupBy('lib_books.id', 'genres.name')
 //            ->get();
-            ->simplePaginate(12);
+            ->paginate(12);
 
         $tags = DB::table('lib_books')
             ->leftJoin('tags_books', 'tags_books.book_id', '=', 'lib_books.id')

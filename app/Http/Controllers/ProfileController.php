@@ -28,7 +28,7 @@ class ProfileController extends Controller
             ->select('lib_books.*', 'genres.name as genre', 'user_books.user_id as user', DB::raw('group_concat(authors.name) as author'))
             ->where('user_books.user_id', $user_id)
             ->groupBy('lib_books.id', 'genres.name', 'user_books.user_id')
-            ->simplePaginate(6);
+            ->paginate(6);
 
         $user_books_count = DB::table('user_books')
             ->where('user_books.user_id', $user_id)

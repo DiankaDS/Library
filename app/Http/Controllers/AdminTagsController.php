@@ -19,7 +19,7 @@ class AdminTagsController extends Controller
 
     protected function adminTags()
     {
-        $tags = Tag::simplePaginate(12);
+        $tags = Tag::paginate(12);
         $confirm_delete_tag_message = 'Are you sure to delete this tag?';
         return view('admin/admin_tags', array(
             'tags' => $tags,

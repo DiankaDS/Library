@@ -31,7 +31,7 @@ class WishesController extends Controller
             })
             ->groupBy('lib_books.id')
             ->orderBy('votes', 'DESC')
-            ->simplePaginate(12);
+            ->paginate(12);
 
         $vote_users = DB::table('wishes')
             ->join('users', 'users.id', '=', 'wishes.user_id')

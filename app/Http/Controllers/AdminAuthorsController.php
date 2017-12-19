@@ -14,7 +14,7 @@ class AdminAuthorsController extends Controller
 
     protected function adminAuthors()
     {
-        $authors = Author::simplePaginate(12);
+        $authors = Author::paginate(12);
         $confirm_delete_author_message = 'Are you sure to delete this author?';
         return view('admin/admin_authors', array(
             'authors' => $authors,
