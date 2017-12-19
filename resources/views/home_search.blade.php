@@ -143,7 +143,7 @@
 
             {{--============================================================================--}}
 
-            <div class="row" align="center">
+            <div class="row" id="pagination" align="center">
             {{ $books->links() }}
 
                 {{--<p>count {{ $books->count() }}</p>--}}
@@ -160,7 +160,7 @@
             </div>
 
             {{--============================================================================--}}
-            {{--<div class="row" align="center">--}}
+            {{--<div class="row" id="pagination_ajax" hidden>--}}
                 {{--<ul class="pagination">--}}
                     {{--@if ($books->onFirstPage())--}}
                         {{--<li class="page-item disabled">--}}
