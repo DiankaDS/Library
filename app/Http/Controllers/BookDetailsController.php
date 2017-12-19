@@ -20,7 +20,7 @@ class BookDetailsController extends Controller
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->select('lib_books.*', 'genres.name as genre', DB::raw('group_concat(authors.name) as author'), DB::raw("(
-                SELECT sum(reviews.rating) 
+                SELECT round(avg(reviews.rating), 1)
                 FROM reviews
                 WHERE reviews.book_id = lib_books.id
                 ) as rating"))
