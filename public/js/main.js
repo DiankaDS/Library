@@ -65,6 +65,8 @@ $(document).ready(function(){
     list.slice(0, numToShow).show();
 
     button.click(function(){
+        list = $("#years_list_unchecked a");
+        numInList = list.length;
         var showing = list.filter(':visible').length;
         if(showing==0) list.slice(0,5).fadeIn();
         else list.slice(showing - 1, showing + numToShow).fadeIn();
@@ -76,12 +78,17 @@ $(document).ready(function(){
     });
 
     prev.click(function(){
+        list = $("#years_list_unchecked a");
+        numInList = list.length;
         var showing = list.filter(':visible').length;
         if( showing >= 5) {
             if (showing < numToShow) showing = numToShow;
             list.slice(showing - numToShow, showing, 0).fadeOut();
             if (showing - numToShow < 5) prev.hide();
             button.show();
+        }
+        else {
+            prev.hide();
         }
     });
 });

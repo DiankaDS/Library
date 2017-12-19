@@ -26,7 +26,11 @@
                         <tbody>
                         <tr>
                             <th>Rating</th>
-                            <td>{{ $book_info->rating }}</td>
+                                @if ($book_info->rating)
+                                    <td>{{ $book_info->rating }}</td>
+                                @else
+                                    <td>0</td>
+                                @endif
                         </tr>
                         <tr>
                             <th>Book name</th>
