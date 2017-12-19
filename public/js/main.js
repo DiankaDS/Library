@@ -1,11 +1,11 @@
-function newCheckTip(e, data, id){
+function newCheckTip(e, id){
 
-    // clearTips();
     var input = $(e.currentTarget);
 
-    var array = $.parseJSON(data);
+    var array = [];
+    if(id=="genres") {array = genres;}
+    else if(id=="tags") {array = tags;}
 
-    // var body = $('#'+id);
     var body = $('#' + id + '_list_unchecked');
 
     var timer;
@@ -20,7 +20,6 @@ function newCheckTip(e, data, id){
         });
 
         body.empty();
-
         // console.log(source);
 
         if (source.length!=0) {
@@ -44,7 +43,6 @@ function newCheckTip(e, data, id){
             }
         }
         else {
-            // body.text('No results');
             var tip = $('<a href="#" class="list-group-item checkbox">No results</a>');
             body.append(tip);
         }
@@ -142,17 +140,30 @@ window.onload = function() {
 
         function checkBoxes(arr, id) {
             if (arr.length != 0) {
+                // console.log(id);
                 for (var i = 0; i < arr.length; i++) {
                     // console.log(arr[i]);
-
                     // console.log( $(id + arr[i]).length );
                     if ($('#' + id + '_' + arr[i]).length != 0) {
                         $('#' + id + '_' + arr[i]).attr("checked", "checked");
                         $('#' + id + '_' + arr[i]).parent().parent().appendTo('#' + id + '_' + "list_checked");
                     }
                     else{
-                        var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" checked value="' + arr[i] + '" onclick="clickCheckbox(event, \'' + id + '\');"></label></a>');
-                        $('#' + id + '_' + 'list_checked').append(tip);
+                        var list = [];
+
+                        if(id=="genres") {list = genres;}
+                        else if(id=="tags") {list = tags;}
+
+                        for (var j = 0; j < list.length; j++) {
+                            if(list[j]['id'] == arr[i]) {
+                                var name = list[j]['name'];
+                                break;
+                            }
+                        }
+                        if (name) {
+                            var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" checked value="' + arr[i] + '" onclick="clickCheckbox(event, \'' + id + '\');">' + name + '</label></a>');
+                            $('#' + id + '_' + 'list_checked').append(tip);
+                        }
                     }
 
                 }
@@ -180,11 +191,6 @@ function clickCheckbox(e, id) {
 
 function newSearchBook(e){
 
-    // var timer;
-    // clearTimeout(timer);
-    //
-    // timer=setTimeout(function() {
-
     var input = $('#mySearch').val();
     var checked_genres = [];
     var checked_tags = [];
@@ -202,8 +208,6 @@ function newSearchBook(e){
     $("#searchbox_years input:checked").each(function(){
         checked_years.unshift($(this).val());
     });
-
-
 
     var query = '?';
 
@@ -268,19 +272,16 @@ function newSearchBook(e){
             'rating': checked_rating
         },
         success: function (data) {
-
             // console.log(data);
 
             var source = $.parseJSON(data);
 
             $("#myBooks").empty();
-
             // console.log(input_tags.val());
             // console.log(data);
             // console.log(source);
 
             if (source.length !== 0) {
-
                 // console.log(source);
 
                 for (var i = 0; i < source.length; i++) {
@@ -327,7 +328,6 @@ function newSearchBook(e){
             console.log(e);
         }
     });
-    // }, 1000);
 }
 
 //=============================================================================================================================================

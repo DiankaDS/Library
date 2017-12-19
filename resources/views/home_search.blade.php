@@ -1,5 +1,16 @@
 @extends('layouts.app')
 
+<script>
+    var genres = [];
+    var tags = [];
+</script>
+@foreach ($genres as $val)
+<script>genres.push({"id":"{{ $val->id }}", "name":"{{ $val->name }}"});</script>
+@endforeach
+@foreach ($tags as $val)
+    <script>tags.push({"id":"{{ $val->id }}", "name":"{{ $val->name }}"});</script>
+@endforeach
+
 @section('content')
 <div class="container">
 
@@ -43,10 +54,9 @@
                 <div class="panel-heading">Genre</div>
                 <div class="panel-body">
                     <form id="searchbox_genres">
-                        <input class="form-control" type="text" name="genre" placeholder="Search genre..." autocomplete="off" onkeyup="newCheckTip(event, '{{ $genres }}', 'genres')">
+                        <input class="form-control" type="text" name="genre" placeholder="Search genre..." autocomplete="off" onkeyup="newCheckTip(event, 'genres')">
 
                         <div class="list-group" id="genres_list">
-
 
                             <div class="list-group" id="genres_list_checked"></div>
                             <div class="list-group" id="genres_list_unchecked">
@@ -55,14 +65,11 @@
                                     <label>
                                         {{--<input type="checkbox" id="genre_{{ $val->id }}" value="{{ $val->id }}" onclick='newSearchBook(event);'>--}}
                                         <input type="checkbox" id="genres_{{ $val->id }}" value="{{ $val->id }}" onclick='clickCheckbox(event, "genres");'>
-
                                         {{ $val->name }}
                                     </label>
                                 </a>
                             @endforeach
                             </div>
-
-
 
                         </div>
                     </form>
@@ -216,7 +223,7 @@
                 <div class="panel-heading">Tags</div>
                 <div class="panel-body">
                     <form id="searchbox_tags">
-                        <input class="form-control" type="text" name="tags" placeholder="Search tag..." autocomplete="off" onkeyup="newCheckTip(event, '{{ $tags }}', 'tags')">
+                        <input class="form-control" type="text" name="tags" placeholder="Search tag..." autocomplete="off" onkeyup="newCheckTip(event, 'tags')">
 
                         <div class="list-group" id="tags_list">
 
@@ -261,28 +268,6 @@
                     </form>
                 </div>
             </div>
-
-
-
-            {{--<div class="wrapper">--}}
-                {{--<ul class="list">--}}
-                    {{--<li>Item 1</li>--}}
-                    {{--<li>Item 2</li>--}}
-                    {{--<li>Item 3</li>--}}
-                    {{--<li>Item 4</li>--}}
-                    {{--<li>Item 5</li>--}}
-                    {{--<li>Item 6</li>--}}
-                    {{--<li>Item 7</li>--}}
-                    {{--<li>Item 8</li>--}}
-                    {{--<li>Item 9</li>--}}
-                    {{--<li>Item 10</li>--}}
-                {{--</ul>--}}
-                {{--<button id="nextYears">Show More</button>--}}
-            {{--</div>--}}
-
-
-
-
 
         </div>
         {{--</div>--}}
