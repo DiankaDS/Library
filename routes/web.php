@@ -19,16 +19,20 @@ Auth::routes();
 
 // Home routes
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('search_books','SearchController@searchBooks');
+//Route::post('search_books','SearchController@searchBooks');
 
-
-
-Route::get('/home_search', 'HomeController@homeSearch');
+Route::get('/', 'HomeController@homeSearch')->name('home');
+Route::get('/home', 'HomeController@homeSearch')->name('home');
 
 Route::post('/home_search_books', 'HomeController@homeSearchBooks');
+
+
+//Route::get('/home_search', 'HomeController@homeSearch');
+//
+//Route::post('/home_search_books', 'HomeController@homeSearchBooks');
 
 // Wishes routes
 

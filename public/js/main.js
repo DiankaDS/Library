@@ -97,9 +97,10 @@ $(document).ready(function(){
 // Parse url
 
 window.onload = function() {
-    if (window.location.pathname == "/home_search" && window.location.search
-        // && window.location.search.indexOf("page") == -1
-    ) {
+    // if (window.location.pathname == "/home_search"
+    if (window.location.pathname == "/"
+        && window.location.search
+        && window.location.search.indexOf("?page") == -1) {
         // var query = window.location.search;
         // console.log(query);
 

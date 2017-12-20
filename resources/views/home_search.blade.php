@@ -39,7 +39,8 @@
         <div class="col-md-2">
             {{--<button type="button" class="btn btn-info" onclick='location.reload();'>Clear filters</button>--}}
 
-            <a href="/home_search"><button type="button" class="btn btn-info">Clear filters</button></a>
+            {{--<a href="/home_search"><button type="button" class="btn btn-info">Clear filters</button></a>--}}
+            <a href="/"><button type="button" class="btn btn-info">Clear filters</button></a>
             {{--<button type="button" class="btn btn-info" onclick='newSearchBook(event);'>Search</button>--}}
         </div>
         <br>
