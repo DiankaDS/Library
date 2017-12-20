@@ -307,10 +307,8 @@ function newSearchBook(e, page){
             // $('#pagination').hide();
             $('#pagination').empty();
 
-            // if (source.length != 0) {
-            if (source != null) {
-
-                console.log($.parseJSON(data));
+            if (source.length != 0) {
+                // console.log($.parseJSON(data));
                 // console.log(source);
 
                 for (var i = 0; i < source.length; i++) {

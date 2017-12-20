@@ -169,8 +169,26 @@ class HomeController extends Controller
             }
 
             if ($rating) {
-                $books = $books->having('rating', '>=', $rating);
-                $books = $books->having('rating', '<', $rating + 1);
+                $rating_books = DB::table('lib_books')
+                    ->select('lib_books.id as book_id', DB::raw("(
+                    SELECT round(avg(reviews.rating), 1)
+                    FROM reviews
+                    WHERE reviews.book_id = lib_books.id
+                    ) as rating"))
+                    ->distinct()
+                    ->having('rating', '>=', $rating)
+                    ->having('rating', '<', $rating + 1)
+                    ->groupBy('lib_books.id')
+                    ->get()
+                    ->toArray();
+
+                $rating_id = [];
+
+                foreach ($rating_books as $obj) {
+                    $rating_id[] = $obj->book_id;
+                }
+
+                $books = $books->whereIn('lib_books.id', $rating_id);
             }
 
             if($books) {
