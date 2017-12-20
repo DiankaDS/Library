@@ -39,7 +39,7 @@
             <a href="/"><button type="button" class="btn btn-info">Clear filters</button></a>
             {{--<button type="button" class="btn btn-info" onclick='newSearchBook(event);'>Search</button>--}}
         </div>
-        <div class="col-md-8 col-md-offset-1">
+        <div class="col-md-9 col-md-offset-1">
             <input class="form-control" id="mySearch" type="search" placeholder="Search for book or authors..." autocomplete="off" onkeyup='setTimeout(newSearchBook(event), 1000);'>
         </div>
         <br>
@@ -188,7 +188,7 @@
 
                 @if (count($books) !== 0)
                     @foreach ($books as $val)
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <div class="thumbnail" style="width: 250px; height: 300px;">
                                 <a href="book_{{ $val->id }}" name="{{ $val->id }}">
                                     @if ($val->photo)

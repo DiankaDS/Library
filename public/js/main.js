@@ -316,7 +316,7 @@ function newSearchBook(e, page){
                 // console.log(source);
 
                 for (var i = 0; i < source.length; i++) {
-                    var container = $('<div class="col-md-4"></div>');
+                    var container = $('<div class="col-md-4 col-sm-4 col-xs-6"></div>');
                     container.appendTo($("#myBooks"));
                     var thumb = $('<div class="thumbnail" style="width: 250px; height: 300px;"></div>');
                     thumb.appendTo(container);
