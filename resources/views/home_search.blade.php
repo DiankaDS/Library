@@ -31,17 +31,12 @@
     @endif
 
     <div class="row">
-
-        <div class="col-md-6 col-md-offset-3">
-            <input class="form-control" id="mySearch" type="search" placeholder="Search for book or authors..." autocomplete="off" onkeyup='setTimeout(newSearchBook(event), 1000);'>
-
-        </div>
         <div class="col-md-2">
-            {{--<button type="button" class="btn btn-info" onclick='location.reload();'>Clear filters</button>--}}
-
-            {{--<a href="/home_search"><button type="button" class="btn btn-info">Clear filters</button></a>--}}
             <a href="/"><button type="button" class="btn btn-info">Clear filters</button></a>
             {{--<button type="button" class="btn btn-info" onclick='newSearchBook(event);'>Search</button>--}}
+        </div>
+        <div class="col-md-8 col-md-offset-1">
+            <input class="form-control" id="mySearch" type="search" placeholder="Search for book or authors..." autocomplete="off" onkeyup='setTimeout(newSearchBook(event), 1000);'>
         </div>
         <br>
     </div>
@@ -52,7 +47,13 @@
 
         <div class="col-md-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Genre</div>
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapseGenres">Genres</a>
+                    </h4>
+                </div>
+                <div id="collapseGenres" class="panel-collapse collapse">
+
                 <div class="panel-body">
                     <form id="searchbox_genres">
                         <input class="form-control" type="text" name="genre" placeholder="Search genre..." autocomplete="off" onkeyup="newCheckTip(event, 'genres')">
@@ -75,10 +76,17 @@
                         </div>
                     </form>
                 </div>
+                </div>
             </div>
 
             <div class="panel panel-default">
-                <div class="panel-heading">Year</div>
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapseYears">Years</a>
+                    </h4>
+                </div>
+                <div id="collapseYears" class="panel-collapse collapse">
+
                 <div class="panel-body">
                     <form id="searchbox_years">
 
@@ -101,16 +109,81 @@
                     <button id="nextYears">Show More</button>
                     <button id="prevYears">Show Less</button>
                 </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapseTags">Tags</a>
+                    </h4>
+                </div>
+                <div id="collapseTags" class="panel-collapse collapse">
+
+                <div class="panel-body">
+                    <form id="searchbox_tags">
+                        <input class="form-control" type="text" name="tags" placeholder="Search tag..." autocomplete="off" onkeyup="newCheckTip(event, 'tags')">
+
+                        <div class="list-group" id="tags_list">
+
+                            <div class="list-group" id="tags_list_checked"></div>
+                            <div class="list-group" id="tags_list_unchecked">
+                                @foreach ($tags->take(5) as $val)
+                                    <a href="#" class="list-group-item checkbox">
+                                        <label>
+                                            <input type="checkbox" id="tags_{{ $val->id }}" value="{{ $val->id }}" onclick='clickCheckbox(event, "tags");'>
+                                            {{ $val->name }}
+                                        </label>
+                                    </a>
+                                @endforeach
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapseRating">Rating</a>
+                    </h4>
+                </div>
+                <div id="collapseRating" class="panel-collapse collapse in">
+
+                <div class="panel-body">
+                    <form id="searchbox_ratings">
+                        <div class="list-group" id="ratings_list">
+
+                            @for($n = 5; $n > 0; $n--)
+                                <a href="#" class="list-group-item radio">
+                                    <label>
+                                        <input type="radio" id="ratings_{{ $n }}" value="{{ $n }}" name="optradio" onclick='newSearchBook(event);'>
+                                        @for($i = 0; $i < $n; $i++)
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        @endfor
+                                        @for($i = 0; $i < 5 - $n; $i++)
+                                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                        @endfor
+                                    </label>
+                                </a>
+                            @endfor
+
+                        </div>
+                    </form>
+                </div>
+                </div>
             </div>
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-9">
             <div class="row" id="myBooks">
 
                 @if (count($books) !== 0)
                     @foreach ($books as $val)
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="thumbnail" style="width: 250px; height: 300px;">
                                 <a href="book_{{ $val->id }}" name="{{ $val->id }}">
                                     @if ($val->photo)
@@ -214,7 +287,7 @@
         </div>
 
 
-        <div class="col-md-3">
+        {{--<div class="col-md-3">--}}
             {{--<div class="panel panel-default">--}}
                 {{--<div class="panel-heading">Authors</div>--}}
                 {{--<div class="panel-body">--}}
@@ -228,57 +301,57 @@
                 {{--</div>--}}
             {{--</div>--}}
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Tags</div>
-                <div class="panel-body">
-                    <form id="searchbox_tags">
-                        <input class="form-control" type="text" name="tags" placeholder="Search tag..." autocomplete="off" onkeyup="newCheckTip(event, 'tags')">
+            {{--<div class="panel panel-default">--}}
+                {{--<div class="panel-heading">Tags</div>--}}
+                {{--<div class="panel-body">--}}
+                    {{--<form id="searchbox_tags">--}}
+                        {{--<input class="form-control" type="text" name="tags" placeholder="Search tag..." autocomplete="off" onkeyup="newCheckTip(event, 'tags')">--}}
 
-                        <div class="list-group" id="tags_list">
+                        {{--<div class="list-group" id="tags_list">--}}
 
-                            <div class="list-group" id="tags_list_checked"></div>
-                            <div class="list-group" id="tags_list_unchecked">
-                            @foreach ($tags->take(5) as $val)
-                                <a href="#" class="list-group-item checkbox">
-                                    <label>
-                                        <input type="checkbox" id="tags_{{ $val->id }}" value="{{ $val->id }}" onclick='clickCheckbox(event, "tags");'>
-                                        {{ $val->name }}
-                                    </label>
-                                </a>
-                            @endforeach
-                            </div>
+                            {{--<div class="list-group" id="tags_list_checked"></div>--}}
+                            {{--<div class="list-group" id="tags_list_unchecked">--}}
+                            {{--@foreach ($tags->take(5) as $val)--}}
+                                {{--<a href="#" class="list-group-item checkbox">--}}
+                                    {{--<label>--}}
+                                        {{--<input type="checkbox" id="tags_{{ $val->id }}" value="{{ $val->id }}" onclick='clickCheckbox(event, "tags");'>--}}
+                                        {{--{{ $val->name }}--}}
+                                    {{--</label>--}}
+                                {{--</a>--}}
+                            {{--@endforeach--}}
+                            {{--</div>--}}
 
-                        </div>
-                    </form>
-                </div>
-            </div>
+                        {{--</div>--}}
+                    {{--</form>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Rating</div>
-                <div class="panel-body">
-                    <form id="searchbox_ratings">
-                        <div class="list-group" id="ratings_list">
+            {{--<div class="panel panel-default">--}}
+                {{--<div class="panel-heading">Rating</div>--}}
+                {{--<div class="panel-body">--}}
+                    {{--<form id="searchbox_ratings">--}}
+                        {{--<div class="list-group" id="ratings_list">--}}
 
-                            @for($n = 5; $n > 0; $n--)
-                                <a href="#" class="list-group-item radio">
-                                    <label>
-                                        <input type="radio" id="ratings_{{ $n }}" value="{{ $n }}" name="optradio" onclick='newSearchBook(event);'>
-                                        @for($i = 0; $i < $n; $i++)
-                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        @endfor
-                                        @for($i = 0; $i < 5 - $n; $i++)
-                                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                                        @endfor
-                                    </label>
-                                </a>
-                            @endfor
+                            {{--@for($n = 5; $n > 0; $n--)--}}
+                                {{--<a href="#" class="list-group-item radio">--}}
+                                    {{--<label>--}}
+                                        {{--<input type="radio" id="ratings_{{ $n }}" value="{{ $n }}" name="optradio" onclick='newSearchBook(event);'>--}}
+                                        {{--@for($i = 0; $i < $n; $i++)--}}
+                                            {{--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>--}}
+                                        {{--@endfor--}}
+                                        {{--@for($i = 0; $i < 5 - $n; $i++)--}}
+                                            {{--<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>--}}
+                                        {{--@endfor--}}
+                                    {{--</label>--}}
+                                {{--</a>--}}
+                            {{--@endfor--}}
 
-                        </div>
-                    </form>
-                </div>
-            </div>
+                        {{--</div>--}}
+                    {{--</form>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
-        </div>
+        {{--</div>--}}
         {{--</div>--}}
     </div>
 </div>

@@ -175,7 +175,7 @@ class HomeController extends Controller
 
             if($books) {
 //                $source = $books->get();
-                $source = $books->paginate(4);
+                $source = $books->paginate(6);
             }
 
             else
