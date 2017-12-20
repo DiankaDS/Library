@@ -5,6 +5,7 @@ function newCheckTip(e, id){
     var array = [];
     if(id=="genres") {array = genres;}
     else if(id=="tags") {array = tags;}
+    else if(id=="years") {array = years;}
 
     var body = $('#' + id + '_list_unchecked');
 
@@ -49,47 +50,47 @@ function newCheckTip(e, id){
     }, 1000);
 }
 //======================================================================================================================
-// Show years
-$(document).ready(function(){
-    var list = $("#years_list_unchecked a");
-    var numToShow = 5;
-    var button = $("#nextYears");
-    var prev = $("#prevYears");
-    var numInList = list.length;
-    list.hide();
-    if (numInList > numToShow) {
-        button.show();
-    }
-    list.slice(0, numToShow).show();
-
-    button.click(function(){
-        list = $("#years_list_unchecked a");
-        numInList = list.length;
-        var showing = list.filter(':visible').length;
-        if(showing==0) list.slice(0,5).fadeIn();
-        else list.slice(showing - 1, showing + numToShow).fadeIn();
-        var nowShowing = list.filter(':visible').length;
-        if (nowShowing >= numInList) {
-            button.hide();
-        }
-        prev.show();
-    });
-
-    prev.click(function(){
-        list = $("#years_list_unchecked a");
-        numInList = list.length;
-        var showing = list.filter(':visible').length;
-        if( showing >= 5) {
-            if (showing < numToShow) showing = numToShow;
-            list.slice(showing - numToShow, showing, 0).fadeOut();
-            if (showing - numToShow < 5) prev.hide();
-            button.show();
-        }
-        else {
-            prev.hide();
-        }
-    });
-});
+// // Show years
+// $(document).ready(function(){
+//     var list = $("#years_list_unchecked a");
+//     var numToShow = 5;
+//     var button = $("#nextYears");
+//     var prev = $("#prevYears");
+//     var numInList = list.length;
+//     list.hide();
+//     if (numInList > numToShow) {
+//         button.show();
+//     }
+//     list.slice(0, numToShow).show();
+//
+//     button.click(function(){
+//         list = $("#years_list_unchecked a");
+//         numInList = list.length;
+//         var showing = list.filter(':visible').length;
+//         if(showing==0) list.slice(0,5).fadeIn();
+//         else list.slice(showing - 1, showing + numToShow).fadeIn();
+//         var nowShowing = list.filter(':visible').length;
+//         if (nowShowing >= numInList) {
+//             button.hide();
+//         }
+//         prev.show();
+//     });
+//
+//     prev.click(function(){
+//         list = $("#years_list_unchecked a");
+//         numInList = list.length;
+//         var showing = list.filter(':visible').length;
+//         if( showing >= 5) {
+//             if (showing < numToShow) showing = numToShow;
+//             list.slice(showing - numToShow, showing, 0).fadeOut();
+//             if (showing - numToShow < 5) prev.hide();
+//             button.show();
+//         }
+//         else {
+//             prev.hide();
+//         }
+//     });
+// });
 //======================================================================================================================
 // Parse url
 window.onload = function() {
@@ -161,6 +162,7 @@ window.onload = function() {
 
                         if(id=="genres") {list = genres;}
                         else if(id=="tags") {list = tags;}
+                        else if(id=="years") {list = years;}
 
                         for (var j = 0; j < list.length; j++) {
                             if(list[j]['id'] == arr[i]) {

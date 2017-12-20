@@ -3,12 +3,16 @@
 <script>
     var genres = [];
     var tags = [];
+    var years = [];
 </script>
 @foreach ($genres as $val)
 <script>genres.push({"id":"{{ $val->id }}", "name":"{{ $val->name }}"});</script>
 @endforeach
 @foreach ($tags as $val)
     <script>tags.push({"id":"{{ $val->id }}", "name":"{{ $val->name }}"});</script>
+@endforeach
+@foreach ($years as $val)
+    <script>years.push({"id":"{{ $val->name }}", "name":"{{ $val->name }}"});</script>
 @endforeach
 
 @section('content')
@@ -89,12 +93,13 @@
 
                 <div class="panel-body">
                     <form id="searchbox_years">
+                        <input class="form-control" type="text" name="years" placeholder="Search year..." autocomplete="off" onkeyup="newCheckTip(event, 'years')">
 
                         <div class="list-group" id="years_list">
 
                             <div class="list-group" id="years_list_checked"></div>
                             <div class="list-group" id="years_list_unchecked">
-                            @foreach ($years as $val)
+                            @foreach ($years->take(5) as $val)
                                 <a href="#" class="list-group-item checkbox">
                                     <label>
                                         <input type="checkbox" id="years_{{ $val->name }}" value="{{ $val->name }}" onclick='clickCheckbox(event, "years");'>
@@ -106,8 +111,8 @@
 
                         </div>
                     </form>
-                    <button id="nextYears">Show More</button>
-                    <button id="prevYears">Show Less</button>
+                    {{--<button id="nextYears">Show More</button>--}}
+                    {{--<button id="prevYears">Show Less</button>--}}
                 </div>
                 </div>
             </div>
