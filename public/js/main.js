@@ -94,98 +94,107 @@ $(document).ready(function(){
 });
 
 //=============================================================================================================================================
-// // Parse url
-//
-// window.onload = function() {
-//     if (window.location.pathname == "/home_search" && window.location.search
-//         && window.location.search.indexOf("page") == -1
-//     ) {
-//         // var query = window.location.search;
-//         // console.log(query);
-//
-//         function getParameterByName(variable)
-//         {
-//             var query = window.location.search.substring(1);
-//             var vars = query.split("&");
-//             var result = [];
-//             for (var i = 0; i < vars.length; i++) {
-//                 var pair = vars[i].split("=");
-//                 if (pair[0] == variable) {
-//                     result.push(pair[1]);
-//                 }
-//             }
-//             if (result != []) {
-//                 return (result);
-//             }
-//             else {
-//                 return (false);
-//             }
-//         }
-//
-//         var input = getParameterByName('name');
-//         var checked_genres = getParameterByName('genre[]');
-//         var checked_tags = getParameterByName('tag[]');
-//         var checked_years = getParameterByName('year[]');
-//         var checked_rating = getParameterByName('rating');
-//
-//         // console.log(input);
-//         // console.log(checked_genres);
-//         // console.log(checked_tags);
-//         // console.log(checked_years);
-//         // console.log(checked_rating);
-//
-//         if (input.length != 0) {
-//             for (var i = 0; i < input.length; i++) {
-//                 $('#mySearch').val(input[i]);
-//             }
-//         }
-//
-//         if (checked_rating.length != 0) {
-//             for (var i = 0; i < checked_rating.length; i++) {
-//                 // console.log(arr[i]);
-//                 $('#ratings_' + checked_rating[i]).attr("checked", "checked");
-//             }
-//         }
-//
-//         function checkBoxes(arr, id) {
-//             if (arr.length != 0) {
-//                 // console.log(id);
-//                 for (var i = 0; i < arr.length; i++) {
-//                     // console.log(arr[i]);
-//                     // console.log( $(id + arr[i]).length );
-//                     if ($('#' + id + '_' + arr[i]).length != 0) {
-//                         $('#' + id + '_' + arr[i]).attr("checked", "checked");
-//                         $('#' + id + '_' + arr[i]).parent().parent().appendTo('#' + id + '_' + "list_checked");
-//                     }
-//                     else{
-//                         var list = [];
-//
-//                         if(id=="genres") {list = genres;}
-//                         else if(id=="tags") {list = tags;}
-//
-//                         for (var j = 0; j < list.length; j++) {
-//                             if(list[j]['id'] == arr[i]) {
-//                                 var name = list[j]['name'];
-//                                 break;
-//                             }
-//                         }
-//                         if (name) {
-//                             var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" checked value="' + arr[i] + '" onclick="clickCheckbox(event, \'' + id + '\');">' + name + '</label></a>');
-//                             $('#' + id + '_' + 'list_checked').append(tip);
-//                         }
-//                     }
-//
-//                 }
-//             }
-//         }
-//
-//         checkBoxes(checked_genres, 'genres');
-//         checkBoxes(checked_tags, 'tags');
-//         checkBoxes(checked_years, 'years');
-//
-//         newSearchBook(event);
-//     }
-// };
+// Parse url
+
+window.onload = function() {
+    if (window.location.pathname == "/home_search" && window.location.search
+        // && window.location.search.indexOf("page") == -1
+    ) {
+        // var query = window.location.search;
+        // console.log(query);
+
+        function getParameterByName(variable)
+        {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            var result = [];
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    result.push(pair[1]);
+                }
+            }
+            if (result != []) {
+                return (result);
+            }
+            else {
+                return (false);
+            }
+        }
+
+        var input = getParameterByName('name');
+        var checked_genres = getParameterByName('genre[]');
+        var checked_tags = getParameterByName('tag[]');
+        var checked_years = getParameterByName('year[]');
+        var checked_rating = getParameterByName('rating');
+        var page = getParameterByName('page');
+
+        // console.log(input);
+        // console.log(checked_genres);
+        // console.log(checked_tags);
+        // console.log(checked_years);
+        // console.log(checked_rating);
+        // console.log(page);
+
+        if (input.length != 0) {
+            for (var i = 0; i < input.length; i++) {
+                $('#mySearch').val(input[i]);
+            }
+        }
+
+        if (checked_rating.length != 0) {
+            for (var i = 0; i < checked_rating.length; i++) {
+                // console.log(arr[i]);
+                $('#ratings_' + checked_rating[i]).attr("checked", "checked");
+            }
+        }
+
+        function checkBoxes(arr, id) {
+            if (arr.length != 0) {
+                // console.log(id);
+                for (var i = 0; i < arr.length; i++) {
+                    // console.log(arr[i]);
+                    // console.log( $(id + arr[i]).length );
+                    if ($('#' + id + '_' + arr[i]).length != 0) {
+                        $('#' + id + '_' + arr[i]).attr("checked", "checked");
+                        $('#' + id + '_' + arr[i]).parent().parent().appendTo('#' + id + '_' + "list_checked");
+                    }
+                    else{
+                        var list = [];
+
+                        if(id=="genres") {list = genres;}
+                        else if(id=="tags") {list = tags;}
+
+                        for (var j = 0; j < list.length; j++) {
+                            if(list[j]['id'] == arr[i]) {
+                                var name = list[j]['name'];
+                                break;
+                            }
+                        }
+                        if (name) {
+                            var tip = $('<a href="#" class="list-group-item checkbox"><label><input type="checkbox" checked value="' + arr[i] + '" onclick="clickCheckbox(event, \'' + id + '\');">' + name + '</label></a>');
+                            $('#' + id + '_' + 'list_checked').append(tip);
+                        }
+                    }
+
+                }
+            }
+        }
+
+        checkBoxes(checked_genres, 'genres');
+        checkBoxes(checked_tags, 'tags');
+        checkBoxes(checked_years, 'years');
+
+        if (page != []) {
+            var url = '/home_search_books?page=' + page[0];
+
+            newSearchBook(event, url);
+        }
+        else {
+            newSearchBook(event);
+        }
+    }
+};
 
 //=============================================================================================================================================
 function clickCheckbox(e, id) {
@@ -258,6 +267,17 @@ function newSearchBook(e, page){
         });
     }
 
+    var url = 'home_search_books';
+
+    if(page != null) {
+        if (query != '?') {
+            query += '&';
+        }
+        query += page.slice(page.indexOf('page='));
+
+        url =  page;
+    }
+
     window.history.pushState(null, null, query);
     // console.log(window.location.search);
 
@@ -266,17 +286,6 @@ function newSearchBook(e, page){
     // console.log( checked_years );
     // console.log( input );
     // console.log( checked_rating );
-
-
-
-
-    var url = 'home_search_books';
-
-    if(page != null) {
-        url =  page;
-    }
-
-
 
     $.ajax({
         'headers': {
@@ -299,19 +308,14 @@ function newSearchBook(e, page){
 
             $("#myBooks").empty();
 
-            $('#pagination').hide();
-
-            // console.log(input_tags.val());
-            // console.log(data);
+            // $('#pagination').hide();
+            $('#pagination').empty();
 
             // if (source.length != 0) {
             if (source != null) {
 
-                console.log($.parseJSON(data));
-                console.log(source);
-                console.log($.parseJSON(data)['next_page_url']);
-
-
+                // console.log($.parseJSON(data));
+                // console.log(source);
 
                 for (var i = 0; i < source.length; i++) {
                     var container = $('<div class="col-md-6"></div>');
@@ -348,12 +352,35 @@ function newSearchBook(e, page){
                     rating.appendTo(caption);
                 }
 
+                // $('<button onclick="newSearchBook(event, \''+ $.parseJSON(data)['prev_page_url'] +'\')">Prev</button>').appendTo($("#pagination"));
+                // $('<button onclick="newSearchBook(event, \''+ $.parseJSON(data)['next_page_url'] +'\')">Next</button>').appendTo($("#pagination"));
+                // $('<p>Page ' + $.parseJSON(data)['current_page'] + '/'+ $.parseJSON(data)['last_page'] + '</p>').appendTo($("#pagination"));
 
-                // $('<a href="'+ $.parseJSON(data)['next_page_url'] +'">Pages</a>').appendTo($("#myBooks"));
-                $('<button onclick="newSearchBook(event, \''+ $.parseJSON(data)['prev_page_url'] +'\')">Prev</button>').appendTo($("#myBooks"));
-                $('<button onclick="newSearchBook(event, \''+ $.parseJSON(data)['next_page_url'] +'\')">Next</button>').appendTo($("#myBooks"));
-                $('<p>Page ' + $.parseJSON(data)['current_page'] + '/'+ $.parseJSON(data)['last_page'] + '</p>').appendTo($("#myBooks"));
+                var ul_pag = $('<ul class="pagination"></ul>');
+                ul_pag.appendTo($("#pagination"));
 
+                if ($.parseJSON(data)['prev_page_url']) {
+                    $('<li class="page-item"><a class="page-link" href="#" onclick="newSearchBook(event, \'' + $.parseJSON(data)['prev_page_url'] + '\')"><span aria-hidden="true">&laquo;</span></a></li>').appendTo(ul_pag);
+                }
+                else {
+                    $('<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>').appendTo(ul_pag);
+                }
+
+                for (var pag = 1; pag <= $.parseJSON(data)['last_page']; pag++) {
+                    if (pag == $.parseJSON(data)['current_page']) {
+                        $('<li class="page-item active"><a class="page-link" href="#" onclick="newSearchBook(event, \'/home_search_books?page=' + pag + '\')">' + pag + '</a></li>').appendTo(ul_pag);
+                    }
+                    else {
+                        $('<li class="page-item"><a class="page-link" href="#" onclick="newSearchBook(event, \'/home_search_books?page=' + pag + '\')">' + pag + '</a></li>').appendTo(ul_pag);
+                    }
+                }
+
+                if ($.parseJSON(data)['next_page_url']) {
+                    $('<li class="page-item"><a class="page-link" href="#" onclick="newSearchBook(event, \'' + $.parseJSON(data)['next_page_url'] + '\')"><span aria-hidden="true">&raquo;</span></a></li>').appendTo(ul_pag);
+                }
+                else {
+                    $('<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&raquo;</span></a></li>').appendTo(ul_pag);
+                }
 
             }
             else{
