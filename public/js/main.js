@@ -265,7 +265,7 @@ function newSearchBook(e, page){
 
     var url = 'home_search_books';
 
-    if(page != null) {
+    if(page) {
         if (query != '?') {
             query += '&';
         }
@@ -310,7 +310,7 @@ function newSearchBook(e, page){
             // if (source.length != 0) {
             if (source != null) {
 
-                // console.log($.parseJSON(data));
+                console.log($.parseJSON(data));
                 // console.log(source);
 
                 for (var i = 0; i < source.length; i++) {
@@ -362,12 +362,14 @@ function newSearchBook(e, page){
                     $('<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>').appendTo(ul_pag);
                 }
 
-                for (var pag = 1; pag <= $.parseJSON(data)['last_page']; pag++) {
-                    if (pag == $.parseJSON(data)['current_page']) {
-                        $('<li class="page-item active"><a class="page-link" href="#" onclick="newSearchBook(event, \'/home_search_books?page=' + pag + '\')">' + pag + '</a></li>').appendTo(ul_pag);
-                    }
-                    else {
-                        $('<li class="page-item"><a class="page-link" href="#" onclick="newSearchBook(event, \'/home_search_books?page=' + pag + '\')">' + pag + '</a></li>').appendTo(ul_pag);
+                for (var pag = $.parseJSON(data)['current_page'] - 5; pag <=  $.parseJSON(data)['current_page'] + 5; pag++) {
+                    if (pag > 0 && pag <= $.parseJSON(data)['last_page']) {
+                        if (pag == $.parseJSON(data)['current_page']) {
+                            $('<li class="page-item active"><a class="page-link" href="#" onclick="newSearchBook(event, \'/home_search_books?page=' + pag + '\')">' + pag + '</a></li>').appendTo(ul_pag);
+                        }
+                        else {
+                            $('<li class="page-item"><a class="page-link" href="#" onclick="newSearchBook(event, \'/home_search_books?page=' + pag + '\')">' + pag + '</a></li>').appendTo(ul_pag);
+                        }
                     }
                 }
 
