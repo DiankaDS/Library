@@ -182,7 +182,7 @@ window.onload = function() {
         checkBoxes(checked_tags, 'tags');
         checkBoxes(checked_years, 'years');
 
-        if (page != []) {
+        if (page.length != 0) {
             var url = '/home_search_books?page=' + page[0];
 
             newSearchBook(event, url);
