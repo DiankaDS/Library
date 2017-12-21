@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             AuthorsTableSeeder::class,
             BooksTableSeeder::class,
             TagsTableSeeder::class,
+            FormatsTableSeeder::class,
         ]);
     }
 }
