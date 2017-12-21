@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Format;
+use Illuminate\Support\Facades\DB;
 
 class AdminFormatsController extends Controller
 {
@@ -26,7 +27,10 @@ class AdminFormatsController extends Controller
     {
         $format = Format::find($request->get('admins_format_id'));
 
-//        $format->books()->detach();
+        DB::table('formats_users_books')
+            ->where('formats_users_books.format_id', $request->get('admins_format_id'))
+            ->delete();
+
         $format->delete();
 
         $message = "Format deleted!";

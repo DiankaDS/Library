@@ -29,8 +29,9 @@ class ProfileController extends Controller
                 DB::raw("(SELECT group_concat(formats.name)
                 FROM formats
                 INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
-                WHERE formats_users_books.book_id = lib_books.id
-                AND formats_users_books.user_id = $user_id
+                INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id
+                WHERE user_books.book_id = lib_books.id
+                AND user_books.user_id = $user_id
                 ) as formats")
             )
             ->where('user_books.user_id', $user_id)

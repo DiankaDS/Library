@@ -42,7 +42,8 @@ class HomeController extends Controller
         $books = DB::table('lib_books')
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
-            ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw("(
+            ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'),
+                DB::raw("(
                 SELECT round(avg(reviews.rating), 1)
                 FROM reviews
                 WHERE reviews.book_id = lib_books.id
@@ -50,7 +51,8 @@ class HomeController extends Controller
                 DB::raw("(SELECT group_concat(formats.name)
                 FROM formats
                 INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
-                WHERE formats_users_books.book_id = lib_books.id
+                INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id
+                WHERE user_books.book_id = lib_books.id
                 ) as formats")
             )
             ->whereIn('lib_books.id',function($query) {

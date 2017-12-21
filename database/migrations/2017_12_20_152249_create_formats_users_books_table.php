@@ -15,12 +15,10 @@ class CreateFormatsUsersBooksTable extends Migration
     {
         Schema::create('formats_users_books', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')->on('lib_books');
+            $table->integer('user_book_id')->unsigned();
+            $table->foreign('user_book_id')->references('id')->on('user_books');
             $table->integer('format_id')->unsigned();
             $table->foreign('format_id')->references('id')->on('formats');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
