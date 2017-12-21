@@ -46,7 +46,13 @@ class HomeController extends Controller
                 SELECT round(avg(reviews.rating), 1)
                 FROM reviews
                 WHERE reviews.book_id = lib_books.id
-                ) as rating"))
+                ) as rating"),
+                DB::raw("(SELECT group_concat(formats.name)
+                FROM formats
+                INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
+                WHERE formats_users_books.book_id = lib_books.id
+                ) as formats")
+            )
             ->whereIn('lib_books.id',function($query) {
                 $query->select('book_id')->from('user_books');
             })

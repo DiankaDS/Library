@@ -206,6 +206,11 @@
                                     @else
                                         <p align="center">Rating: <b>0</b></p>
                                     @endif
+                                    <p align="center">
+                                        @foreach (explode(",", $val->formats) as $val_1)
+                                            <span class="label label-primary">{{ $val_1 }}</span>
+                                        @endforeach
+                                    </p>
                                 </div>
                             </div>
                         </div>

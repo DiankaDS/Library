@@ -25,7 +25,14 @@ class ProfileController extends Controller
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->join('user_books', 'lib_books.id', '=', 'user_books.book_id')
-            ->select('lib_books.*', 'genres.name as genre', 'user_books.user_id as user', DB::raw('group_concat(authors.name) as author'))
+            ->select('lib_books.*', 'genres.name as genre', 'user_books.user_id as user', DB::raw('group_concat(authors.name) as author'),
+                DB::raw("(SELECT group_concat(formats.name)
+                FROM formats
+                INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
+                WHERE formats_users_books.book_id = lib_books.id
+                AND formats_users_books.user_id = $user_id
+                ) as formats")
+            )
             ->where('user_books.user_id', $user_id)
             ->groupBy('lib_books.id', 'genres.name', 'user_books.user_id')
             ->paginate(6);

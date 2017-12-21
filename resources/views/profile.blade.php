@@ -94,6 +94,7 @@
                             <th scope="col">Year <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 2)"></button></th>
                             {{--<th scope="col">Description</th>--}}
                             <th scope="col">Genre <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 4)"></button></th>
+                            <th scope="col">Formats <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 5)"></button></th>
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>
@@ -105,6 +106,11 @@
                                 <td>{{ $val->year }}</td>
 {{--                                <td>{{ $val->description }}</td>--}}
                                 <td>{{ $val->genre }}</td>
+                                <td>
+                                    @foreach (explode(",", $val->formats) as $val_1)
+                                        <span class="label label-primary">{{ $val_1 }}</span>
+                                    @endforeach
+                                </td>
                                 <td>
                                     @if ($user_info['id'] == Auth::user()->id)
                                         <form action="/delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">

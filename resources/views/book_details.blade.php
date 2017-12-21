@@ -56,6 +56,14 @@
                             <th>Date add</th>
                             <td>{{ $book_info->created_at }}</td>
                         </tr>
+                        <tr>
+                            <th>Formats</th>
+                            <td>
+                                @foreach (explode(",", $book_info->formats) as $val_1)
+                                    <span class="label label-primary">{{ $val_1 }}</span>
+                                @endforeach
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -85,6 +93,7 @@
                             <th scope="col">Username <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 1)"></button></th>
                             <th scope="col">Name <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 2)"></button></th>
                             <th scope="col">Surname <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 3)"></button></th>
+                            <th scope="col">Formats <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 4)"></button></th>
                             <th scope="col">Send a wish</th>
                         </tr>
                         </thead>
@@ -103,6 +112,11 @@
                                 <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
                                 <td>{{ $val->name }}</td>
                                 <td>{{ $val->surname }}</td>
+                                <td>
+                                    @foreach (explode(",", $val->formats) as $val_1)
+                                        <span class="label label-primary">{{ $val_1 }}</span>
+                                    @endforeach
+                                </td>
                                 <td>
                                     <form action="orders" id="{{ $val->id }}" method="post" name="id" class="form-inline">
                                         {{csrf_field()}}

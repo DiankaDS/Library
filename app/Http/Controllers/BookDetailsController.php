@@ -19,19 +19,32 @@ class BookDetailsController extends Controller
             ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
             ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
-            ->select('lib_books.*', 'genres.name as genre', DB::raw('group_concat(authors.name) as author'), DB::raw("(
-                SELECT round(avg(reviews.rating), 1)
+            ->select('lib_books.*', 'genres.name as genre', DB::raw('group_concat(authors.name) as author'),
+                DB::raw("(SELECT round(avg(reviews.rating), 1)
                 FROM reviews
                 WHERE reviews.book_id = lib_books.id
-                ) as rating"))
+                ) as rating"),
+                DB::raw("(SELECT group_concat(formats.name)
+                FROM formats
+                INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
+                WHERE formats_users_books.book_id = lib_books.id
+                ) as formats"))
             ->where('lib_books.id', $http_response_header)
             ->groupBy('lib_books.id')
             ->first();
 
         $users = DB::table('user_books')
             ->join('users', 'users.id', '=', 'user_books.user_id')
-            ->select('users.*')
+            ->select('users.*', DB::raw("(
+                SELECT group_concat(formats.name)
+                FROM formats
+                INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
+                WHERE formats_users_books.book_id = $http_response_header
+                AND formats_users_books.user_id = users.id
+                ) as formats")
+            )
             ->where('user_books.book_id', $http_response_header)
+            ->groupBy('users.id')
             ->get();
 
         $reviews = DB::table('reviews')
