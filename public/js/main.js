@@ -125,6 +125,7 @@ window.onload = function() {
         var checked_tags = getParameterByName('tag[]');
         var checked_years = getParameterByName('year[]');
         var checked_rating = getParameterByName('rating');
+        var checked_formats = getParameterByName('format[]');
         var page = getParameterByName('page');
 
         // console.log(input);
@@ -132,6 +133,7 @@ window.onload = function() {
         // console.log(checked_tags);
         // console.log(checked_years);
         // console.log(checked_rating);
+        // console.log(checked_formats);
         // console.log(page);
 
         if (input.length != 0) {
@@ -144,6 +146,12 @@ window.onload = function() {
             for (var i = 0; i < checked_rating.length; i++) {
                 // console.log(arr[i]);
                 $('#ratings_' + checked_rating[i]).attr("checked", "checked");
+            }
+        }
+
+        if (checked_formats.length != 0) {
+            for (var i = 0; i < checked_formats.length; i++) {
+                $('#formats_' + checked_formats[i]).attr("checked", "checked");
             }
         }
 
