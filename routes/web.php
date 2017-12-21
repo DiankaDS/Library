@@ -150,6 +150,14 @@ Route::post('admin_create_tag', 'AdminTagsController@adminTagCreate');
 
 Route::post('add_tags', 'AdminTagsController@addTagsToBook');
 
+// Admin formats routes
+
+Route::get('/admin_formats', 'AdminFormatsController@adminFormats');
+
+Route::post('admin_del_format/{format_id}', 'AdminFormatsController@adminFormatDelete');
+
+Route::post('admin_create_format', 'AdminFormatsController@adminFormatCreate');
+
 // Register with Facebook routes
 
 Route::get('auth/{provider}', 'Auth\SocialAuthController@redirectToProvider');

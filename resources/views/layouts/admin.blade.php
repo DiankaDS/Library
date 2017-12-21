@@ -64,6 +64,8 @@
 
                         <li><a href="admin_tags"> Tags </a></li>
 
+                        <li><a href="admin_formats"> Formats </a></li>
+
                     </ul>
                 </div>
             </div>
