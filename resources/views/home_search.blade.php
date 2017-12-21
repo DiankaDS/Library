@@ -152,6 +152,38 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapseFormats">Formats</a>
+                    </h4>
+                </div>
+                <div id="collapseFormats" class="panel-collapse collapse">
+
+                    <div class="panel-body">
+                        <form id="searchbox_formats">
+                            {{--<input class="form-control" type="text" name="formats" placeholder="Search format..." autocomplete="off" onkeyup="newCheckTip(event, 'formats')">--}}
+
+                            <div class="list-group" id="formats_list">
+
+                                <div class="list-group" id="formats_list_checked"></div>
+                                <div class="list-group" id="formats_list_unchecked">
+                                    @foreach ($formats as $val)
+                                        <a href="#" class="list-group-item checkbox">
+                                            <label>
+                                                <input type="checkbox" id="formats_{{ $val->id }}" value="{{ $val->id }}" onclick='clickCheckbox(event, "formats");'>
+                                                {{ $val->name }}
+                                            </label>
+                                        </a>
+                                    @endforeach
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
                         <a data-toggle="collapse" href="#collapseRating">Rating</a>
                     </h4>
                 </div>
@@ -296,73 +328,6 @@
             {{--============================================================================--}}
         </div>
 
-
-        {{--<div class="col-md-3">--}}
-            {{--<div class="panel panel-default">--}}
-                {{--<div class="panel-heading">Authors</div>--}}
-                {{--<div class="panel-body">--}}
-                    {{--<form class="searchbox">--}}
-                        {{--<div class="list-group" id="authors_list">--}}
-                            {{--@foreach ($authors->take(5) as $val)--}}
-                                {{--<a href="#" class="list-group-item checkbox"><label><input type="checkbox" value="">{{ $val->name }}</label></a>--}}
-                            {{--@endforeach--}}
-                        {{--</div>--}}
-                    {{--</form>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="panel panel-default">--}}
-                {{--<div class="panel-heading">Tags</div>--}}
-                {{--<div class="panel-body">--}}
-                    {{--<form id="searchbox_tags">--}}
-                        {{--<input class="form-control" type="text" name="tags" placeholder="Search tag..." autocomplete="off" onkeyup="newCheckTip(event, 'tags')">--}}
-
-                        {{--<div class="list-group" id="tags_list">--}}
-
-                            {{--<div class="list-group" id="tags_list_checked"></div>--}}
-                            {{--<div class="list-group" id="tags_list_unchecked">--}}
-                            {{--@foreach ($tags->take(5) as $val)--}}
-                                {{--<a href="#" class="list-group-item checkbox">--}}
-                                    {{--<label>--}}
-                                        {{--<input type="checkbox" id="tags_{{ $val->id }}" value="{{ $val->id }}" onclick='clickCheckbox(event, "tags");'>--}}
-                                        {{--{{ $val->name }}--}}
-                                    {{--</label>--}}
-                                {{--</a>--}}
-                            {{--@endforeach--}}
-                            {{--</div>--}}
-
-                        {{--</div>--}}
-                    {{--</form>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="panel panel-default">--}}
-                {{--<div class="panel-heading">Rating</div>--}}
-                {{--<div class="panel-body">--}}
-                    {{--<form id="searchbox_ratings">--}}
-                        {{--<div class="list-group" id="ratings_list">--}}
-
-                            {{--@for($n = 5; $n > 0; $n--)--}}
-                                {{--<a href="#" class="list-group-item radio">--}}
-                                    {{--<label>--}}
-                                        {{--<input type="radio" id="ratings_{{ $n }}" value="{{ $n }}" name="optradio" onclick='newSearchBook(event);'>--}}
-                                        {{--@for($i = 0; $i < $n; $i++)--}}
-                                            {{--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>--}}
-                                        {{--@endfor--}}
-                                        {{--@for($i = 0; $i < 5 - $n; $i++)--}}
-                                            {{--<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>--}}
-                                        {{--@endfor--}}
-                                    {{--</label>--}}
-                                {{--</a>--}}
-                            {{--@endfor--}}
-
-                        {{--</div>--}}
-                    {{--</form>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-        {{--</div>--}}
-        {{--</div>--}}
     </div>
 </div>
 @endsection

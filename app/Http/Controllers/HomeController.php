@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 //use App\Review;
 use Auth;
 use App\Tag;
-use App\Author;
+use App\Format;
 
 class HomeController extends Controller
 {
@@ -63,8 +63,8 @@ class HomeController extends Controller
             ->paginate(6);
 
         $genres = DB::table('genres')->get();
-
         $tags = Tag::all();
+        $formats = Format::all();
 
         $years = DB::table('lib_books')
             ->select('lib_books.year as name')
@@ -75,14 +75,12 @@ class HomeController extends Controller
             ->orderBy('name', 'DESC')
             ->get();
 
-//        $authors = Author::all();
-
         return view('home_search', [
             'books' => $books,
             'genres' => $genres,
             'tags' => $tags,
             'years' => $years,
-//            'authors' => $authors,
+            'formats' => $formats,
         ]);
     }
 
@@ -93,6 +91,7 @@ class HomeController extends Controller
         $tags_id = $request['tags'];
         $years = $request['years'];
         $rating = $request['rating'];
+        $formats_id = $request['formats'];
 
         $input_books =  DB::table('lib_books')
             ->select('lib_books.id as id')
@@ -125,21 +124,22 @@ class HomeController extends Controller
                 ->join('authors_books', 'authors_books.book_id', '=', 'lib_books.id')
                 ->join('authors', 'authors.id', '=', 'authors_books.author_id')
                 ->join('genres', 'genres.id', '=', 'lib_books.genre_id')
-//                ->leftJoin('tags_books', 'lib_books.id', '=', 'tags_books.book_id')
-                ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'), DB::raw("(
-                SELECT round(avg(reviews.rating), 1)
-                FROM reviews
-                WHERE reviews.book_id = lib_books.id
-                ) as rating"))
-//            ->where('lib_books.name', 'like', '%' . $input . '%')
-
+                ->select('lib_books.*', DB::raw('group_concat(authors.name) as author'),
+                    DB::raw("(
+                    SELECT round(avg(reviews.rating), 1)
+                    FROM reviews
+                    WHERE reviews.book_id = lib_books.id
+                    ) as rating"),
+                    DB::raw("(SELECT group_concat(formats.name)
+                    FROM formats
+                    INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
+                    INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id
+                    WHERE user_books.book_id = lib_books.id
+                    ) as formats")
+                )
                 ->whereIn('lib_books.id', $books_id)
-//            ->whereIn('lib_books.year', $years)
-//            ->whereIn('lib_books.genre_id', $genres_id)
-//            ->whereIn('tags_books.tag_id', $tags_id)
                 ->groupBy('lib_books.id')
                 ->orderBy('rating', 'DESC');
-
 
             if ($genres_id != '') {
                 $books = $books->whereIn('lib_books.genre_id', $genres_id);
@@ -197,6 +197,26 @@ class HomeController extends Controller
                 }
 
                 $books = $books->whereIn('lib_books.id', $rating_id);
+            }
+
+            if ($formats_id != '') {
+                $arr = [];
+
+                foreach ($formats_id as $format) {
+                    $formats = DB::table('formats_users_books')
+                        ->join('user_books', 'user_books.id', '=', 'formats_users_books.user_book_id')
+                        ->select('user_books.book_id as id')
+                        ->distinct()
+                        ->where('formats_users_books.format_id', $format)
+                        ->get()
+                        ->toArray();
+
+                    foreach ($formats as $obj) {
+                        $arr[] = $obj->id;
+                    }
+                }
+
+                $books = $books->whereIn('lib_books.id', $arr);
             }
 
             if($books) {

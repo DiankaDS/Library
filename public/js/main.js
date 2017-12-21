@@ -211,6 +211,7 @@ function newSearchBook(e, page){
     var checked_genres = [];
     var checked_tags = [];
     var checked_years = [];
+    var checked_formats = [];
     var checked_rating = $("#searchbox_ratings input:checked").val();
 
     $("#searchbox_genres input:checked").each(function(){
@@ -223,6 +224,10 @@ function newSearchBook(e, page){
 
     $("#searchbox_years input:checked").each(function(){
         checked_years.unshift($(this).val());
+    });
+
+    $("#searchbox_formats input:checked").each(function(){
+        checked_formats.unshift($(this).val());
     });
 
     var query = '?';
@@ -265,6 +270,15 @@ function newSearchBook(e, page){
         });
     }
 
+    if ($("#searchbox_formats input:checked")) {
+        $("#searchbox_formats input:checked").each(function(){
+            if (query != '?') {
+                query += '&';
+            }
+            query += 'format[]=' + $(this).val();
+        });
+    }
+
     var url = 'home_search_books';
 
     if(page) {
@@ -284,6 +298,7 @@ function newSearchBook(e, page){
     // console.log( checked_years );
     // console.log( input );
     // console.log( checked_rating );
+    // console.log( checked_formats );
 
     $.ajax({
         'headers': {
@@ -296,7 +311,8 @@ function newSearchBook(e, page){
             'genres': checked_genres,
             'tags': checked_tags,
             'years': checked_years,
-            'rating': checked_rating
+            'rating': checked_rating,
+            'formats': checked_formats
         },
         success: function (data) {
             // console.log(data);
@@ -348,6 +364,18 @@ function newSearchBook(e, page){
                         var rating = $('<p align="center">Rating: <b>0</b></p>');
                     }
                     rating.appendTo(caption);
+
+                    if (source[i].formats) {
+                        var form_p = $('<p align="center"></p>');
+                        var format = source[i].formats.split(",");
+
+                        for (var j = 0; j < format.length; j++) {
+                            var f = $('<span class="label label-primary">' + format[j] + '</span>');
+                            f.appendTo(form_p);
+                            form_p.append(" ");
+                        }
+                        form_p.appendTo(caption);
+                    }
                 }
 
                 // $('<button onclick="newSearchBook(event, \''+ $.parseJSON(data)['prev_page_url'] +'\')">Prev</button>').appendTo($("#pagination"));
