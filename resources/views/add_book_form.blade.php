@@ -148,6 +148,24 @@
                                 </div>
                             </div>
 
+
+                            <div class="form-group" id="formTagsinput">
+                                <label for="tags" class="col-md-4 control-label">Tags</label>
+                                {{--<br>--}}
+                                <a class="dropdown">
+                                    <input class="form-control" id="mySearchTags" type="text" name="tags" data-role="tagsinput" autocomplete="off">
+                                </a>
+                            </div>
+
+                            <div class="form-group" id="formFormatsinput">
+                                <label for="formats" class="col-md-4 control-label">Formats</label>
+                                <br>
+                                <a class="dropdown">
+                                    <input class="form-control" id="mySearchFormats" type="text" name="formats" data-role="tagsinput" autocomplete="off">
+                                </a>
+                            </div>
+
+
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-success" value="Add_book">Add book</button>
@@ -160,6 +178,23 @@
 
                         </form>
                     </div>
+
+                    <div class="form-group" id="formTagsinputModal" hidden>
+                        <label for="tags" class="col-md-4 control-label">Tags</label>
+                        <br>
+                        <a class="dropdown">
+                            <input class="form-control" id="mySearchTagsModal" type="text" name="tags" data-role="tagsinput" autocomplete="off">
+                        </a>
+                    </div>
+
+                    <div class="form-group" id="formFormatsinputModal" hidden>
+                        <label for="formats" class="col-md-4 control-label">Formats</label>
+                        <br>
+                        <a class="dropdown">
+                            <input class="form-control" id="mySearchFormatsModal" type="text" name="formats" data-role="tagsinput" autocomplete="off">
+                        </a>
+                    </div>
+
                 </div>
                 {{--</div>--}}
             </div>

@@ -512,82 +512,105 @@ function addTagModal(id, all_tags) {
 }
 //======================================================================================================================
 // --- Ajax in home (find tags) ---
-// setTimeout(function() {
-//
-//     $(".bootstrap-tagsinput input").keyup(function () {
-//
-//         // console.log($(".bootstrap-tagsinput input").val());
-//
-//         timer=setTimeout(function() {
-//             clearTips();
-//             var timer;
-//             clearTimeout(timer);
-//
-//             var input = $(".bootstrap-tagsinput input");
-//
-//             if (input.val() != '') {
-//
-//                 $.ajax({
-//                     'headers': {
-//                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//                     },
-//                     'type': 'post',
-//                     'url': 'search_value',
-//                     'data': {
-//                         'str': input.val(),
-//                         'id': 'tags'
-//                     },
-//                     success: function (data) {
-//                         var source = $.parseJSON(data);
-//
-//                         if (source != '') {
-//                             // var tips = $("<ul class='tips dropdown-menu'></ul>");
-//                             var tips = $("<div class='tips'></div>");
-//                             tips.css('position', 'absolute');
-//                             tips.css('background', 'rgba(255,255,255,0.9)');
-//                             tips.css('border', 'solid 1px #ccc');
-//                             tips.css('width', '100%');
-//                             tips.css('cursor', 'pointer');
-//                             tips.css('z-index', '1');
-//
-//                             // console.log(input.val());
-//                             // console.log(data);
-//                             // console.log(source);
-//
-//                             for (var i = 0; i < source.length; i++) {
-//                                 // var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
-//                                 // var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
-//                                 var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
-//                                 tip.click(function (e) {
-//                                     var x = $(e.currentTarget).parent().parent().find('span[data-role="remove"]');
-//                                     x.eq(x.length-1).trigger('click');
-//
-//                                     $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
-//                                     $(e.currentTarget).parent().parent().find('input').blur();
-//
-//                                     clearTips();
-//                                 });
-//                                 tips.append(tip);
-//                             }
-//
-//                             // var a = $("<a class='dropdown'></a>");
-//                             // $(".bootstrap-tagsinput input").appendTo(a);
-//                             // $(".bootstrap-tagsinput input").attr("data-toggle", "dropdown");
-//
-//                             // tips.appendTo($(".bootstrap-tagsinput input"));
-//                             tips.appendTo(input.parent());
-//                         }
-//                     },
-//                     error: function (x, e) {
-//                         console.log(x);
-//                         console.log(e);
-//                     }
-//                 });
-//             }
-//         }, 1000);
-//
-//     });
-// }, 1000);
+setTimeout(function() {
+
+    $(".bootstrap-tagsinput input").keyup(function () {
+
+        var tag = $("#formTagsinput .bootstrap-tagsinput input").val();
+        var format = $("#formFormatsinput .bootstrap-tagsinput input").val();
+
+        var tag_modal = $("#formTagsinputModal .bootstrap-tagsinput input").val();
+        var format_modal = $("#formFormatsinputModal .bootstrap-tagsinput input").val();
+
+        timer=setTimeout(function() {
+            clearTips();
+            var timer;
+            clearTimeout(timer);
+
+            if (tag != '') {
+                var input = $("#formTagsinput .bootstrap-tagsinput input");
+                var id = 'tags';
+            }
+            else if (format != '') {
+                var input = $("#formFormatsinput .bootstrap-tagsinput input");
+                var id = 'formats';
+            }
+            else if (tag_modal != '') {
+                var input = $("#formTagsinputModal .bootstrap-tagsinput input");
+                var id = 'tags';
+            }
+            else if (format_modal != '') {
+                var input = $("#formFormatsinputModal .bootstrap-tagsinput input");
+                var id = 'formats';
+            }
+
+            // console.log(input.val());
+            // var input = $("#formTagsinput .bootstrap-tagsinput input");
+
+            if (input.val() != '') {
+
+                $.ajax({
+                    'headers': {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    'type': 'post',
+                    'url': 'search_value',
+                    'data': {
+                        'str': input.val(),
+                        'id': id
+                    },
+                    success: function (data) {
+                        var source = $.parseJSON(data);
+
+                        if (source != '') {
+                            // var tips = $("<ul class='tips dropdown-menu'></ul>");
+                            var tips = $("<div class='tips'></div>");
+                            tips.css('position', 'absolute');
+                            tips.css('background', 'rgba(255,255,255,0.9)');
+                            tips.css('border', 'solid 1px #ccc');
+                            tips.css('width', '100%');
+                            tips.css('cursor', 'pointer');
+                            tips.css('z-index', '1');
+
+                            // console.log(input.val());
+                            // console.log(data);
+                            // console.log(source);
+
+                            for (var i = 0; i < source.length; i++) {
+                                // var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+                                // var tip = $("<li class='tip'><a href='#'>" + source[i]['name'] + "</a></li>");
+                                var tip = $("<div class='tip'>" + source[i]['name'] + "</div>");
+                                tip.click(function (e) {
+                                    var x = $(e.currentTarget).parent().parent().find('span[data-role="remove"]');
+                                    // x.eq(x.length-1).trigger('click');
+
+                                    $(e.currentTarget).parent().parent().find('input').val($(e.currentTarget).text());
+                                    $(e.currentTarget).parent().parent().find('input').blur();
+
+                                    x.eq(x.length-1).trigger('click');
+
+                                    clearTips();
+                                });
+                                tips.append(tip);
+                            }
+
+                            // var a = $("<a class='dropdown'></a>");
+                            // $(".bootstrap-tagsinput input").appendTo(a);
+                            // $(".bootstrap-tagsinput input").attr("data-toggle", "dropdown");
+
+                            // tips.appendTo($(".bootstrap-tagsinput input"));
+                            tips.appendTo(input.parent());
+                        }
+                    },
+                    error: function (x, e) {
+                        console.log(x);
+                        console.log(e);
+                    }
+                });
+            }
+        }, 1000);
+    });
+}, 1000);
 //======================================================================================================================
 // --- Ajax in add_book and home (find text in input) ---
 function checkTip(e, id){
@@ -770,6 +793,9 @@ function googleModal(name, author, genre, year, description, photo) {
 
     var body = $("#myModal .modal-body");
 
+    $('#collapseTwo').append($('#formTagsinputModal').hide());
+    $('#collapseTwo').append($('#formFormatsinputModal').hide());
+
     body.empty();
 
     var p = '<img src="' + photo + '" style="width: 125px; height: 150px;"><br><table class=\"table\"><tbody>' +
@@ -780,6 +806,9 @@ function googleModal(name, author, genre, year, description, photo) {
         '<tr><th>Description:</th><td>' + unescape(description) + '</td></tr></tbody></table>' ;
 
     body.append(p);
+
+    body.append($('#formTagsinputModal').show());
+    body.append($('#formFormatsinputModal').show());
 }
 //======================================================================================================================
 // --- Ajax in Home (search books) ---

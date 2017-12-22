@@ -42,6 +42,12 @@ class SearchController extends Controller
                 ->where('tags.name', 'like', '%' . $str . '%')
                 ->get();
         }
+        elseif ($id == 'formats') {
+            $source = DB::table('formats')
+                ->select('formats.name')
+                ->where('formats.name', 'like', '%' . $str . '%')
+                ->get();
+        }
         else {
             $source = [];
         }
