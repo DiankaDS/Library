@@ -757,6 +757,22 @@ function googleSearch(e){
     }, 1000);
 }
 //======================================================================================================================
+// --- Add book ---
+function addBookSubmit(){
+    $('#span_tags').val($("#formTagsinput .bootstrap-tagsinput")[0].innerText);
+    $('#span_formats').val($("#formFormatsinput .bootstrap-tagsinput")[0].innerText);
+
+    $('#create_book_form').submit();
+}
+//======================================================================================================================
+// --- Add book to wished ---
+function wishBook(){
+    $('#wish').val(1);
+    $('#span_tags').val($("#formTagsinput .bootstrap-tagsinput")[0].innerText);
+
+    $('#create_book_form').submit();
+}
+//======================================================================================================================
 function googleModal(name, author, genre, year, description, photo) {
     $('#myModal').modal('show');
     $('#YesButton').off('click');
@@ -769,6 +785,9 @@ function googleModal(name, author, genre, year, description, photo) {
         $('#description').val(unescape(description));
         $('#google_photo').val(photo);
 
+        $('#span_tags').val($("#formTagsinputModal .bootstrap-tagsinput")[0].innerText);
+        $('#span_formats').val($("#formFormatsinputModal .bootstrap-tagsinput")[0].innerText);
+
         $('#create_book_form').submit();
     });
 
@@ -780,6 +799,8 @@ function googleModal(name, author, genre, year, description, photo) {
         $('#year').val(year);
         $('#description').val(unescape(description));
         $('#google_photo').val(photo);
+
+        $('#span_tags').val($("#formTagsinputModal .bootstrap-tagsinput")[0].innerText);
         $('#wish').val(1);
 
         $('#create_book_form').submit();
@@ -794,7 +815,6 @@ function googleModal(name, author, genre, year, description, photo) {
     var body = $("#myModal .modal-body");
 
     $('#collapseTwo').append($('#formTagsinputModal').hide());
-    $('#collapseTwo').append($('#formFormatsinputModal').hide());
 
     body.empty();
 
@@ -956,8 +976,3 @@ $(document).ready(function(){
     })
 });
 //======================================================================================================================
-// --- Add book to wished ---
-function wishBook(){
-    $('#wish').val(1);
-    $('#create_book_form').submit();
-}

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
+use App\Format;
 use Illuminate\Http\Request;
 use App\Author;
 use App\User;
@@ -89,11 +91,33 @@ class CreateBookController extends Controller
             $book->authors()->save($author);
         }
 
+        foreach (explode(' ', $request->get('span_tags')) as $val) {
+            $tag = Tag::where('name', $val)->first();
+            $book->tags()->save($tag);
+        }
+
         if ($request->get('wish') == 0) {
             $user = User::find(Auth::user()->id);
             $book->users()->save($user);
 
             $message = "Book created!";
+
+            foreach (explode(' ', $request->get('span_formats')) as $val) {
+
+                $format = Format::where('name', $val)->first()->id;
+
+                $user_book_id = DB::table('user_books')
+                    ->where([
+                        ['user_id', Auth::user()->id],
+                        ['book_id', $book->id]])
+                    ->first()
+                    ->id;
+
+                DB::table('formats_users_books')->insert([
+                    'format_id' => $format,
+                    'user_book_id' => $user_book_id,
+                ]);
+            }
         }
         else {
             DB::table('wishes')->insert([
