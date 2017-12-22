@@ -55,9 +55,9 @@ class HomeController extends Controller
                 WHERE user_books.book_id = lib_books.id
                 ) as formats")
             )
-            ->whereIn('lib_books.id',function($query) {
-                $query->select('book_id')->from('user_books');
-            })
+//            ->whereIn('lib_books.id',function($query) {
+//                $query->select('book_id')->from('user_books');
+//            })
             ->groupBy('lib_books.id')
             ->orderBy('rating', 'DESC')
             ->paginate(6);
@@ -69,9 +69,9 @@ class HomeController extends Controller
         $years = DB::table('lib_books')
             ->select('lib_books.year as name')
             ->distinct()
-            ->whereIn('lib_books.id',function($query) {
-                $query->select('book_id')->from('user_books');
-            })
+//            ->whereIn('lib_books.id',function($query) {
+//                $query->select('book_id')->from('user_books');
+//            })
             ->orderBy('name', 'DESC')
             ->get();
 
@@ -97,18 +97,19 @@ class HomeController extends Controller
             ->select('lib_books.id as id')
             ->distinct()
             ->where('lib_books.name', 'like', '%' . $input . '%')
-            ->whereIn('lib_books.id',function($query) {
-                $query->select('book_id')->from('user_books');
-            });
+//            ->whereIn('lib_books.id',function($query) {
+//                $query->select('book_id')->from('user_books');
+//            })
+        ;
 
         $input_all = DB::table('authors_books')
             ->join('authors', 'authors.id', '=', 'authors_books.author_id')
             ->select('authors_books.book_id as id')
             ->distinct()
             ->where('authors.name', 'like', '%' . $input . '%')
-            ->whereIn('authors_books.book_id',function($query) {
-                $query->select('book_id')->from('user_books');
-            })
+//            ->whereIn('authors_books.book_id',function($query) {
+//                $query->select('book_id')->from('user_books');
+//            })
             ->union($input_books)
             ->get()
             ->toArray();
