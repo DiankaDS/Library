@@ -342,7 +342,7 @@ function newSearchBook(e, page){
                 for (var i = 0; i < source.length; i++) {
                     var container = $('<div class="col-md-4 col-sm-4 col-xs-6"></div>');
                     container.appendTo($("#myBooks"));
-                    var thumb = $('<div class="thumbnail" style="width: 250px; height: 300px;"></div>');
+                    var thumb = $('<div class="thumbnail" style="height: 320px;"></div>');
                     thumb.appendTo(container);
 
                     var a = $('<a href="book_' + source[i].id + '" name="' + source[i].id + '">');
@@ -713,7 +713,7 @@ function googleSearch(e){
                                 source[i]['description'] = '-';
                             }
 
-                            var thumb = $('<div class="thumbnail" style="width: 250px; height: 300px;" onclick="googleModal(' +
+                            var thumb = $('<div class="thumbnail" style="height: 320px;" onclick="googleModal(' +
                                 '\'' + escape(source[i]['name']) + '\', \'' +
                                 source[i]['author'] + '\', \'' +
                                 source[i]['genre'] + '\', \'' +

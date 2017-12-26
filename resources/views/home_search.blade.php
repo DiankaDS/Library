@@ -221,7 +221,7 @@
                 @if (count($books) !== 0)
                     @foreach ($books as $val)
                         <div class="col-md-4 col-sm-4 col-xs-6">
-                            <div class="thumbnail" style="width: 250px; height: 300px;">
+                            <div class="thumbnail" style="height: 320px;">
                                 <a href="book_{{ $val->id }}" name="{{ $val->id }}">
                                     @if ($val->photo)
                                         <img src="{{$val->photo}}" style="width: 125px; height: 150px;">

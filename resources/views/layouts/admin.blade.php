@@ -16,6 +16,13 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
+    <style>
+        body {
+            /*background-image: url('http://tianyihengfeng.com/wp-content/uploads/2016/07/website-background-wallpapers.jpg');*/
+            background-color: #cccccc;
+        }
+    </style>
+
 </head>
 
 <body>

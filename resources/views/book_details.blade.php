@@ -71,7 +71,25 @@
                     </div>
 
                     <p align="left">{{ $book_info->description }}</p>
-                    <p align="left">Added at {{ $book_info->created_at }}.</p>
+                    <p align="right"><small>Added at {{ $book_info->created_at }}</small></p>
+
+                    @if (count($users) == 0)
+                        @if (count($votes) == 0)
+                            <form class="form-inline" action="/add_vote" method="post" id="add_vote" name="add_vote" style ='display:inline;'>
+                                <input name="book_id" type="hidden" value="{{ $book_info->id }}">
+                                {{csrf_field()}}
+
+                                <button class="btn btn-success" type="submit">Vote up</button>
+                            </form>
+                        @else
+                            <form class="form-inline" action="/delete_vote" method="post" id="delete_vote" name="delete_vote" style ='display:inline;'>
+                                <input name="book_id" type="hidden" value="{{ $book_info->id }}">
+                                {{csrf_field()}}
+
+                                <button class="btn btn-danger" type="submit">Vote down</button>
+                            </form>
+                        @endif
+                    @endif
 
                 </div>
             </div>
@@ -85,14 +103,48 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#collapseDownload">Download</a>
+                    <a data-toggle="collapse" href="#collapseDownload">Free download</a>
+                    <span class="label label-primary">0</span>
                 </h4>
             </div>
 
             <div id="collapseDownload" class="panel-collapse collapse">
                 <div class="panel-body">
+                    <table class="table" id="download">
+                        <thead>
+                        <tr>
+                            <th scope="col">Format <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 0)"></button></th>
+                            <th scope="col">Url <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 1)"></button></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
 
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapseBuy">Buy this book</a>
+                    <span class="label label-primary">0</span>
+                </h4>
+            </div>
+
+            <div id="collapseBuy" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table" id="buy">
+                        <thead>
+                        <tr>
+                            <th scope="col">Format <button class="glyphicon glyphicon-sort" onclick="sortTable('buy', 0)"></button></th>
+                            <th scope="col">Url <button class="glyphicon glyphicon-sort" onclick="sortTable('buy', 1)"></button></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -102,7 +154,8 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#collapseOne">Users who have a book</a>
+                    {{--<a data-toggle="collapse" href="#collapseOne">Users who have a book</a>--}}
+                    <a data-toggle="collapse" href="#collapseOne">Take paper book</a>
                     <span class="label label-primary">{{ count($users) }}</span>
                 </h4>
             </div>
@@ -143,6 +196,8 @@
                                     @endforeach
                                 </td>
                                 <td>
+                                    @if ($val->id != Auth::user()->id)
+
                                     <form action="orders" id="{{ $val->id }}" method="post" name="id" class="form-inline">
                                         {{csrf_field()}}
                                         <input name="book_id" type="hidden" value="{{ $book_info->id }}">
@@ -174,6 +229,17 @@
 
                                         <button class="btn btn-success" type="submit">Take</button>
                                     </form>
+
+                                    @else
+                                        <form action="/delete/{{ $book_info->id }}" id="{{ $book_info->id }}" method="post" name="id">
+                                            {{csrf_field()}}
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <input name="id" type="hidden" value="{{ $book_info->id }}">
+
+                                            <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $book_info->id }}', 'Are you sure to delete book?')">Delete</button>
+                                        </form>
+                                    @endif
+
                                 </td>
                             </tr>
                         @endforeach
@@ -190,23 +256,6 @@
 
                         <button type="button" class="btn btn-info" onclick="myModal('{{ $book_info->id }}', 'Are you have this book?')">Add me to owners!</button>
                     </form>
-
-                    @if (count($votes) == 0)
-                        <form class="form-inline" action="/add_vote" method="post" id="add_vote" name="add_vote" style ='display:inline;'>
-                            <input name="book_id" type="hidden" value="{{ $book_info->id }}">
-                            {{csrf_field()}}
-
-                            <button class="btn btn-success" type="submit">Vote up</button>
-                        </form>
-                    @else
-                        <form class="form-inline" action="/delete_vote" method="post" id="delete_vote" name="delete_vote" style ='display:inline;'>
-                            <input name="book_id" type="hidden" value="{{ $book_info->id }}">
-                            {{csrf_field()}}
-
-                            <button class="btn btn-danger" type="submit">Vote down</button>
-                        </form>
-                    @endif
-
                 @endif
 
             </div>
