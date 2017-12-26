@@ -74,6 +74,12 @@ Route::get('book_{book_id}', 'BookDetailsController@bookDetails');
 
 Route::post('/add_review','ReviewController@addReview');
 
+// Update book routes
+
+Route::get('/update_book/{book_id}', 'UpdateBookController@viewUpdateBook');
+
+Route::post('/update_book/complete', 'UpdateBookController@updateBook');
+
 // Google Books Api routes
 
 Route::post('google_search','GoogleBooksController@googleBookSearch');

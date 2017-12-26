@@ -58,6 +58,11 @@
                                     </form>
 
                                     <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', '{{ $all_tags }}')" style="margin: 2px">Edit tags</button>
+
+                                    <a href="/update_book/{{ $val->id }}">
+                                        <button class="btn btn-warning" type="button">Update</button>
+                                    </a>
+
                                 </td>
                             </tr>
                         @endforeach

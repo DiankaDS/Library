@@ -71,6 +71,9 @@
                     </div>
 
                     <p align="left">{{ $book_info->description }}</p>
+                    {{--@if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)--}}
+                        {{--<button onclick="editReview('1','1')" class="btn btn-info pull-left">Update book</button>--}}
+                    {{--@endif--}}
                     <p align="right"><small>Added at {{ $book_info->created_at }}</small></p>
 
                     @if (count($users) == 0)
