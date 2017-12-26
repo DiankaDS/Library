@@ -56,6 +56,11 @@ class AdminBooksController extends Controller
 
         Review::where('book_id', $book_id)->delete();
 
+        DB::table('formats_users_books')
+            ->join('user_books', 'formats_users_books.user_book_id', '=', 'user_books.id')
+            ->where('book_id', $book_id)
+            ->delete();
+
         $book->users()->detach();
         $book->authors()->detach();
         $book->tags()->detach();
