@@ -64,12 +64,21 @@ class BookDetailsController extends Controller
             ])
             ->first();
 
+        $votes = DB::table('wishes')
+            ->select('wishes.book_id')
+            ->where([
+                ['wishes.user_id', '=', Auth::user()->id],
+                ['wishes.book_id', '=', $http_response_header],
+            ])
+            ->get();
+
         if ($book_info) {
             return view('book_details', array(
                 'book_info' => $book_info,
                 'users' => $users,
                 'reviews' => $reviews,
                 'user_reviews' => $user_reviews,
+                'votes' => $votes,
             ));
         }
         else {

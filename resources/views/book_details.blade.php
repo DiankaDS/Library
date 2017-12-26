@@ -13,67 +13,93 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">About book</div>
-
                 <div class="panel-body" align="center">
 
-                    @if ($book_info->photo)
-                        <img src="{{$book_info->photo}}" height="300" width="250">
-                    @else
-                        <img src="../images/default_book.jpg" height="300" width="250">
-                    @endif
+                    <div class="col-md-3">
+                        @if ($book_info->photo)
+                            <img src="{{$book_info->photo}}" height="150" width="125">
+                        @else
+                            <img src="../images/default_book.jpg" height="150" width="125">
+                        @endif
 
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <th>Rating</th>
-                                @if ($book_info->rating)
-                                    <td>{{ $book_info->rating }}</td>
-                                @else
-                                    <td>0</td>
-                                @endif
-                        </tr>
-                        <tr>
-                            <th>Book name</th>
-                            <td>{{ $book_info->name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Author</th>
-                            <td>{{ $book_info->author }}</td>
-                        </tr>
-                        <tr>
-                            <th>Genre</th>
-                            <td>{{ $book_info->genre }}</td>
-                        </tr>
-                        <tr>
-                            <th>Year</th>
-                            <td>{{ $book_info->year }}</td>
-                        </tr>
-                        <tr>
-                            <th>Description</th>
-                            <td>{{ $book_info->description }}</td>
-                        </tr>
-                        <tr>
-                            <th>Date add</th>
-                            <td>{{ $book_info->created_at }}</td>
-                        </tr>
-                        <tr>
-                            <th>Formats</th>
-                            <td>
-                                @foreach (explode(",", $book_info->formats) as $val_1)
-                                    <span class="label label-primary">{{ $val_1 }}</span>
-                                @endforeach
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        @foreach (explode(",", $book_info->formats) as $val_1)
+                            <span class="label label-primary">{{ $val_1 }}</span>
+                        @endforeach
+                    </div>
+
+                    <div class="col-md-offset-3">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Rating</th>
+                                    @if ($book_info->rating)
+                                        <td>{{ $book_info->rating }}</td>
+                                    @else
+                                        <td>0</td>
+                                    @endif
+                            </tr>
+                            <tr>
+                                <th>Book name</th>
+                                <td>{{ $book_info->name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Author</th>
+                                <td>{{ $book_info->author }}</td>
+                            </tr>
+                            <tr>
+                                <th>Genre</th>
+                                <td>{{ $book_info->genre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Year</th>
+                                <td>{{ $book_info->year }}</td>
+                            </tr>
+                            {{--<tr>--}}
+                                {{--<th>Date add</th>--}}
+                                {{--<td>{{ $book_info->created_at }}</td>--}}
+                            {{--</tr>--}}
+                            {{--<tr>--}}
+                                {{--<th>Formats</th>--}}
+                                {{--<td>--}}
+                                    {{--@foreach (explode(",", $book_info->formats) as $val_1)--}}
+                                        {{--<span class="label label-primary">{{ $val_1 }}</span>--}}
+                                    {{--@endforeach--}}
+                                {{--</td>--}}
+                            {{--</tr>--}}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p align="left">{{ $book_info->description }}</p>
+                    <p align="left">Added at {{ $book_info->created_at }}.</p>
+
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row">
 
+
+
         <div class="panel panel-default">
-            {{--<div class="panel-heading">Users who have a book</div>--}}
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapseDownload">Download</a>
+                </h4>
+            </div>
+
+            <div id="collapseDownload" class="panel-collapse collapse">
+                <div class="panel-body">
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseOne">Users who have a book</a>
@@ -82,7 +108,6 @@
             </div>
 
             <div id="collapseOne" class="panel-collapse collapse">
-
             <div class="panel-body">
 
                 @if (count($users) != 0)
@@ -165,6 +190,23 @@
 
                         <button type="button" class="btn btn-info" onclick="myModal('{{ $book_info->id }}', 'Are you have this book?')">Add me to owners!</button>
                     </form>
+
+                    @if (count($votes) == 0)
+                        <form class="form-inline" action="/add_vote" method="post" id="add_vote" name="add_vote" style ='display:inline;'>
+                            <input name="book_id" type="hidden" value="{{ $book_info->id }}">
+                            {{csrf_field()}}
+
+                            <button class="btn btn-success" type="submit">Vote up</button>
+                        </form>
+                    @else
+                        <form class="form-inline" action="/delete_vote" method="post" id="delete_vote" name="delete_vote" style ='display:inline;'>
+                            <input name="book_id" type="hidden" value="{{ $book_info->id }}">
+                            {{csrf_field()}}
+
+                            <button class="btn btn-danger" type="submit">Vote down</button>
+                        </form>
+                    @endif
+
                 @endif
 
             </div>
@@ -197,7 +239,6 @@
                             </div>
                             <label for="name" class="col-md-4 control-label">Review</label>
                             <div class="col-md-6">
-
                                 <div class="form-group{{ $errors->has('review') ? ' has-error' : '' }}">
 
                                 <textarea rows="4" cols="50" name="review" form="add_review" id="review" placeholder="Enter review here..."></textarea>
@@ -209,8 +250,7 @@
                                     @endif
                                 </div>
 
-
-                                </div>
+                            </div>
                             <input name="book_id" type="hidden" value="{{ $book_info->id }}">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Add review</button>
