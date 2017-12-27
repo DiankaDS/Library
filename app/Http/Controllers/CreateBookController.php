@@ -108,8 +108,14 @@ class CreateBookController extends Controller
         }
 
         if ($request->get('wish') == 0) {
-            $user = User::find(Auth::user()->id);
-            $book->users()->save($user, ['link' => $link, 'price' => $price]);
+            if (Auth::user()->role_id != 0) {
+                $user = User::find(Auth::user()->id);
+                $book->users()->save($user, ['link' => $link, 'price' => $price, 'is_approve' => 1]);
+            }
+            else {
+                $user = User::find(Auth::user()->id);
+                $book->users()->save($user, ['link' => $link, 'price' => $price]);
+            }
 
             $message = "Book created!";
 
