@@ -37,15 +37,18 @@ class BookDetailsController extends Controller
 
         $users = DB::table('user_books')
             ->join('users', 'users.id', '=', 'user_books.user_id')
-            ->select('users.*', 'user_books.link as link', 'user_books.price as price',
-                DB::raw("(SELECT group_concat(distinct formats.name)
-                FROM formats
-                INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
-                INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id
-                WHERE user_books.book_id = $http_response_header
-                AND user_books.user_id = users.id
-                ) as formats")
-            )
+            ->leftJoin('formats_users_books', 'user_books.id', '=', 'formats_users_books.user_book_id')
+            ->leftJoin('formats', 'formats.id', '=', 'formats_users_books.format_id')
+            ->select('users.*', 'user_books.link as link', 'user_books.price as price', DB::raw("group_concat(formats.name) as formats"))
+
+//                DB::raw("(SELECT group_concat(distinct formats.name)
+//                FROM formats
+//                INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
+//                INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id
+//                WHERE user_books.book_id = $http_response_header
+//                AND user_books.user_id = users.id
+//                ) as formats")
+//            )
 //            ->where('user_books.book_id', $http_response_header)
             ->where([
                 ['user_books.book_id', $http_response_header],

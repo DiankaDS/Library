@@ -86,6 +86,8 @@
 
     <div class="row">
 
+{{--        {{ var_dump($users) }}--}}
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -136,13 +138,13 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseBuy">Buy this book</a>
-                    <span class="label label-primary">{{ count($users->where('price', '!=', 0)) }}</span>
+                    <span class="label label-primary">{{ count($users->where('price', '>', 0)) }}</span>
                 </h4>
             </div>
 
             <div id="collapseBuy" class="panel-collapse collapse">
                 <div class="panel-body">
-                    @if (count($users->where('price', '!=', 0)) != 0)
+                    @if (count($users->where('price', '>', 0)) != 0)
                         <table class="table" id="buy">
                             <thead>
                             <tr>
@@ -153,7 +155,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($users->where('price', '!=', 0) as $val)
+                            @foreach ($users->where('price', '>', 0) as $val)
                                 <tr>
                                     <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
                                     <td>{{ $val->price }}</td>
@@ -180,21 +182,19 @@
             </div>
         </div>
 
-
-
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     {{--<a data-toggle="collapse" href="#collapseOne">Users who have a book</a>--}}
                     <a data-toggle="collapse" href="#collapseOne">Take paper book</a>
-                    <span class="label label-primary">{{ count($users) }}</span>
+                    <span class="label label-primary">{{ count($users->where('price', -1)) }}</span>
                 </h4>
             </div>
 
             <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body">
 
-                @if (count($users) != 0)
+                @if (count($users->where('price', -1)) != 0)
                     <table class="table" id="users_have_book_table">
                         <thead>
                         <tr>
@@ -207,7 +207,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($users as $val)
+                        @foreach ($users->where('price', -1) as $val)
                             <tr>
                                 <td>
                                     <a href="profile/{{ $val->id }}" name="{{ $val->id }}">
@@ -343,7 +343,7 @@
             <div class="panel-body">
 
                 @if (count($reviews) != 0)
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         @foreach ($reviews as $val)
                         <div class="panel panel-default">
                             <div class="panel-heading" id="review">
