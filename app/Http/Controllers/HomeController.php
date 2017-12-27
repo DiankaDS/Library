@@ -48,7 +48,7 @@ class HomeController extends Controller
                 FROM reviews
                 WHERE reviews.book_id = lib_books.id
                 ) as rating"),
-                DB::raw("(SELECT group_concat(formats.name)
+                DB::raw("(SELECT group_concat(distinct formats.name)
                 FROM formats
                 INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
                 INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id
@@ -131,7 +131,7 @@ class HomeController extends Controller
                     FROM reviews
                     WHERE reviews.book_id = lib_books.id
                     ) as rating"),
-                    DB::raw("(SELECT group_concat(formats.name)
+                    DB::raw("(SELECT group_concat(distinct formats.name)
                     FROM formats
                     INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
                     INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id

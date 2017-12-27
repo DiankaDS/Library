@@ -54,26 +54,11 @@
                                 <th>Year</th>
                                 <td>{{ $book_info->year }}</td>
                             </tr>
-                            {{--<tr>--}}
-                                {{--<th>Date add</th>--}}
-                                {{--<td>{{ $book_info->created_at }}</td>--}}
-                            {{--</tr>--}}
-                            {{--<tr>--}}
-                                {{--<th>Formats</th>--}}
-                                {{--<td>--}}
-                                    {{--@foreach (explode(",", $book_info->formats) as $val_1)--}}
-                                        {{--<span class="label label-primary">{{ $val_1 }}</span>--}}
-                                    {{--@endforeach--}}
-                                {{--</td>--}}
-                            {{--</tr>--}}
                             </tbody>
                         </table>
                     </div>
 
                     <p align="left">{{ $book_info->description }}</p>
-                    {{--@if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)--}}
-                        {{--<button onclick="editReview('1','1')" class="btn btn-info pull-left">Update book</button>--}}
-                    {{--@endif--}}
                     <p align="right"><small>Added at {{ $book_info->created_at }}</small></p>
 
                     @if (count($users) == 0)
@@ -101,53 +86,96 @@
 
     <div class="row">
 
-
-
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseDownload">Free download</a>
-                    <span class="label label-primary">0</span>
+                    <span class="label label-primary">{{ count($users->where('price', 0)) }}</span>
                 </h4>
             </div>
 
             <div id="collapseDownload" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <table class="table" id="download">
-                        <thead>
-                        <tr>
-                            <th scope="col">Format <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 0)"></button></th>
-                            <th scope="col">Url <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 1)"></button></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    @if (count($users->where('price', 0)) != 0)
+                        <table class="table" id="download">
+                            <thead>
+                            <tr>
+                                <th scope="col">Recommended <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 0)"></button></th>
+                                <th scope="col">Format <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 1)"></button></th>
+                                <th scope="col">Link <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 2)"></button></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($users->where('price', 0) as $val)
+                                <tr>
+                                    <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
+                                    <td>
+                                        @foreach (explode(",", $val->formats) as $val_1)
+                                            <span class="label label-primary">{{ $val_1 }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @if ($val->link)
+                                            <a href="{{ $val->link }}">Show</a>
+                                        @else
+                                            <p>None</p>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p> Nothing... </p>
+                    @endif
                 </div>
             </div>
         </div>
-
 
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseBuy">Buy this book</a>
-                    <span class="label label-primary">0</span>
+                    <span class="label label-primary">{{ count($users->where('price', '!=', 0)) }}</span>
                 </h4>
             </div>
 
             <div id="collapseBuy" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <table class="table" id="buy">
-                        <thead>
-                        <tr>
-                            <th scope="col">Format <button class="glyphicon glyphicon-sort" onclick="sortTable('buy', 0)"></button></th>
-                            <th scope="col">Url <button class="glyphicon glyphicon-sort" onclick="sortTable('buy', 1)"></button></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    @if (count($users->where('price', '!=', 0)) != 0)
+                        <table class="table" id="buy">
+                            <thead>
+                            <tr>
+                                <th scope="col">Recommended <button class="glyphicon glyphicon-sort" onclick="sortTable('buy', 0)"></button></th>
+                                <th scope="col">Price <button class="glyphicon glyphicon-sort" onclick="sortTable('buy', 1)"></button></th>
+                                <th scope="col">Format <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 2)"></button></th>
+                                <th scope="col">Link <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 3)"></button></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($users->where('price', '!=', 0) as $val)
+                                <tr>
+                                    <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
+                                    <td>{{ $val->price }}</td>
+                                    <td>
+                                        @foreach (explode(",", $val->formats) as $val_1)
+                                            <span class="label label-primary">{{ $val_1 }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @if ($val->link)
+                                            <a href="{{ $val->link }}">Show</a>
+                                        @else
+                                            <p>None</p>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p> Nothing... </p>
+                    @endif
                 </div>
             </div>
         </div>

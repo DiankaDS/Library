@@ -24,7 +24,7 @@ class BookDetailsController extends Controller
                 FROM reviews
                 WHERE reviews.book_id = lib_books.id
                 ) as rating"),
-                DB::raw("(SELECT group_concat(formats.name)
+                DB::raw("(SELECT group_concat(distinct formats.name)
                 FROM formats
                 INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
                 INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id
@@ -37,8 +37,8 @@ class BookDetailsController extends Controller
 
         $users = DB::table('user_books')
             ->join('users', 'users.id', '=', 'user_books.user_id')
-            ->select('users.*',
-                DB::raw("(SELECT group_concat(formats.name)
+            ->select('users.*', 'user_books.link as link', 'user_books.price as price',
+                DB::raw("(SELECT group_concat(distinct formats.name)
                 FROM formats
                 INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
                 INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id
@@ -51,7 +51,7 @@ class BookDetailsController extends Controller
                 ['user_books.book_id', $http_response_header],
                 ['user_books.is_approve', 1],
             ])
-            ->groupBy('users.id')
+            ->groupBy('users.id', 'user_books.link', 'user_books.price')
             ->get();
 
         $reviews = DB::table('reviews')
