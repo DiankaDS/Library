@@ -34,12 +34,18 @@ class ProfileController extends Controller
                 AND user_books.user_id = $user_id
                 ) as formats")
             )
-            ->where('user_books.user_id', $user_id)
+            ->where([
+                ['user_books.user_id', $user_id],
+                ['user_books.is_approve', 1],
+            ])
             ->groupBy('lib_books.id', 'genres.name', 'user_books.user_id')
             ->paginate(6);
 
         $user_books_count = DB::table('user_books')
-            ->where('user_books.user_id', $user_id)
+            ->where([
+                ['user_books.user_id', $user_id],
+                ['user_books.is_approve', 1],
+            ])
             ->count();
 
         $confirm_delete_book_message = 'Are you sure to delete book?';

@@ -69,6 +69,8 @@
 
                         <li><a href="admin_reviews"> Reviews </a></li>
 
+                        <li><a href="recommended"> Recommendations </a></li>
+
                         <li><a href="admin_tags"> Tags </a></li>
 
                         <li><a href="admin_formats"> Formats </a></li>

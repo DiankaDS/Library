@@ -80,6 +80,14 @@ Route::get('/update_book/{book_id}', 'UpdateBookController@viewUpdateBook');
 
 Route::post('/update_book/complete', 'UpdateBookController@updateBook');
 
+// Recommendation routes
+
+Route::get('/recommended', 'AdminUserBooksController@adminRecommendations');
+
+Route::post('/admin_approve', 'AdminUserBooksController@acceptRecommendation');
+
+Route::post('/admin_not_approve', 'AdminUserBooksController@deleteRecommendation');
+
 // Google Books Api routes
 
 Route::post('google_search','GoogleBooksController@googleBookSearch');

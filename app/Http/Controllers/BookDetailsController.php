@@ -46,7 +46,11 @@ class BookDetailsController extends Controller
                 AND user_books.user_id = users.id
                 ) as formats")
             )
-            ->where('user_books.book_id', $http_response_header)
+//            ->where('user_books.book_id', $http_response_header)
+            ->where([
+                ['user_books.book_id', $http_response_header],
+                ['user_books.is_approve', 1],
+            ])
             ->groupBy('users.id')
             ->get();
 
