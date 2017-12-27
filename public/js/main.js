@@ -788,6 +788,9 @@ function googleModal(name, author, genre, year, description, photo) {
         $('#span_tags').val($("#formTagsinputModal .bootstrap-tagsinput")[0].innerText);
         $('#span_formats').val($("#formFormatsinputModal .bootstrap-tagsinput")[0].innerText);
 
+        $('#link').val($('#modalLink').val());
+        $('#price').val($('#modalPrice').val());
+
         $('#create_book_form').submit();
     });
 
@@ -815,6 +818,7 @@ function googleModal(name, author, genre, year, description, photo) {
     var body = $("#myModal .modal-body");
 
     $('#collapseTwo').append($('#formTagsinputModal').hide());
+    $('#collapseTwo').append($('#formFormatsinputModal').hide());
 
     body.empty();
 
@@ -823,7 +827,9 @@ function googleModal(name, author, genre, year, description, photo) {
         '<tr><th>Author:</th><td>' + author + '</td>' +
         '<tr><th>Genre:</th><td>' + genre + '</td>' +
         '<tr><th>Year:</th><td>' + year + '</td>' +
-        '<tr><th>Description:</th><td>' + unescape(description) + '</td></tr></tbody></table>' ;
+        '<tr><th>Description:</th><td>' + unescape(description) + '</td>' +
+        '<tr><th>Link:</th><td><input class="form-control" id="modalLink"></td>' +
+        '<tr><th>Price:</th><td><input class="form-control" id="modalPrice"></td></tr></tbody></table>' ;
 
     body.append(p);
 

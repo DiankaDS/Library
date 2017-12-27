@@ -137,7 +137,7 @@
                                 <label for="photo" class="col-md-4 control-label">Photo</label>
 
                                 <div class="col-md-6">
-                                    <input id="photo" type="file" name="photo" required>
+                                    <input id="photo" type="file" name="photo">
                                     <input id="google_photo" name="google_photo" type="hidden">
 
                                     @if ($errors->has('photo'))
@@ -165,6 +165,35 @@
                                 </a>
                             </div>
 
+
+                            <div class="form-group{{ $errors->has('link') ? ' has-error' : '' }}">
+                                <label for="link" class="col-md-4 control-label">Link</label>
+
+                                <div class="col-md-6">
+                                    <input id="link" type="text" autocomplete="off" class="form-control" name="link" value="{{ old('link') }}">
+
+                                    @if ($errors->has('link'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('link') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
+                                <label for="price" class="col-md-4 control-label">Price</label>
+
+                                <div class="col-md-6">
+                                    <input id="price" type="text" autocomplete="off" class="form-control" name="price" value="{{ old('price') }}">
+
+                                    @if ($errors->has('price'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('price') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <input id="span_tags" type="hidden" name="span_tags" value="">
                             <input id="span_formats" type="hidden" name="span_formats" value="">
 
@@ -183,16 +212,14 @@
                     </div>
 
                     <div class="form-group" id="formTagsinputModal" hidden>
-                        <label for="tags" class="col-md-4 control-label">Tags</label>
-                        <br>
+                        <label for="tags" class="control-label">Tags:</label>
                         <a class="dropdown">
                             <input class="form-control" id="mySearchTagsModal" type="text" name="tags" data-role="tagsinput" autocomplete="off">
                         </a>
                     </div>
 
                     <div class="form-group" id="formFormatsinputModal" hidden>
-                        <label for="formats" class="col-md-4 control-label">Formats</label>
-                        <br>
+                        <label for="formats" class="control-label">Formats:</label>
                         <a class="dropdown">
                             <input class="form-control" id="mySearchFormatsModal" type="text" name="formats" data-role="tagsinput" autocomplete="off">
                         </a>

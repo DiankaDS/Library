@@ -40,6 +40,17 @@ class CreateBookController extends Controller
             'description' => 'required',
         ]);
 
+        $link = '';
+        $price = -1;
+
+        if ($request->get('link')) {
+            $link = $request->get('link');
+        }
+
+        if ($request->get('price')) {
+            $price = $request->get('price');
+        }
+
         if ($request->get('google_photo')) {
             $file_name = $request->get('google_photo');
         }
@@ -98,7 +109,7 @@ class CreateBookController extends Controller
 
         if ($request->get('wish') == 0) {
             $user = User::find(Auth::user()->id);
-            $book->users()->save($user);
+            $book->users()->save($user, ['link' => $link, 'price' => $price]);
 
             $message = "Book created!";
 
@@ -106,12 +117,7 @@ class CreateBookController extends Controller
 
                 $format = Format::where('name', $val)->first()->id;
 
-                $user_book_id = DB::table('user_books')
-                    ->where([
-                        ['user_id', Auth::user()->id],
-                        ['book_id', $book->id]])
-                    ->first()
-                    ->id;
+                $user_book_id = DB::table('user_books')->max('id');
 
                 DB::table('formats_users_books')->insert([
                     'format_id' => $format,

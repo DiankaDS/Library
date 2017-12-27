@@ -14,7 +14,7 @@ class SecondUpdateUserBooksTable extends Migration
     public function up()
     {
         Schema::table('user_books', function (Blueprint $table) {
-            $table->integer('price')->default(0);
+            $table->integer('price')->default(-1);
             $table->string('link')->default('');
             $table->boolean('is_approve')->default(0);
         });
