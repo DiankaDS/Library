@@ -14,65 +14,82 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Profile</div>
                 <div class="panel-body" align="center">
-                    @if ($user_info->photo)
-                        <img src="../images/users/{{$user_info->photo}}" height="300" width="300">
-                    @else
-                        <img src="../images/default_user.jpg" height="300" width="300">
-                    @endif
-
-                    @if ($user_info['id'] == Auth::user()->id)
-                        <form class="form-inline" action="/upload_photo" enctype="multipart/form-data" method="POST">
-                            {{csrf_field()}}
-                            <input id="photo" type="file" name="photo" required>
-
-                            <button class="btn btn-info" type="submit">Upload photo</button>
-                        </form>
-                    @endif
-
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <th>Username</th>
-                            <td>{{ $user_info['username'] }}</td>
-                        </tr>
-                        <tr>
-                            <th>Name</th>
-                            <td>{{ $user_info['name'] }}</td>
-                        </tr>
-                        <tr>
-                            <th>Surname</th>
-                            <td>{{ $user_info['surname'] }}</td>
-                        </tr>
-
-                        @if ($user_info['id'] == Auth::user()->id)
-                            <tr>
-                                <th>E-mail</th>
-                                <td>{{ $user_info['email'] }}</td>
-                            </tr>
-                            <tr>
-                                <th>Phone</th>
-                                <td>{{ $user_info['phone'] }}</td>
-                            </tr>
+                    <div class="col-md-3">
+                        @if ($user_info->photo)
+                            <img src="../images/users/{{$user_info->photo}}" height="150" width="150">
+                        @else
+                            <img src="../images/default_user.jpg" height="150" width="150">
                         @endif
 
-                        </tbody>
-                    </table>
+                        @if ($user_info['id'] == Auth::user()->id)
+                            <form class="form-inline" action="/upload_photo" enctype="multipart/form-data" method="POST">
+                                {{csrf_field()}}
+                                <input id="photo" type="file" name="photo" required>
+
+                                {{--<button class="btn btn-info" type="submit">Upload photo</button>--}}
+                                <button class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="top" title="Upload photo"><span class="glyphicon glyphicon-camera"></span></button>
+                            </form>
+                        @endif
+                    </div>
+
+                    <div class="col-md-offset-3">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Username</th>
+                                <td>{{ $user_info['username'] }}</td>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{ $user_info['name'] }}</td>
+                            </tr>
+                            <tr>
+                                <th>Surname</th>
+                                <td>{{ $user_info['surname'] }}</td>
+                            </tr>
+
+                            @if ($user_info['id'] == Auth::user()->id)
+                                <tr>
+                                    <th>E-mail</th>
+                                    <td>{{ $user_info['email'] }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone</th>
+                                    <td>{{ $user_info['phone'] }}</td>
+                                </tr>
+                            @endif
+
+                            </tbody>
+                        </table>
+                    </div>
 
                     @if ($user_info['id'] == Auth::user()->id)
-                        <form class="form-inline" action="/update_user" method="get">
+                        {{--<div class="form-group">--}}
+
+                        <form class="form-inline pull-right" action="delete_user" method="post" id="delete_user" style="margin-left: 4px">
                             {{csrf_field()}}
 
-                            <button class="btn btn-info" type="submit">Update profile</button>
-                            <button class="btn btn-warning" type="submit" formaction="/set_password">Set new password</button>
+                            {{--<button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('delete_user', '{{ $confirm_delete_profile_message }}')">Delete profile</button>--}}
+                            <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('delete_user', '{{ $confirm_delete_profile_message }}')" data-toggle="tooltip" data-placement="top" title="Delete profile"><span class="glyphicon glyphicon-trash"></span></button>
                         </form>
 
-                        <div class="text-right">
-                            <form class="form-inline" action="delete_user" method="post" id="delete_user">
-                                {{csrf_field()}}
+                        <form class="form-inline pull-right" action="/update_user" method="get">
+                            {{csrf_field()}}
 
-                                <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('delete_user', '{{ $confirm_delete_profile_message }}')">Delete profile</button>
-                            </form>
-                        </div>
+                            {{--<button class="btn btn-info" type="submit">Update profile</button>--}}
+                            <button class="btn btn-info" type="submit" id="delete_profile_button" data-toggle="tooltip" data-placement="top" title="Update profile"><span class="glyphicon glyphicon-edit"></span></button>
+
+                            {{--<button class="btn btn-warning" type="submit" formaction="/set_password">Set new password</button>--}}
+                            <button class="btn btn-warning" type="submit" formaction="/set_password" data-toggle="tooltip" data-placement="top" title="Set new password"><span class="glyphicon glyphicon-log-in"></span></button>
+                        </form>
+
+                        {{--<div class="text-right">--}}
+                            {{--<form class="form-inline pull-right" action="delete_user" method="post" id="delete_user">--}}
+                                {{--{{csrf_field()}}--}}
+
+                                {{--<button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('delete_user', '{{ $confirm_delete_profile_message }}')">Delete profile</button>--}}
+                            {{--</form>--}}
+                        {{--</div>--}}
                     @endif
 
                 </div>
@@ -85,13 +102,14 @@
             <div class="panel-heading">Books <span class="label label-primary">{{ $user_books_count }}</span></div>
             <div class="panel-body">
 
-                @if (count($user_books) !== 0)
+                @if (count($user_books) != 0)
                     <table class="table" id="user_books_table">
                         <thead>
                         <tr>
-                            <th scope="col">Book name <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 0)"></button></th>
-                            <th scope="col">Author <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 1)"></button></th>
-                            <th scope="col">Year <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 2)"></button></th>
+                            <th scope="col">Photo </th>
+                            <th scope="col">Book name <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 1)"></button></th>
+                            <th scope="col">Author <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 2)"></button></th>
+                            <th scope="col">Year <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 3)"></button></th>
                             {{--<th scope="col">Description</th>--}}
                             <th scope="col">Genre <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 4)"></button></th>
                             <th scope="col">Formats <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 5)"></button></th>
@@ -101,6 +119,15 @@
                         <tbody>
                         @foreach ($user_books as $val)
                             <tr>
+                                <td>
+                                    <a href="book_{{ $val->id }}" name="{{ $val->id }}">
+                                        @if ($val->photo)
+                                            <img src="{{$val->photo}}" height="42" width="42">
+                                        @else
+                                            <img src="../images/default_book.jpg" height="42" width="42">
+                                        @endif
+                                    </a>
+                                </td>
                                 <td><a href="/book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a></td>
                                 <td>{{ $val->author }}</td>
                                 <td>{{ $val->year }}</td>
