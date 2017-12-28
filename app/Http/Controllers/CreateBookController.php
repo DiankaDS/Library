@@ -99,7 +99,12 @@ class CreateBookController extends Controller
                     'name' => $val,
                 ]);
             }
-            $book->authors()->save($author);
+
+            $author_book = $book->authors()->where('name', $val)->first();
+
+            if(!$author_book) {
+                $book->authors()->save($author);
+            }
         }
 
         foreach (explode(' ', $request->get('span_tags')) as $val) {
