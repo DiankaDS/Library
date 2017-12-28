@@ -366,10 +366,10 @@ function newSearchBook(e, page){
                     p.appendTo(caption);
 
                     if (source[i].rating) {
-                        var rating = $('<p align="center">Rating: <b>' + source[i].rating + '</b></p>');
+                        var rating = $('<p align="center"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> <b>' + source[i].rating + '</b></p>');
                     }
                     else {
-                        var rating = $('<p align="center">Rating: <b>0</b></p>');
+                        var rating = $('<p align="center"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> <b>0</b></p>');
                     }
                     rating.appendTo(caption);
 

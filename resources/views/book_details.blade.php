@@ -28,16 +28,21 @@
                     </div>
 
                     <div class="col-md-offset-3">
+                        @if ($book_info->rating)
+                            <p align="center"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> <b>{{ $book_info->rating }}</b></p>
+                        @else
+                            <p align="center"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> <b>0</b></p>
+                        @endif
                         <table class="table">
                             <tbody>
-                            <tr>
-                                <th>Rating</th>
-                                    @if ($book_info->rating)
-                                        <td>{{ $book_info->rating }}</td>
-                                    @else
-                                        <td>0</td>
-                                    @endif
-                            </tr>
+                            {{--<tr>--}}
+                                {{--<th>Rating</th>--}}
+                                    {{--@if ($book_info->rating)--}}
+                                        {{--<td>{{ $book_info->rating }}</td>--}}
+                                    {{--@else--}}
+                                        {{--<td>0</td>--}}
+                                    {{--@endif--}}
+                            {{--</tr>--}}
                             <tr>
                                 <th>Book name</th>
                                 <td>{{ $book_info->name }}</td>
@@ -85,8 +90,6 @@
     </div>
 
     <div class="row">
-
-{{--        {{ var_dump($users) }}--}}
 
         <div class="panel panel-default">
             <div class="panel-heading">
