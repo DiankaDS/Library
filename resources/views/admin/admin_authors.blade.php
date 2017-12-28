@@ -43,6 +43,7 @@
                         <thead>
                         <tr class="filters">
                             <th scope="col">Author <button class="glyphicon glyphicon-sort" onclick="sortTable('authors_table', 0)"></button></th>
+                            <th scope="col">Books <button class="glyphicon glyphicon-sort" onclick="sortTable('authors_table', 1)"></button></th>
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>
@@ -50,6 +51,7 @@
                         @foreach ($authors as $val)
                             <tr>
                                 <td>{{ $val->name }}</td>
+                                <td>{{ $val->books_count }}</td>
                                 <td>
                                     <form action="admin_del_author/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
                                         {{csrf_field()}}
