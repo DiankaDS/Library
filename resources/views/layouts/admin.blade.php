@@ -57,6 +57,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
 
+                        <li><a href="recommended"> Recommendations </a></li>
+
                         <li><a href="admin_users"> Users </a></li>
 
                         <li><a href="admin_books"> Books </a></li>
@@ -68,8 +70,6 @@
                         <li><a href="admin_orders"> Orders </a></li>
 
                         <li><a href="admin_reviews"> Reviews </a></li>
-
-                        <li><a href="recommended"> Recommendations </a></li>
 
                         <li><a href="admin_tags"> Tags </a></li>
 

@@ -17,16 +17,19 @@ class AdminUserBooksController extends Controller
         $books = DB::table('lib_books')
             ->join('user_books', 'user_books.book_id', '=', 'lib_books.id')
             ->join('users', 'users.id', '=', 'user_books.user_id')
+            ->leftJoin('formats_users_books', 'user_books.id', '=', 'formats_users_books.user_book_id')
+            ->leftJoin('formats', 'formats.id', '=', 'formats_users_books.format_id')
             ->select('lib_books.name as book',
                 'lib_books.photo as book_photo',
                 'users.username as username',
                 'user_books.*',
-                DB::raw("(SELECT group_concat(formats.name)
-                FROM formats
-                INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
-                INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id
-                WHERE user_books.book_id = lib_books.id
-                ) as formats")
+                DB::raw("group_concat(formats.name) as formats")
+//                DB::raw("(SELECT group_concat(formats.name)
+//                FROM formats
+//                INNER JOIN formats_users_books ON formats_users_books.format_id = formats.id
+//                INNER JOIN user_books ON formats_users_books.user_book_id = user_books.id
+//                WHERE user_books.book_id = lib_books.id
+//                ) as formats")
             )
             ->where('user_books.is_approve', 0)
             ->groupBy('user_books.id')

@@ -111,7 +111,7 @@ Route::post('book_return','OrdersController@bookReturn');
 // Admin routes
 
 Route::get('admin', function () {
-    return redirect('/admin_users');
+    return redirect('/recommended');
 });
 
 // Admin users routes
