@@ -118,7 +118,7 @@
                                             <input name="_method" type="hidden" value="DELETE">
                                             <input name="id" type="hidden" value="{{ $val->id }}">
 
-                                            <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')">Delete</button>
+                                            <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
                                         </form>
                                     @else
                                         <form action="/orders" id="{{ $val->id }}" method="post" name="id" class="form-inline">

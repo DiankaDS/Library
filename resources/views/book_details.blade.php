@@ -72,14 +72,16 @@
                                 <input name="book_id" type="hidden" value="{{ $book_info->id }}">
                                 {{csrf_field()}}
 
-                                <button class="btn btn-success" type="submit">Vote up</button>
+                                {{--<button class="btn btn-success" type="submit">Vote up</button>--}}
+                                <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Vote up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                             </form>
                         @else
                             <form class="form-inline" action="/delete_vote" method="post" id="delete_vote" name="delete_vote" style ='display:inline;'>
                                 <input name="book_id" type="hidden" value="{{ $book_info->id }}">
                                 {{csrf_field()}}
 
-                                <button class="btn btn-danger" type="submit">Vote down</button>
+                                {{--<button class="btn btn-danger" type="submit">Vote down</button>--}}
+                                <button class="btn btn-danger" type="submit" data-toggle="tooltip" data-placement="top" title="Vote down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
                             </form>
                         @endif
                     @endif
@@ -105,7 +107,7 @@
                         <table class="table" id="download">
                             <thead>
                             <tr>
-                                <th scope="col">Recommended <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 0)"></button></th>
+                                <th scope="col">Recommended by <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 0)"></button></th>
                                 <th scope="col">Format <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 1)"></button></th>
                                 <th scope="col">Link <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 2)"></button></th>
                             </tr>
@@ -113,7 +115,16 @@
                             <tbody>
                             @foreach ($users->where('price', 0) as $val)
                                 <tr>
-                                    <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
+                                    <td>
+                                        <a href="profile/{{ $val->id }}" name="{{ $val->id }}">
+                                            @if ($val->photo)
+                                                <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                                            @else
+                                                <img src="../images/default_user.jpg" height="42" width="42">
+                                            @endif
+                                        </a>
+                                        <a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a>
+                                    </td>
                                     <td>
                                         @foreach (explode(",", $val->formats) as $val_1)
                                             <span class="label label-primary">{{ $val_1 }}</span>
@@ -151,7 +162,7 @@
                         <table class="table" id="buy">
                             <thead>
                             <tr>
-                                <th scope="col">Recommended <button class="glyphicon glyphicon-sort" onclick="sortTable('buy', 0)"></button></th>
+                                <th scope="col">Recommended by <button class="glyphicon glyphicon-sort" onclick="sortTable('buy', 0)"></button></th>
                                 <th scope="col">Price <button class="glyphicon glyphicon-sort" onclick="sortTable('buy', 1)"></button></th>
                                 <th scope="col">Format <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 2)"></button></th>
                                 <th scope="col">Link <button class="glyphicon glyphicon-sort" onclick="sortTable('download', 3)"></button></th>
@@ -160,7 +171,16 @@
                             <tbody>
                             @foreach ($users->where('price', '>', 0) as $val)
                                 <tr>
-                                    <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
+                                    <td>
+                                        <a href="profile/{{ $val->id }}" name="{{ $val->id }}">
+                                            @if ($val->photo)
+                                                <img src="../images/users/{{$val->photo}}" height="42" width="42">
+                                            @else
+                                                <img src="../images/default_user.jpg" height="42" width="42">
+                                            @endif
+                                        </a>
+                                        <a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a>
+                                    </td>
                                     <td>{{ $val->price }}</td>
                                     <td>
                                         @foreach (explode(",", $val->formats) as $val_1)
@@ -201,11 +221,11 @@
                     <table class="table" id="users_have_book_table">
                         <thead>
                         <tr>
-                            <th scope="col">Photo</th>
-                            <th scope="col">Username <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 1)"></button></th>
-                            <th scope="col">Name <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 2)"></button></th>
-                            <th scope="col">Surname <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 3)"></button></th>
-                            <th scope="col">Formats <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 4)"></button></th>
+                            {{--<th scope="col">Photo</th>--}}
+                            <th scope="col">Username <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 0)"></button></th>
+                            {{--<th scope="col">Name <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 2)"></button></th>--}}
+                            {{--<th scope="col">Surname <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 3)"></button></th>--}}
+                            <th scope="col">Formats <button class="glyphicon glyphicon-sort" onclick="sortTable('users_have_book_table', 1)"></button></th>
                             <th scope="col">Send a wish</th>
                         </tr>
                         </thead>
@@ -220,10 +240,11 @@
                                             <img src="../images/default_user.jpg" height="42" width="42">
                                         @endif
                                     </a>
-                                </td>
-                                <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
-                                <td>{{ $val->name }}</td>
-                                <td>{{ $val->surname }}</td>
+                                {{--</td>--}}
+                                {{--<td>--}}
+                                    <a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
+                                {{--<td>{{ $val->name }}</td>--}}
+                                {{--<td>{{ $val->surname }}</td>--}}
                                 <td>
                                     @foreach (explode(",", $val->formats) as $val_1)
                                         <span class="label label-primary">{{ $val_1 }}</span>
@@ -270,7 +291,7 @@
                                             <input name="_method" type="hidden" value="DELETE">
                                             <input name="id" type="hidden" value="{{ $book_info->id }}">
 
-                                            <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $book_info->id }}', 'Are you sure to delete book?')">Delete</button>
+                                            <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $book_info->id }}', 'Are you sure to delete book?')" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
                                         </form>
                                     @endif
 
@@ -361,11 +382,13 @@
                                 <strong><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></strong>
 
                                 @if( $val->user_id == Auth::user()->id )
-                                    <button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right">Edit</button>
+                                    {{--<button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right">Edit</button>--}}
+                                    <button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><span class="glyphicon glyphicon-edit"></span></button>
                                 @endif
 
                                 <div class="panel-body">
-                                    <strong>Rating: {{ $val->rating }}</strong>
+                                    {{--<strong>Rating: {{ $val->rating }}</strong>--}}
+                                    <strong align="center"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> <b>{{ $val->rating }}</b></strong>
 
                                     <div id="review_{{ $val->id }}">
                                         <p class="text">{{ $val->text }}</p>

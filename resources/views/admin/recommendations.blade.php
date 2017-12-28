@@ -63,8 +63,10 @@
 
                                         {{--<button class="btn btn-success" type="button" id="admin_approve" onclick="myModal('{{ $val->id }}', '{{ $confirm_approve_message }}')">Approve</button>--}}
 
-                                        <button class="btn btn-success" type="submit">Approve</button>
-                                        <button class="btn btn-danger" type="submit" formaction="/admin_not_approve">Reject</button>
+                                        {{--<button class="btn btn-success" type="submit">Approve</button>--}}
+                                        {{--<button class="btn btn-danger" type="submit" formaction="/admin_not_approve">Reject</button>--}}
+                                        <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Approve"><span class="glyphicon glyphicon-ok"></span></button>
+                                        <button class="btn btn-danger" type="submit" formaction="/admin_not_approve" data-toggle="tooltip" data-placement="top" title="Reject"><span class="glyphicon glyphicon-remove"></span></button>
                                     </form>
                                 </td>
                             </tr>

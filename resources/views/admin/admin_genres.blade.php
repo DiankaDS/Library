@@ -55,7 +55,8 @@
                                         {{csrf_field()}}
                                         <input name="admins_genre_id" type="hidden" value="{{ $val->id }}">
 
-                                        <button class="btn btn-danger" type="button" id="delete_genre_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_genre_message }}')">Delete</button>
+                                        {{--<button class="btn btn-danger" type="button" id="delete_genre_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_genre_message }}')">Delete</button>--}}
+                                        <button class="btn btn-danger" type="button" id="delete_genre_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_genre_message }}')" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
                                     </form>
                                 </td>
                             </tr>

@@ -49,21 +49,24 @@
                                         <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                         {{csrf_field()}}
 
-                                        <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>
+                                        {{--<button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')">Delete user</button>--}}
+                                        <button class="btn btn-danger" type="button" id="delete_profile_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_profile_message }}')" data-toggle="tooltip" data-placement="top" title="Delete user"><span class="glyphicon glyphicon-trash"></span></button>
                                     </form>
                                     @if ($val->role_id == 0 and Auth::user()->role_id == 2)
                                         <form class="form-inline" action="add_to_admin" method="post" id="add_to_admin_{{ $val->id }}" name="add_to_admin" style ='display:inline;'>
                                             <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                             {{csrf_field()}}
 
-                                            <button class="btn btn-info" type="button" onclick="myModal('add_to_admin_{{ $val->id }}', '{{ $confirm_add_to_admin_message }}')">Add to admin</button>
+                                            {{--<button class="btn btn-info" type="button" onclick="myModal('add_to_admin_{{ $val->id }}', '{{ $confirm_add_to_admin_message }}')">Add to admin</button>--}}
+                                            <button class="btn btn-info" type="button" onclick="myModal('add_to_admin_{{ $val->id }}', '{{ $confirm_add_to_admin_message }}')" data-toggle="tooltip" data-placement="top" title="Add to admin"><span class="glyphicon glyphicon-plus"></span></button>
                                         </form>
                                     @elseif (Auth::user()->role_id == 2)
                                         <form class="form-inline" action="delete_from_admin" method="post" id="delete_from_admin_{{ $val->id }}" name="delete_from_admin" style ='display:inline;'>
                                             <input name="admins_user_id" type="hidden" value="{{ $val->id }}">
                                             {{csrf_field()}}
 
-                                            <button class="btn btn-warning" type="button" onclick="myModal('delete_from_admin_{{ $val->id }}', '{{ $confirm_delete_from_admin_message }}')">Delete from admin</button>
+{{--                                            <button class="btn btn-warning" type="button" onclick="myModal('delete_from_admin_{{ $val->id }}', '{{ $confirm_delete_from_admin_message }}')">Delete from admin</button>--}}
+                                            <button class="btn btn-warning" type="button" onclick="myModal('delete_from_admin_{{ $val->id }}', '{{ $confirm_delete_from_admin_message }}')" data-toggle="tooltip" data-placement="top" title="Delete from admin"><span class="glyphicon glyphicon-minus"></span></button>
                                         </form>
                                     @endif
                                 @endif

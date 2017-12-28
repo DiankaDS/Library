@@ -97,17 +97,17 @@
                                 <ul class="dropdown-menu">
 
                                     <li>
-                                        <a href="/profile/{{ Auth::user()->id }}"> Profile </a>
+                                        <a href="/profile/{{ Auth::user()->id }}">
+                                            <span class="glyphicon glyphicon-user"></span> Profile
+                                        </a>
                                     </li>
 
                                     <li>
-
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            <span class="glyphicon glyphicon-log-out"></span> Logout
                                         </a>
-
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>

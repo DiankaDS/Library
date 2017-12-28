@@ -69,16 +69,17 @@
                                                         <input name="book_id" type="hidden" value="{{ $val->id }}">
                                                         {{csrf_field()}}
 
-                                                        <button class="btn btn-success" type="submit">Vote up</button>
+                                                        {{--<button class="btn btn-success" type="submit">Vote up</button>--}}
+                                                        <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Vote up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                                                     </form>
                                                 @else
                                                     <form class="form-inline" action="/delete_vote" method="post" id="delete_vote" name="delete_vote" style ='display:inline;'>
                                                         <input name="book_id" type="hidden" value="{{ $val->id }}">
                                                         {{csrf_field()}}
 
-                                                        <button class="btn btn-danger" type="submit">Vote down</button>
+                                                        {{--<button class="btn btn-danger" type="submit">Vote down</button>--}}
+                                                        <button class="btn btn-danger" type="submit" data-toggle="tooltip" data-placement="top" title="Vote down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
                                                     </form>
-                                                    {{--<button class="btn disabled btn-success" type="button">Vote</button>--}}
                                                 @endif
                                             </div>
                                         </td>

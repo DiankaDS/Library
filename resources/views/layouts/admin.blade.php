@@ -63,13 +63,13 @@
 
                         <li><a href="admin_books"> Books </a></li>
 
-                        <li><a href="admin_authors"> Authors </a></li>
-
-                        <li><a href="admin_genres"> Genres </a></li>
-
                         <li><a href="admin_orders"> Orders </a></li>
 
                         <li><a href="admin_reviews"> Reviews </a></li>
+
+                        <li><a href="admin_authors"> Authors </a></li>
+
+                        <li><a href="admin_genres"> Genres </a></li>
 
                         <li><a href="admin_tags"> Tags </a></li>
 

@@ -32,21 +32,21 @@
                             <th scope="col">Username
                                 <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 1)"></button>
                             </th>
-                            <th scope="col">Name
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 2)"></button>
-                            </th>
-                            <th scope="col">Surname
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 3)"></button>
-                            </th>
+                            {{--<th scope="col">Name--}}
+                                {{--<button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 2)"></button>--}}
+                            {{--</th>--}}
+                            {{--<th scope="col">Surname--}}
+                                {{--<button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 3)"></button>--}}
+                            {{--</th>--}}
                             <th scope="col">Phone</th>
                             <th scope="col">E-mail
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 5)"></button>
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 2)"></button>
                             </th>
                             <th scope="col">Date start
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 6)"></button>
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 3)"></button>
                             </th>
                             <th scope="col">Date end
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 7)"></button>
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_not_accept_table', 4)"></button>
                             </th>
                             <th scope="col">Decision</th>
                         </tr>
@@ -56,8 +56,8 @@
                             <tr>
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
                                 <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
-                                <td>{{ $val->name }}</td>
-                                <td>{{ $val->surname }}</td>
+                                {{--<td>{{ $val->name }}</td>--}}
+                                {{--<td>{{ $val->surname }}</td>--}}
                                 <td>{{ $val->phone }}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ $val->date_start }}</td>
@@ -66,8 +66,10 @@
                                     <form class="form-inline" action="accept_order" method="post">
                                         {{csrf_field()}}
                                         <input name="order_id" type="hidden" value="{{ $val->order_id }}">
-                                        <button class="btn btn-success" type="submit">Accept</button>
-                                        <button class="btn btn-danger" type="submit" formaction="delete_order">Reject</button>
+                                        {{--<button class="btn btn-success" type="submit">Accept</button>--}}
+                                        {{--<button class="btn btn-danger" type="submit" formaction="delete_order">Reject</button>--}}
+                                        <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Accept"><span class="glyphicon glyphicon-ok"></span></button>
+                                        <button class="btn btn-danger" type="submit" formaction="delete_order" data-toggle="tooltip" data-placement="top" title="Reject"><span class="glyphicon glyphicon-remove"></span></button>
                                     </form>
                                 </td>
                             </tr>
@@ -103,21 +105,21 @@
                             <th scope="col">Username
                                 <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 1)"></button>
                             </th>
-                            <th scope="col">Name
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 2)"></button>
-                            </th>
-                            <th scope="col">Surname
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 3)"></button>
-                            </th>
+                            {{--<th scope="col">Name--}}
+                                {{--<button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 2)"></button>--}}
+                            {{--</th>--}}
+                            {{--<th scope="col">Surname--}}
+                                {{--<button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 3)"></button>--}}
+                            {{--</th>--}}
                             <th scope="col">Phone</th>
                             <th scope="col">E-mail
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 5)"></button>
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 2)"></button>
                             </th>
                             <th scope="col">Date start
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 6)"></button>
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 3)"></button>
                             </th>
                             <th scope="col">Date end
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 7)"></button>
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_to_user_accept_table', 4)"></button>
                             </th>
                             <th scope="col">Create return</th>
                         </tr>
@@ -127,8 +129,8 @@
                             <tr>
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
                                 <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
-                                <td>{{ $val->name }}</td>
-                                <td>{{ $val->surname }}</td>
+                                {{--<td>{{ $val->name }}</td>--}}
+                                {{--<td>{{ $val->surname }}</td>--}}
                                 <td>{{ $val->phone }}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ $val->date_start }}</td>
@@ -138,7 +140,8 @@
                                         {{csrf_field()}}
                                         <input name="order_id" type="hidden" value="{{ $val->order_id }}">
 
-                                        <button class="btn btn-primary" type="button" onclick="myModal('return_form', '{{ $confirm_return_form_message }}')">Return</button>
+                                        {{--<button class="btn btn-primary" type="button" onclick="myModal('return_form', '{{ $confirm_return_form_message }}')">Return</button>--}}
+                                        <button class="btn btn-primary" type="button" onclick="myModal('return_form', '{{ $confirm_return_form_message }}')" data-toggle="tooltip" data-placement="top" title="Returned"><span class="glyphicon glyphicon-ok"></span></button>
                                     </form>
                                 </td>
                             </tr>

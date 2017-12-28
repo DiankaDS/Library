@@ -34,17 +34,17 @@
                             <th scope="col">Username
                                 <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 1)"></button>
                             </th>
-                            <th scope="col">Name
+                            {{--<th scope="col">Name--}}
+                                {{--<button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 2)"></button>--}}
+                            {{--</th>--}}
+                            {{--<th scope="col">Surname--}}
+                                {{--<button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 3)"></button>--}}
+                            {{--</th>--}}
+                            <th scope="col">Date start
                                 <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 2)"></button>
                             </th>
-                            <th scope="col">Surname
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 3)"></button>
-                            </th>
-                            <th scope="col">Date start
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 4)"></button>
-                            </th>
                             <th scope="col">Date end
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 5)"></button>
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 3)"></button>
                             </th>
                         </tr>
                         </thead>
@@ -53,8 +53,8 @@
                             <tr>
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
                                 <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
-                                <td>{{ $val->name }}</td>
-                                <td>{{ $val->surname }}</td>
+                                {{--<td>{{ $val->name }}</td>--}}
+                                {{--<td>{{ $val->surname }}</td>--}}
                                 <td>{{ $val->date_start }}</td>
                                 <td>{{ $val->date_end }}</td>
                             </tr>
@@ -91,21 +91,21 @@
                             <th scope="col">Username
                                 <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 1)"></button>
                             </th>
-                            <th scope="col">Name
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 2)"></button>
-                            </th>
-                            <th scope="col">Surname
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 3)"></button>
-                            </th>
+                            {{--<th scope="col">Name--}}
+                                {{--<button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 2)"></button>--}}
+                            {{--</th>--}}
+                            {{--<th scope="col">Surname--}}
+                                {{--<button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 3)"></button>--}}
+                            {{--</th>--}}
                             <th scope="col">Phone</th>
                             <th scope="col">E-mail
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 5)"></button>
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 2)"></button>
                             </th>
                             <th scope="col">Date start
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 6)"></button>
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 3)"></button>
                             </th>
                             <th scope="col">Date end
-                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 7)"></button>
+                                <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 4)"></button>
                             </th>
                         </tr>
                         </thead>
@@ -114,8 +114,8 @@
                             <tr>
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
                                 <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
-                                <td>{{ $val->name }}</td>
-                                <td>{{ $val->surname }}</td>
+                                {{--<td>{{ $val->name }}</td>--}}
+                                {{--<td>{{ $val->surname }}</td>--}}
                                 <td>{{ $val->phone }}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ $val->date_start }}</td>

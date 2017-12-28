@@ -44,7 +44,8 @@
                                         {{csrf_field()}}
                                         <input name="order_id" type="hidden" value="{{ $val->id }}">
 
-                                        <button class="btn btn-danger" type="button" id="delete_order_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_order_message }}')">Delete</button>
+                                        {{--<button class="btn btn-danger" type="button" id="delete_order_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_order_message }}')">Delete</button>--}}
+                                        <button class="btn btn-danger" type="button" id="delete_order_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_order_message }}')" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
                                     </form>
                                 </td>
                             </tr>
