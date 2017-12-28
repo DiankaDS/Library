@@ -22,12 +22,11 @@
                         @endif
 
                         @if ($user_info['id'] == Auth::user()->id)
-                            <form class="form-inline" action="/upload_photo" enctype="multipart/form-data" method="POST">
+                            <form class="form-horizontal" action="/upload_photo" enctype="multipart/form-data" method="POST" id="upload_photo">
                                 {{csrf_field()}}
-                                <input id="photo" type="file" name="photo" required>
 
-                                {{--<button class="btn btn-info" type="submit">Upload photo</button>--}}
-                                <button class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="top" title="Upload photo"><span class="glyphicon glyphicon-camera"></span></button>
+                                <button class="btn btn-info" type="button" onclick="uploadPhoto('upload_photo', 'photo')" data-toggle="tooltip" data-placement="top" title="Upload photo"><span class="glyphicon glyphicon-camera"></span></button>
+                                <input id="photo" type="file" name="photo" style="display: none">
                             </form>
                         @endif
                     </div>

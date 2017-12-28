@@ -446,6 +446,18 @@ function myModal(id, textBody, textTitle) {
     $("#myModal .modal-title").text(textTitle);
     $("#myModal .modal-body").text(textBody);
 }
+
+// --- Upload photo ---
+function uploadPhoto(form, photo) {
+    var body = $('#'+photo);
+
+    if (body.val()) {
+        $('#'+form).submit();
+    }
+    else {
+        body.show();
+    }
+}
 //======================================================================================================================
 function addTagModal(id, all_tags) {
 
