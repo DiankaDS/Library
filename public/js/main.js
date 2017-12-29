@@ -446,7 +446,7 @@ function myModal(id, textBody, textTitle) {
     $("#myModal .modal-title").text(textTitle);
     $("#myModal .modal-body").text(textBody);
 }
-
+//======================================================================================================================
 // --- Upload photo ---
 function uploadPhoto(form, photo) {
     var body = $('#'+photo);
@@ -456,6 +456,28 @@ function uploadPhoto(form, photo) {
     }
     else {
         body.show();
+    }
+}
+//======================================================================================================================
+// --- Showing window ---
+function showModal(textTitle, book) {
+    $('#myModal').modal('show');
+    $('#myModal .modal-footer').hide();
+
+    $("#myModal .modal-title").text(textTitle);
+
+    var body = $("#myModal .modal-body");
+    body.empty();
+
+    var users = vote_users.filter(function (arr) {
+        return arr['book'] == book;
+    });
+    // console.log(vote_users);
+    // console.log(users);
+
+    for (var i = 0; i < users.length; i++) {
+        var list = '<p><a href="' + users[i].href + '">' + users[i].name + '</a></p>';
+        body.append(list);
     }
 }
 //======================================================================================================================
