@@ -53,7 +53,7 @@
                                         <td>{{ $val->author }}</td>
                                         <td>{{ $val->genre }}</td>
                                         <td>{{ $val->year }}</td>
-                                        <td>{{ $val->votes }}</td>
+{{--                                        <td>{{ $val->votes }}</td>--}}
                                         <td>
                                             <div class="dropdown">
                                                 {{--<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Show votes--}}
@@ -70,7 +70,7 @@
                                                     {{--@endif--}}
                                                 {{--</ul>--}}
 
-                                                <button class="btn btn-info dropdown-toggle" type="button" onclick="showModal('Users votes', '{{ $val->id }}')">Show votes</button>
+                                                <button class="btn btn-info dropdown-toggle" type="button" onclick="showModal('Users votes', '{{ $val->id }}')" data-toggle="tooltip" data-placement="top" title="Show votes"><span class="glyphicon glyphicon-heart"></span> {{ $val->votes }}</button>
 
                                                 @if (count($vote_users->where('book_id', $val->id)) != 0)
                                                     @foreach ($vote_users as $user)
