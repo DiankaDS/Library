@@ -27,7 +27,7 @@ class AdminAuthorsController extends Controller
         $author = Author::find($request->get('admins_author_id'));
 
 //        $author->books()->detach();
-        $books = $author->books()->get();
+        $books = $author->books()->first();
 
         if ($books) {
             $message = "Author has books!";
