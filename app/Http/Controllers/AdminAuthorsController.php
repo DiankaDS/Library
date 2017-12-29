@@ -26,10 +26,17 @@ class AdminAuthorsController extends Controller
     {
         $author = Author::find($request->get('admins_author_id'));
 
-        $author->books()->detach();
-        $author->delete();
+//        $author->books()->detach();
+        $books = $author->books()->get();
 
-        $message = "Author deleted!";
+        if ($books) {
+            $message = "Author has books!";
+        }
+        else {
+            $author->delete();
+            $message = "Author deleted!";
+        }
+
         return back()->with('status', $message);
     }
 
