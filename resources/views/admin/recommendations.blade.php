@@ -75,6 +75,11 @@
                                         <button class="btn btn-danger" type="submit" formaction="/admin_not_approve" data-toggle="tooltip" data-placement="top" title="Reject">
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </button>
+
+                                        <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->book_id }}', '')" data-toggle="tooltip" data-placement="top" title="Edit formats">
+                                            <span class="glyphicon glyphicon-check"></span>
+                                        </button>
+
                                     </form>
                                 </td>
                             </tr>

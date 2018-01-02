@@ -64,7 +64,7 @@ class AdminUserBooksController extends Controller
     protected function adminRecommendationUpdate(Request $request)
     {
         $request->validate([
-            'field' => 'required|integer|',
+            'field' => 'required|integer',
         ]);
 
         DB::table('user_books')

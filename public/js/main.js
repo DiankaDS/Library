@@ -955,7 +955,7 @@ function editInput(id_element, id, text, action) {
     var form = '<form id="edit_form" method="post" action="'+ action +'">' +
         '<input name="_token" type="hidden" value="'+$('meta[name="csrf-token"]').attr('content')+'">' +
         '<input name="edit_field_id" type="hidden" value="'+id+'">' +
-        '<textarea rows="4" cols="50" name="field" placeholder="Enter review here...">'+text+'</textarea>' +
+        '<textarea rows="4" cols="50" name="field" placeholder="Enter text here...">'+text+'</textarea>' +
         '<br>' +
         '<button type="submit" class="btn btn-info">Save</button>' +
         '</form>';

@@ -119,7 +119,7 @@
                         @foreach ($user_books as $val)
                             <tr>
                                 <td>
-                                    <a href="book_{{ $val->id }}" name="{{ $val->id }}">
+                                    <a href="/book_{{ $val->id }}" name="{{ $val->id }}">
                                         @if ($val->photo)
                                             <img src="{{$val->photo}}" height="42" width="42">
                                         @else
