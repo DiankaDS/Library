@@ -134,7 +134,7 @@
                                 <td>{{ $val->phone }}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ $val->date_start }}</td>
-                                <td>{{ $val->date_end }}</td>
+                                <td id="date_end_{{ $val->order_id }}">{{ $val->date_end }}</td>
                                 <td>
                                     <form class="form-inline" action="book_return" method="post" id="return_form">
                                         {{csrf_field()}}
@@ -142,6 +142,10 @@
 
                                         {{--<button class="btn btn-primary" type="button" onclick="myModal('return_form', '{{ $confirm_return_form_message }}')">Return</button>--}}
                                         <button class="btn btn-primary" type="button" onclick="myModal('return_form', '{{ $confirm_return_form_message }}')" data-toggle="tooltip" data-placement="top" title="Returned"><span class="glyphicon glyphicon-ok"></span></button>
+
+                                        <button class="btn btn-warning" onclick="editDate('date_end_{{ $val->order_id }}', '{{ $val->order_id }}', '{{ $val->date_end }}', 'date_end')" type="button" id="edit_date_accept_button" data-toggle="tooltip" data-placement="top" title="Edit date">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
                                     </form>
                                 </td>
                             </tr>

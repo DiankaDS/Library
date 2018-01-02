@@ -126,10 +126,19 @@ class OrdersController extends Controller
     protected function editDate(Request $request){
         $order = Order::find($request->get('edit_order_id'));
 
-        $order->date_end = $request->get('date_end');
-        $order->save();
-
-        $message = "Date saved!";
+        if ($request->get('edit_order_field_name') == 'date_end') {
+            $order->date_end = $request->get('date');
+            $order->save();
+            $message = "Date saved!";
+        }
+        elseif ($request->get('edit_order_field_name') == 'date_start'){
+            $order->date_start = $request->get('date');
+            $order->save();
+            $message = "Date saved!";
+        }
+        else {
+            $message = "Date not saved!";
+        }
 
         return back()->with('status', $message);
     }

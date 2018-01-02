@@ -965,16 +965,17 @@ function editReview(id, text) {
 }
 //======================================================================================================================
 // --- Edit date in orders ---
-function editDate(id, date) {
+function editDate(id, order, date, name) {
     var form =
         '<form id="edit_date_form" class="form-inline" method="post" action="edit_date">' +
         '<input name="_token" type="hidden" value="'+$('meta[name="csrf-token"]').attr('content')+'">' +
-        '<input name="edit_order_id" type="hidden" value="'+id+'">' +
-        '<input class="form-control" id="datepicker" name="date_end" placeholder="YYYY-MM-DD" type="text" value="'+date+'">' +
+        '<input name="edit_order_id" type="hidden" value="'+order+'">' +
+        '<input name="edit_order_field_name" type="hidden" value="'+name+'">' +
+        '<input class="form-control" id="datepicker" name="date" placeholder="YYYY-MM-DD" type="text" value="'+date+'">' +
         '<button type="submit" class="btn btn-info">Save</button>' +
         '</form>';
 
-    document.getElementById("date_end_"+id).innerHTML = form;
+    document.getElementById(id).innerHTML = form;
     // $("input").click();
     myDatepicker();
 }

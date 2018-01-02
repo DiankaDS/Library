@@ -46,7 +46,7 @@
                             <th scope="col">Date end
                                 <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 3)"></button>
                             </th>
-                            <th scope="col">Tools</th>
+                            {{--<th scope="col">Tools</th>--}}
                         </tr>
                         </thead>
                         <tbody>
@@ -56,10 +56,13 @@
                                 <td><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></td>
                                 {{--<td>{{ $val->name }}</td>--}}
                                 {{--<td>{{ $val->surname }}</td>--}}
-                                <td>{{ $val->date_start }}</td>
-                                <td>{{ $val->date_end }}</td>
-                                <td>
-                                    <button class="btn btn-warning" type="button" id="edit_date_button" data-toggle="tooltip" data-placement="top" title="Edit date">
+                                <td id="date_start_{{ $val->order_id }}">{{ $val->date_start }}
+                                    <button class="btn btn-warning" onclick="editDate('date_start_{{ $val->order_id }}', '{{ $val->order_id }}','{{ $val->date_start }}', 'date_start')" type="button" id="edit_date_button" data-toggle="tooltip" data-placement="top" title="Edit date">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                </td>
+                                <td id="date_end_{{ $val->order_id }}">{{ $val->date_end }}
+                                    <button class="btn btn-warning" onclick="editDate('date_end_{{ $val->order_id }}', '{{ $val->order_id }}','{{ $val->date_end }}', 'date_end')" type="button" id="edit_date_button" data-toggle="tooltip" data-placement="top" title="Edit date">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
                                 </td>
@@ -113,7 +116,7 @@
                             <th scope="col">Date end
                                 <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 4)"></button>
                             </th>
-                            <th scope="col">Tools</th>
+                            {{--<th scope="col">Tools</th>--}}
                         </tr>
                         </thead>
                         <tbody>
@@ -126,9 +129,8 @@
                                 <td>{{ $val->phone }}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ $val->date_start }}</td>
-                                <td id="date_end_{{ $val->order_id }}">{{ $val->date_end }}</td>
-                                <td>
-                                    <button class="btn btn-warning" onclick="editDate('{{ $val->order_id }}','{{ $val->date_end }}')" type="button" id="edit_date_accept_button" data-toggle="tooltip" data-placement="top" title="Edit date">
+                                <td id="date_end_accept_{{ $val->order_id }}">{{ $val->date_end }}
+                                    <button class="btn btn-warning" onclick="editDate('date_end_accept_{{ $val->order_id }}', '{{ $val->order_id }}', '{{ $val->date_end }}', 'date_end')" type="button" id="edit_date_accept_button" data-toggle="tooltip" data-placement="top" title="Edit date">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
                                 </td>
