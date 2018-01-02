@@ -382,7 +382,7 @@
                                 <strong><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></strong>
 
                                 @if( $val->user_id == Auth::user()->id )
-                                    <form class="form-inline pull-right" action="delete_review" method="post">
+                                    <form class="form-inline pull-right" action="delete_review" method="post" id="{{ $val->id }}">
                                         {{csrf_field()}}
                                         <input name="review_id" type="hidden" value="{{ $val->id }}">
 
@@ -390,8 +390,8 @@
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </button>
 
-                                        <button class="btn btn-danger" type="submit" data-toggle="tooltip" data-placement="top" title="Delete">
-                                            <span class="glyphicon glyphicon-remove"></span>
+                                        <button class="btn btn-danger" type="button" onclick="myModal('{{ $val->id }}', 'Are you sure to delete review?')" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            <span class="glyphicon glyphicon-trash"></span>
                                         </button>
                                     </form>
                                 @endif
