@@ -42,7 +42,11 @@
                                 </td>
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
                                 <td><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></td>
-                                <td>{{ $val->price }}</td>
+                                <td id="price_{{ $val->id }}">{{ $val->price }}
+                                    <button onclick="editInput('price_{{ $val->id }}', '{{ $val->id }}', '{{ $val->price }}', 'edit_recommendation')" class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                </td>
                                 <td>
                                     @if ($val->link)
                                         <a href="{{ $val->link }}">Show</a>
@@ -65,8 +69,12 @@
 
                                         {{--<button class="btn btn-success" type="submit">Approve</button>--}}
                                         {{--<button class="btn btn-danger" type="submit" formaction="/admin_not_approve">Reject</button>--}}
-                                        <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Approve"><span class="glyphicon glyphicon-ok"></span></button>
-                                        <button class="btn btn-danger" type="submit" formaction="/admin_not_approve" data-toggle="tooltip" data-placement="top" title="Reject"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Approve">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </button>
+                                        <button class="btn btn-danger" type="submit" formaction="/admin_not_approve" data-toggle="tooltip" data-placement="top" title="Reject">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
                                     </form>
                                 </td>
                             </tr>

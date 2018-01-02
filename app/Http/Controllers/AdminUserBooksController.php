@@ -60,4 +60,19 @@ class AdminUserBooksController extends Controller
         $message = "Recommendation deleted!";
         return back()->with('status', $message);
     }
+
+    protected function adminRecommendationUpdate(Request $request)
+    {
+        $request->validate([
+            'field' => 'required|integer|',
+        ]);
+
+        DB::table('user_books')
+            ->where('user_books.id', $request->get('edit_field_id'))
+            ->update(['price' => $request->get('field')]);
+
+        $message = "Recommendation updated!";
+
+        return back()->with('status', $message);
+    }
 }
