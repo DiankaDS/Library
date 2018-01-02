@@ -46,7 +46,7 @@
                             <th scope="col">Date end
                                 <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 3)"></button>
                             </th>
-                            {{--<th scope="col">Tools</th>--}}
+                            <th scope="col">Tools</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -65,6 +65,16 @@
                                     <button class="btn btn-warning" onclick="editDate('date_end_{{ $val->order_id }}', '{{ $val->order_id }}','{{ $val->date_end }}', 'date_end')" type="button" id="edit_date_button" data-toggle="tooltip" data-placement="top" title="Edit date">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
+                                </td>
+                                <td>
+                                    <form class="form-inline" action="delete_order" method="post">
+                                        {{csrf_field()}}
+                                        <input name="order_id" type="hidden" value="{{ $val->order_id }}">
+
+                                        <button class="btn btn-danger" type="submit" data-toggle="tooltip" data-placement="top" title="Delete order">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
