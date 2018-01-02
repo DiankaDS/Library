@@ -72,7 +72,11 @@ Route::delete('delete/{book_id}','UsersBookController@deleteBook');
 
 Route::get('book_{book_id}', 'BookDetailsController@bookDetails');
 
+// Review routes
+
 Route::post('/add_review','ReviewController@addReview');
+
+Route::post('/delete_review', 'ReviewController@deleteReview');
 
 // Update book routes
 

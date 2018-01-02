@@ -382,10 +382,18 @@
                                 <strong><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></strong>
 
                                 @if( $val->user_id == Auth::user()->id )
-                                    {{--<button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right">Edit</button>--}}
-                                    <button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                    </button>
+                                    <form class="form-inline pull-right" action="delete_review" method="post">
+                                        {{csrf_field()}}
+                                        <input name="review_id" type="hidden" value="{{ $val->id }}">
+
+                                        <button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
+
+                                        <button class="btn btn-danger" type="submit" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </form>
                                 @endif
 
                                 <div class="panel-body">

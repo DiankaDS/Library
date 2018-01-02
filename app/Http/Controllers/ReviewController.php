@@ -38,4 +38,13 @@ class ReviewController extends Controller
 
         return back()->with('status', $message);
     }
+
+    protected function deleteReview(Request $request)
+    {
+        $review = Review::find($request->get('review_id'));
+        $review->delete();
+
+        $message = "Review deleted!";
+        return back()->with('status', $message);
+    }
 }
