@@ -49,11 +49,15 @@
                         <tbody id="myTable">
                         @foreach ($genres as $val)
                             <tr>
-                                <td>{{ $val->name }}</td>
+                                <td id="genre_{{ $val->id }}">{{ $val->name }}</td>
                                 <td>
                                     <form action="admin_del_genre/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
                                         {{csrf_field()}}
                                         <input name="admins_genre_id" type="hidden" value="{{ $val->id }}">
+
+                                        <button onclick="editInput('genre_{{ $val->id }}', '{{ $val->id }}', '{{ $val->name }}', 'edit_genre')" class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
 
                                         {{--<button class="btn btn-danger" type="button" id="delete_genre_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_genre_message }}')">Delete</button>--}}
                                         <button class="btn btn-danger" type="button" id="delete_genre_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_genre_message }}')" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>

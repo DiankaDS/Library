@@ -57,4 +57,20 @@ class AdminFormatsController extends Controller
 
         return back()->with('status', $message);
     }
+
+    protected function adminFormatUpdate(Request $request)
+    {
+        $request->validate([
+            'field' => 'required|string|max:255',
+        ]);
+
+        $format = Format::find($request->get('edit_field_id'));
+        $format->fill([
+            'name' => $request->get('field')
+        ])->save();
+
+        $message = "Format updated!";
+
+        return back()->with('status', $message);
+    }
 }

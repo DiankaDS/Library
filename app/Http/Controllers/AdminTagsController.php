@@ -76,4 +76,20 @@ class AdminTagsController extends Controller
 
         return json_encode($source);
     }
+
+    protected function adminTagUpdate(Request $request)
+    {
+        $request->validate([
+            'field' => 'required|string|max:255',
+        ]);
+
+        $tag = Tag::find($request->get('edit_field_id'));
+        $tag->fill([
+            'name' => $request->get('field')
+        ])->save();
+
+        $message = "Tag updated!";
+
+        return back()->with('status', $message);
+    }
 }

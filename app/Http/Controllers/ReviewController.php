@@ -15,18 +15,22 @@ class ReviewController extends Controller
 
     public function addReview(Request $request)
     {
-        $request->validate([
-            'review' => 'required|string|max:255',
-        ]);
+        if ($request->get('edit_field_id')) {
+            $request->validate([
+                'field' => 'required|string|max:255',
+            ]);
 
-        if ($request->get('edit_review_id')) {
-            $review = Review::find($request->get('edit_review_id'));
+            $review = Review::find($request->get('edit_field_id'));
             $review->fill([
-                'text' => $request->get('review')
+                'text' => $request->get('field')
             ])->save();
         }
 
         else {
+            $request->validate([
+                'review' => 'required|string|max:255',
+            ]);
+
             Review::create([
                 'book_id' => $request->get('book_id'),
                 'user_id' => Auth::user()->id,

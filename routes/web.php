@@ -142,6 +142,8 @@ Route::post('admin_del_author/{author_id}', 'AdminAuthorsController@adminAuthorD
 
 Route::post('admin_create_author', 'AdminAuthorsController@adminAuthorCreate');
 
+Route::post('edit_author', 'AdminAuthorsController@adminAuthorUpdate');
+
 // Admin genres routes
 
 Route::get('/admin_genres', 'AdminGenresController@adminGenres');
@@ -149,6 +151,8 @@ Route::get('/admin_genres', 'AdminGenresController@adminGenres');
 Route::post('admin_del_genre/{genre_id}', 'AdminGenresController@adminGenreDelete');
 
 Route::post('admin_create_genre', 'AdminGenresController@adminGenreCreate');
+
+Route::post('edit_genre', 'AdminGenresController@adminGenreUpdate');
 
 // Admin orders routes
 
@@ -170,6 +174,8 @@ Route::post('admin_create_tag', 'AdminTagsController@adminTagCreate');
 
 Route::post('add_tags', 'AdminTagsController@addTagsToBook');
 
+Route::post('edit_tag', 'AdminTagsController@adminTagUpdate');
+
 // Admin formats routes
 
 Route::get('/admin_formats', 'AdminFormatsController@adminFormats');
@@ -177,6 +183,8 @@ Route::get('/admin_formats', 'AdminFormatsController@adminFormats');
 Route::post('admin_del_format/{format_id}', 'AdminFormatsController@adminFormatDelete');
 
 Route::post('admin_create_format', 'AdminFormatsController@adminFormatCreate');
+
+Route::post('edit_format', 'AdminFormatsController@adminFormatUpdate');
 
 // Register with Facebook routes
 

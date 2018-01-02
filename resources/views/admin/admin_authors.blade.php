@@ -50,15 +50,21 @@
                         <tbody id="myTable">
                         @foreach ($authors as $val)
                             <tr>
-                                <td>{{ $val->name }}</td>
+                                <td id="author_{{ $val->id }}">{{ $val->name }}</td>
                                 <td>{{ $val->books_count }}</td>
                                 <td>
                                     <form action="admin_del_author/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
                                         {{csrf_field()}}
                                         <input name="admins_author_id" type="hidden" value="{{ $val->id }}">
 
+                                        <button onclick="editInput('author_{{ $val->id }}', '{{ $val->id }}', '{{ $val->name }}', 'edit_author')" class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
+
                                         {{--<button class="btn btn-danger" type="button" id="delete_author_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_author_message }}')">Delete</button>--}}
-                                        <button class="btn btn-danger" type="button" id="delete_author_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_author_message }}')" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                                        <button class="btn btn-danger" type="button" id="delete_author_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_author_message }}')" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
                                     </form>
 
                                 </td>

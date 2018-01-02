@@ -45,4 +45,19 @@ class AdminGenresController extends Controller
         $message = "Genre created!";
         return back()->with('status', $message);
     }
+
+    protected function adminGenreUpdate(Request $request)
+    {
+        $request->validate([
+            'field' => 'required|string|max:255',
+        ]);
+
+        DB::table('genres')
+            ->where('genres.id', $request->get('edit_field_id'))
+            ->update(['name' => $request->get('field')]);
+
+        $message = "Genre updated!";
+
+        return back()->with('status', $message);
+    }
 }

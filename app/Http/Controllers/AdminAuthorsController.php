@@ -60,4 +60,20 @@ class AdminAuthorsController extends Controller
 
         return back()->with('status', $message);
     }
+
+    protected function adminAuthorUpdate(Request $request)
+    {
+        $request->validate([
+            'field' => 'required|string|max:255',
+        ]);
+
+        $author = Author::find($request->get('edit_field_id'));
+        $author->fill([
+            'name' => $request->get('field')
+        ])->save();
+
+        $message = "Author updated!";
+
+        return back()->with('status', $message);
+    }
 }

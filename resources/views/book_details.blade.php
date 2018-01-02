@@ -386,7 +386,7 @@
                                         {{csrf_field()}}
                                         <input name="review_id" type="hidden" value="{{ $val->id }}">
 
-                                        <button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <button onclick="editInput('review_{{ $val->id }}', '{{ $val->id }}', '{{ $val->text }}', 'add_review')" class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </button>
 
