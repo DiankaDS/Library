@@ -108,6 +108,8 @@ Route::get('orders_from_user','OrdersController@ordersFromUser');
 
 Route::post('book_return','OrdersController@bookReturn');
 
+Route::post('edit_date','OrdersController@editDate');
+
 // Admin routes
 
 Route::get('admin', function () {

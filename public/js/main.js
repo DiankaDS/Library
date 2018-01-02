@@ -963,7 +963,22 @@ function editReview(id, text) {
     document.getElementById("review_"+id).innerHTML = form;
     $("textarea").focus();
 }
+//======================================================================================================================
+// --- Edit date in orders ---
+function editDate(id, date) {
+    var form =
+        '<form id="edit_date_form" class="form-inline" method="post" action="edit_date">' +
+        '<input name="_token" type="hidden" value="'+$('meta[name="csrf-token"]').attr('content')+'">' +
+        '<input name="edit_order_id" type="hidden" value="'+id+'">' +
+        '<input class="form-control" id="datepicker" name="date_end" placeholder="YYYY-MM-DD" type="text" value="'+date+'">' +
+        '<button type="submit" class="btn btn-info">Save</button>' +
+        '</form>';
 
+    document.getElementById("date_end_"+id).innerHTML = form;
+    // $("input").click();
+    myDatepicker();
+}
+//======================================================================================================================
 // --- Sort tables ---
 function sortTable(id, n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -1004,8 +1019,13 @@ function sortTable(id, n) {
     }
 }
 //======================================================================================================================
-// --- Datepicker ---
+// --- Tooltip ---
 $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+//======================================================================================================================
+// --- Datepicker ---
+function myDatepicker(){
     var date_input=$('input[id="datepicker"]'); //our date input has the name "date"
     var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
     date_input.datepicker({
@@ -1014,9 +1034,5 @@ $(document).ready(function(){
         todayHighlight: true,
         autoclose: true
     })
-});
-//======================================================================================================================
-// --- Tooltip ---
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
+}
+$(document).ready(myDatepicker);

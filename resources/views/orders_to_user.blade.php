@@ -55,7 +55,7 @@
                         @foreach ($orders_to_user_not_accept as $val)
                             <tr>
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
-                                <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
+                                <td><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></td>
                                 {{--<td>{{ $val->name }}</td>--}}
                                 {{--<td>{{ $val->surname }}</td>--}}
                                 <td>{{ $val->phone }}</td>
@@ -91,7 +91,7 @@
                     <span class="label label-primary">{{ count($orders_to_user_accept) }}</span>
                 </h4>
             </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
+            <div id="collapseTwo" class="panel-collapse collapse in">
 
             <div class="panel-body">
 
@@ -128,7 +128,7 @@
                         @foreach ($orders_to_user_accept as $val)
                             <tr>
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
-                                <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
+                                <td><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></td>
                                 {{--<td>{{ $val->name }}</td>--}}
                                 {{--<td>{{ $val->surname }}</td>--}}
                                 <td>{{ $val->phone }}</td>

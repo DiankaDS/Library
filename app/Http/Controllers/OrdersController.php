@@ -72,7 +72,7 @@ class OrdersController extends Controller
         $orders_to_user = DB::table('orders')
             ->join('users', 'users.id', '=', 'orders.taker_id')
             ->join('lib_books', 'orders.book_id', '=', 'lib_books.id')
-            ->select('orders.*', 'users.*', 'lib_books.name as book', 'orders.id as order_id')
+            ->select('orders.*', 'users.*', 'lib_books.name as book', 'orders.id as order_id', 'users.id as user_id')
             ->where([
                 ['orders.giving_id', Auth::user()->id],
                 ['orders.is_return', 0],
@@ -96,7 +96,7 @@ class OrdersController extends Controller
         $orders_from_user = DB::table('orders')
             ->join('lib_books', 'lib_books.id', '=', 'orders.book_id')
             ->join('users', 'users.id', '=', 'orders.giving_id')
-            ->select('lib_books.name as book', 'users.*', 'orders.*')
+            ->select('lib_books.name as book', 'users.*', 'orders.*', 'users.id as user_id', 'orders.id as order_id')
             ->where([
                 ['orders.taker_id', Auth::user()->id],
                 ['orders.is_return', 0],
@@ -121,5 +121,16 @@ class OrdersController extends Controller
         $message = "Book returned!";
 
         return redirect('orders_to_user')->with('status', $message);
+    }
+
+    protected function editDate(Request $request){
+        $order = Order::find($request->get('edit_order_id'));
+
+        $order->date_end = $request->get('date_end');
+        $order->save();
+
+        $message = "Date saved!";
+
+        return back()->with('status', $message);
     }
 }

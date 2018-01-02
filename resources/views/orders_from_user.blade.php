@@ -46,17 +46,23 @@
                             <th scope="col">Date end
                                 <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_not_accept_table', 3)"></button>
                             </th>
+                            <th scope="col">Tools</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($orders_from_user_not_accept as $val)
                             <tr>
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
-                                <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
+                                <td><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></td>
                                 {{--<td>{{ $val->name }}</td>--}}
                                 {{--<td>{{ $val->surname }}</td>--}}
                                 <td>{{ $val->date_start }}</td>
                                 <td>{{ $val->date_end }}</td>
+                                <td>
+                                    <button class="btn btn-warning" type="button" id="edit_date_button" data-toggle="tooltip" data-placement="top" title="Edit date">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -76,7 +82,7 @@
                     <span class="label label-primary">{{ count($orders_from_user_accept) }}</span>
                 </h4>
             </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
+            <div id="collapseTwo" class="panel-collapse collapse in">
 
             <div class="panel-body">
 
@@ -107,19 +113,25 @@
                             <th scope="col">Date end
                                 <button class="glyphicon glyphicon-sort" onclick="sortTable('orders_from_user_accept_table', 4)"></button>
                             </th>
+                            <th scope="col">Tools</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($orders_from_user_accept as $val)
                             <tr>
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
-                                <td><a href="profile/{{ $val->id }}" name="{{ $val->id }}">{{ $val->username }}</a></td>
+                                <td><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></td>
                                 {{--<td>{{ $val->name }}</td>--}}
                                 {{--<td>{{ $val->surname }}</td>--}}
                                 <td>{{ $val->phone }}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ $val->date_start }}</td>
-                                <td>{{ $val->date_end }}</td>
+                                <td id="date_end_{{ $val->order_id }}">{{ $val->date_end }}</td>
+                                <td>
+                                    <button class="btn btn-warning" onclick="editDate('{{ $val->order_id }}','{{ $val->date_end }}')" type="button" id="edit_date_accept_button" data-toggle="tooltip" data-placement="top" title="Edit date">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

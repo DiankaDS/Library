@@ -383,7 +383,9 @@
 
                                 @if( $val->user_id == Auth::user()->id )
                                     {{--<button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right">Edit</button>--}}
-                                    <button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><span class="glyphicon glyphicon-edit"></span></button>
+                                    <button onclick="editReview('{{ $val->id }}','{{ $val->text }}')" class="btn btn-warning pull-right" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
                                 @endif
 
                                 <div class="panel-body">
