@@ -222,7 +222,7 @@
                     @foreach ($books as $val)
                         <div class="col-md-4 col-sm-4 col-xs-6">
                             <div class="thumbnail" style="height: 320px;">
-                                <a href="book_{{ $val->id }}" name="{{ $val->id }}">
+                                <a href="/book_{{ $val->id }}" name="{{ $val->id }}">
                                     @if ($val->photo)
                                         <img src="{{$val->photo}}" style="width: 125px; height: 150px;">
                                     @else
@@ -231,7 +231,7 @@
                                 </a>
 
                                 <div class="caption">
-                                    <p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><a href="book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a></p>
+                                    <p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><a href="/book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a></p>
                                     <p align="center" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $val->author }}, {{ $val->year }}</p>
                                     @if ($val->rating)
                                         <p align="center"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> <b>{{ $val->rating }}</b></p>
