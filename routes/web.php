@@ -92,7 +92,9 @@ Route::post('/admin_approve', 'AdminUserBooksController@acceptRecommendation');
 
 Route::post('/admin_not_approve', 'AdminUserBooksController@deleteRecommendation');
 
-Route::post('/edit_recommendation', 'AdminUserBooksController@adminRecommendationUpdate');
+Route::post('/edit_price', 'AdminUserBooksController@adminRecommendationUpdatePrice');
+
+Route::post('/edit_link', 'AdminUserBooksController@adminRecommendationUpdateLink');
 
 // Google Books Api routes
 

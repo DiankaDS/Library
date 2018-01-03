@@ -61,7 +61,7 @@ class AdminUserBooksController extends Controller
         return back()->with('status', $message);
     }
 
-    protected function adminRecommendationUpdate(Request $request)
+    protected function adminRecommendationUpdatePrice(Request $request)
     {
         $request->validate([
             'field' => 'required|integer',
@@ -70,6 +70,21 @@ class AdminUserBooksController extends Controller
         DB::table('user_books')
             ->where('user_books.id', $request->get('edit_field_id'))
             ->update(['price' => $request->get('field')]);
+
+        $message = "Recommendation updated!";
+
+        return back()->with('status', $message);
+    }
+
+    protected function adminRecommendationUpdateLink(Request $request)
+    {
+        $request->validate([
+            'field' => 'required|string|max:255',
+        ]);
+
+        DB::table('user_books')
+            ->where('user_books.id', $request->get('edit_field_id'))
+            ->update(['link' => $request->get('field')]);
 
         $message = "Recommendation updated!";
 

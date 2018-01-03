@@ -43,16 +43,19 @@
                                 <td><a href="book_{{ $val->book_id }}" name="{{ $val->book_id }}">{{ $val->book }}</a></td>
                                 <td><a href="profile/{{ $val->user_id }}" name="{{ $val->user_id }}">{{ $val->username }}</a></td>
                                 <td id="price_{{ $val->id }}">{{ $val->price }}
-                                    <button onclick="editInput('price_{{ $val->id }}', '{{ $val->id }}', '{{ $val->price }}', 'edit_recommendation')" class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <button onclick="editInput('price_{{ $val->id }}', '{{ $val->id }}', '{{ $val->price }}', 'edit_price')" class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Edit price">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
                                 </td>
-                                <td>
+                                <td id="link_{{ $val->id }}">
                                     @if ($val->link)
                                         <a href="{{ $val->link }}">Show</a>
                                     @else
                                         <p>None</p>
                                     @endif
+                                    <button onclick="editInput('link_{{ $val->id }}', '{{ $val->id }}', '{{ $val->link }}', 'edit_link')" class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Edit link">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
                                 </td>
                                 <td id="format_{{ $val->id }}">
                                     @foreach (explode(",", $val->formats) as $val_1)
