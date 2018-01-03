@@ -1,12 +1,15 @@
 <?php
 
-Route::get('/admin_formats', 'AdminFormatsController@adminFormats');
+Route::prefix('admin')->group(function () {
 
-Route::post('admin_del_format/{format_id}', 'AdminFormatsController@adminFormatDelete');
+    Route::get('/formats', 'AdminFormatsController@adminFormats');
 
-Route::post('admin_create_format', 'AdminFormatsController@adminFormatCreate');
+    Route::post('admin_del_format/{format_id}', 'AdminFormatsController@adminFormatDelete');
 
-Route::post('edit_format', 'AdminFormatsController@adminFormatUpdate');
+    Route::post('admin_create_format', 'AdminFormatsController@adminFormatCreate');
+
+    Route::post('edit_format', 'AdminFormatsController@adminFormatUpdate');
+});
 
 // Add formats routes
 

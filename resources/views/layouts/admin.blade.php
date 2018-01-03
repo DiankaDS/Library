@@ -57,23 +57,23 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
 
-                        <li><a href="recommended"> Recommendations </a></li>
+                        <li><a href="/admin/recommended"> Recommendations </a></li>
 
-                        <li><a href="admin_users"> Users </a></li>
+                        <li><a href="/admin/users"> Users </a></li>
 
-                        <li><a href="admin_books"> Books </a></li>
+                        <li><a href="/admin/books"> Books </a></li>
 
-                        <li><a href="admin_orders"> Orders </a></li>
+                        <li><a href="/admin/orders"> Orders </a></li>
 
-                        <li><a href="admin_reviews"> Reviews </a></li>
+                        <li><a href="/admin/reviews"> Reviews </a></li>
 
-                        <li><a href="admin_authors"> Authors </a></li>
+                        <li><a href="/admin/authors"> Authors </a></li>
 
-                        <li><a href="admin_genres"> Genres </a></li>
+                        <li><a href="/admin/genres"> Genres </a></li>
 
-                        <li><a href="admin_tags"> Tags </a></li>
+                        <li><a href="/admin/tags"> Tags </a></li>
 
-                        <li><a href="admin_formats"> Formats </a></li>
+                        <li><a href="/admin/formats"> Formats </a></li>
 
                     </ul>
                 </div>

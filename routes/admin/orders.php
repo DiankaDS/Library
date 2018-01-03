@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/admin_orders', 'AdminOrdersController@adminOrders');
+Route::get('/admin/orders', 'AdminOrdersController@adminOrders');

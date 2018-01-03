@@ -1,5 +1,8 @@
 <?php
 
-Route::get('/admin_books', 'AdminBooksController@adminBooks');
+Route::prefix('admin')->group(function () {
 
-Route::post('admin_del_book/{book_id}', 'AdminBooksController@adminBookDelete');
+    Route::get('/books', 'AdminBooksController@adminBooks');
+
+    Route::post('admin_del_book/{book_id}', 'AdminBooksController@adminBookDelete');
+});

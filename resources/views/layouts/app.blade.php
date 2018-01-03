@@ -45,7 +45,7 @@
                         {{ config('app.name', 'Books') }}
                     </a>
                     @if(Auth::user() && (Auth::user()->role_id == 1 || Auth::user()->role_id == 2))
-                        <a class="navbar-brand" href="{{ url('recommended') }}"> Admin page </a>
+                        <a class="navbar-brand" href="{{ url('/admin/recommended') }}"> Admin page </a>
                     @endif
                 </div>
 

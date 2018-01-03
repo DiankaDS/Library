@@ -1,12 +1,15 @@
 <?php
 
-Route::get('/admin_tags', 'AdminTagsController@adminTags');
+Route::prefix('admin')->group(function () {
 
-Route::post('admin_del_tag/{tag_id}', 'AdminTagsController@adminTagDelete');
+    Route::get('/tags', 'AdminTagsController@adminTags');
 
-Route::post('admin_create_tag', 'AdminTagsController@adminTagCreate');
+    Route::post('admin_del_tag/{tag_id}', 'AdminTagsController@adminTagDelete');
 
-Route::post('edit_tag', 'AdminTagsController@adminTagUpdate');
+    Route::post('admin_create_tag', 'AdminTagsController@adminTagCreate');
+
+    Route::post('edit_tag', 'AdminTagsController@adminTagUpdate');
+});
 
 //  Add tags routes
 
