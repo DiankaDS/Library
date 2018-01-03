@@ -892,6 +892,7 @@ function googleModal(name, author, genre, year, description, photo) {
         '<tr><th>Year:</th><td>' + year + '</td>' +
         '<tr><th>Description:</th><td>' + unescape(description) + '</td>' +
         '<tr><th>Link:</th><td><input class="form-control" id="modalLink"></td>' +
+        '<tr><th>Or file:</th><td><input id="file" type="file" name="file"></td>' +
         '<tr><th>Price:</th><td><input class="form-control" id="modalPrice"></td></tr></tbody></table>' ;
 
     body.append(p);

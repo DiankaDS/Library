@@ -159,7 +159,7 @@
 
                             <div class="form-group" id="formFormatsinput">
                                 <label for="formats" class="col-md-4 control-label">Formats</label>
-                                <br>
+                                {{--<br>--}}
                                 <a class="dropdown">
                                     <input class="form-control" id="mySearchFormats" type="text" name="formats" data-role="tagsinput" autocomplete="off">
                                 </a>
@@ -175,6 +175,20 @@
                                     @if ($errors->has('link'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('link') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
+                                <label for="photo" class="col-md-4 control-label">Or file</label>
+
+                                <div class="col-md-6">
+                                    <input id="file" type="file" name="file">
+
+                                    @if ($errors->has('file'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('file') }}</strong>
                                         </span>
                                     @endif
                                 </div>

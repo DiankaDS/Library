@@ -46,6 +46,12 @@ class CreateBookController extends Controller
         if ($request->get('link')) {
             $link = $request->get('link');
         }
+        elseif ($request->file('file')) {
+            $book_file = $request->file('file');
+            $book_file_move_name = time() . '_' . $_FILES['file']['name'];
+            $book_file->move(public_path() . '/files/', $book_file_move_name);
+            $link = '/files/' . $book_file_move_name;
+        }
 
         if ($request->get('price')) {
             $price = $request->get('price');
