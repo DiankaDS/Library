@@ -41,7 +41,7 @@ class CreateBookController extends Controller
         ]);
 
         $link = '';
-        $price = -1;
+        $price = 0;
 
         if ($request->get('link')) {
             $link = $request->get('link');

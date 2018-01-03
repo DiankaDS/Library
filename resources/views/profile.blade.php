@@ -98,8 +98,74 @@
     <div class="row">
 
         <div class="panel panel-default">
-            <div class="panel-heading">Books <span class="label label-primary">{{ $user_books_count }}</span></div>
-            <div class="panel-body">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    {{--<a data-toggle="collapse" href="#collapseOne">Users who have a book</a>--}}
+                    <a data-toggle="collapse" href="#collapseOne">Recommended</a>
+                    <span class="label label-primary">{{ $user_recom_count }}</span>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                @if (count($user_recom) != 0)
+                    <table class="table" id="user_books_table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Photo </th>
+                            <th scope="col">Book name <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 1)"></button></th>
+                            <th scope="col">Author <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 2)"></button></th>
+                            <th scope="col">Year <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 3)"></button></th>
+                            <th scope="col">Genre <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 4)"></button></th>
+                            <th scope="col">Formats <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 5)"></button></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($user_recom as $val)
+                            <tr>
+                                <td>
+                                    <a href="/book_{{ $val->id }}" name="{{ $val->id }}">
+                                        @if ($val->photo)
+                                            <img src="{{$val->photo}}" height="42" width="42">
+                                        @else
+                                            <img src="../images/default_book.jpg" height="42" width="42">
+                                        @endif
+                                    </a>
+                                </td>
+                                <td><a href="/book_{{ $val->id }}" name="{{ $val->id }}">{{ $val->name }}</a></td>
+                                <td>{{ $val->author }}</td>
+                                <td>{{ $val->year }}</td>
+                                <td>{{ $val->genre }}</td>
+                                <td>
+                                    @foreach (explode(",", $val->formats) as $val_1)
+                                        <span class="label label-primary">{{ $val_1 }}</span>
+                                    @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                    <div class="row" align="center">
+                        {{ $user_recom->links() }}
+                    </div>
+
+                @else
+                    <p> Nothing books... </p>
+                @endif
+            </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapseTwo">Paper books</a>
+                    <span class="label label-primary">{{ $user_books_count }}</span>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse in">
+                <div class="panel-body">
 
                 @if (count($user_books) != 0)
                     <table class="table" id="user_books_table">
@@ -111,7 +177,7 @@
                             <th scope="col">Year <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 3)"></button></th>
                             {{--<th scope="col">Description</th>--}}
                             <th scope="col">Genre <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 4)"></button></th>
-                            <th scope="col">Formats <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 5)"></button></th>
+                            {{--<th scope="col">Formats <button class="glyphicon glyphicon-sort" onclick="sortTable('user_books_table', 5)"></button></th>--}}
                             <th scope="col">Tools</th>
                         </tr>
                         </thead>
@@ -132,11 +198,11 @@
                                 <td>{{ $val->year }}</td>
 {{--                                <td>{{ $val->description }}</td>--}}
                                 <td>{{ $val->genre }}</td>
-                                <td>
-                                    @foreach (explode(",", $val->formats) as $val_1)
-                                        <span class="label label-primary">{{ $val_1 }}</span>
-                                    @endforeach
-                                </td>
+                                {{--<td>--}}
+                                    {{--@foreach (explode(",", $val->formats) as $val_1)--}}
+                                        {{--<span class="label label-primary">{{ $val_1 }}</span>--}}
+                                    {{--@endforeach--}}
+                                {{--</td>--}}
                                 <td>
                                     @if ($user_info['id'] == Auth::user()->id)
                                         <form action="/delete/{{ $val->id }}" id="{{ $val->id }}" method="post" name="id">
@@ -190,6 +256,7 @@
                 @else
                     <p> Nothing books... </p>
                 @endif
+            </div>
             </div>
         </div>
     </div>

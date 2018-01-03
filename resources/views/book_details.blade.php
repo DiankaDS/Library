@@ -97,13 +97,13 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseDownload">Free download</a>
-                    <span class="label label-primary">{{ count($users->where('price', 0)) }}</span>
+                    <span class="label label-primary">{{ count($users->where('price', 0)->where('link', '!=', '')) }}</span>
                 </h4>
             </div>
 
             <div id="collapseDownload" class="panel-collapse collapse">
                 <div class="panel-body">
-                    @if (count($users->where('price', 0)) != 0)
+                    @if (count($users->where('price', 0)->where('link', '!=', '')) != 0)
                         <table class="table" id="download">
                             <thead>
                             <tr>
@@ -113,7 +113,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($users->where('price', 0) as $val)
+                            @foreach ($users->where('price', 0)->where('link', '!=', '') as $val)
                                 <tr>
                                     <td>
                                         <a href="profile/{{ $val->id }}" name="{{ $val->id }}">
@@ -156,13 +156,13 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseBuy">Buy this book</a>
-                    <span class="label label-primary">{{ count($users->where('price', '>', 0)) }}</span>
+                    <span class="label label-primary">{{ count($users->where('price', '>', 0)->where('link', '!=', '')) }}</span>
                 </h4>
             </div>
 
             <div id="collapseBuy" class="panel-collapse collapse">
                 <div class="panel-body">
-                    @if (count($users->where('price', '>', 0)) != 0)
+                    @if (count($users->where('price', '>', 0)->where('link', '!=', '')) != 0)
                         <table class="table" id="buy">
                             <thead>
                             <tr>
@@ -173,7 +173,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($users->where('price', '>', 0) as $val)
+                            @foreach ($users->where('price', '>', 0)->where('link', '!=', '') as $val)
                                 <tr>
                                     <td>
                                         <a href="profile/{{ $val->id }}" name="{{ $val->id }}">
@@ -214,14 +214,14 @@
                 <h4 class="panel-title">
                     {{--<a data-toggle="collapse" href="#collapseOne">Users who have a book</a>--}}
                     <a data-toggle="collapse" href="#collapseOne">Take paper book</a>
-                    <span class="label label-primary">{{ count($users->where('price', -1)) }}</span>
+                    <span class="label label-primary">{{ count($users->where('link', '')) }}</span>
                 </h4>
             </div>
 
             <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body">
 
-                @if (count($users->where('price', -1)) != 0)
+                @if (count($users->where('link', '')) != 0)
                     <table class="table" id="users_have_book_table">
                         <thead>
                         <tr>
@@ -234,7 +234,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($users->where('price', -1) as $val)
+                        @foreach ($users->where('link', '') as $val)
                             <tr>
                                 <td>
                                     <a href="profile/{{ $val->id }}" name="{{ $val->id }}">
