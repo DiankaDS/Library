@@ -174,9 +174,13 @@ Route::post('admin_del_tag/{tag_id}', 'AdminTagsController@adminTagDelete');
 
 Route::post('admin_create_tag', 'AdminTagsController@adminTagCreate');
 
-Route::post('add_tags', 'AdminTagsController@addTagsToBook');
-
 Route::post('edit_tag', 'AdminTagsController@adminTagUpdate');
+
+// Admin add tags routes
+
+Route::get('/all_tags', 'AddTagsToBookController@allTagsList');
+
+Route::post('/add_tags', 'AddTagsToBookController@addTagsToBook');
 
 // Admin formats routes
 
@@ -187,6 +191,12 @@ Route::post('admin_del_format/{format_id}', 'AdminFormatsController@adminFormatD
 Route::post('admin_create_format', 'AdminFormatsController@adminFormatCreate');
 
 Route::post('edit_format', 'AdminFormatsController@adminFormatUpdate');
+
+// Admin add formats routes
+
+Route::get('/all_formats', 'AddFormatsToUserBookController@allFormatsList');
+
+Route::post('/add_formats', 'AddFormatsToUserBookController@addFormatsToBook');
 
 // Register with Facebook routes
 

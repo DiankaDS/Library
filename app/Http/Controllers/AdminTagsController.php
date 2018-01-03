@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\User;
-use App\LibBook;
-//use App\Author;
-//use App\Review;
+//use App\LibBook;
 use App\Tag;
 //use Illuminate\Support\Facades\DB;
 
@@ -57,24 +54,6 @@ class AdminTagsController extends Controller
         }
 
         return back()->with('status', $message);
-    }
-
-    protected function addTagsToBook(Request $request)
-    {
-        $tags = $request['checkbox'];
-        $book_id = $request['book_id'];
-
-        $book = LibBook::find($book_id);
-        $book->tags()->detach();
-
-        foreach($tags as $val) {
-            $tag = Tag::where('id', $val)->first();
-            $book->tags()->save($tag);
-        }
-
-        $source = $book->tags()->get();
-
-        return json_encode($source);
     }
 
     protected function adminTagUpdate(Request $request)

@@ -38,12 +38,9 @@ class AdminBooksController extends Controller
 
         $confirm_delete_book_message = 'Are you sure to delete this book?';
 
-        $all_tags = DB::table('tags')->get();
-
         return view('admin/admin_books', array(
             'books' => $books,
             'tags' => $tags,
-            'all_tags' => $all_tags,
             'confirm_delete_book_message' => $confirm_delete_book_message,
         ));
     }

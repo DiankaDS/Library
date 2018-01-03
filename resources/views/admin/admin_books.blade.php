@@ -54,16 +54,19 @@
                                         {{csrf_field()}}
                                         <input name="admins_book_id" type="hidden" value="{{ $val->id }}">
 
-                                        {{--<button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')">Delete</button>--}}
-                                        <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                                        <button class="btn btn-danger" type="button" id="delete_book_button" onclick="myModal('{{ $val->id }}', '{{ $confirm_delete_book_message }}')" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
                                     </form>
 
-                                    {{--<button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', '{{ $all_tags }}')" style="margin: 2px">Edit tags</button>--}}
-                                    <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', '{{ $all_tags }}')" style="margin: 2px" data-toggle="tooltip" data-placement="top" title="Edit tags"><span class="glyphicon glyphicon-check"></span></button>
+                                    <button class="btn btn-info" type="button" onclick="addTagModal('{{ $val->id }}', 'tags')" style="margin: 2px" data-toggle="tooltip" data-placement="top" title="Edit tags">
+                                        <span class="glyphicon glyphicon-check"></span>
+                                    </button>
 
                                     <a href="/update_book/{{ $val->id }}">
-                                        {{--<button class="btn btn-warning" type="button">Update</button>--}}
-                                        <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Update"><span class="glyphicon glyphicon-edit"></span></button>
+                                        <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Update">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
                                     </a>
 
                                 </td>

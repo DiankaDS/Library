@@ -481,7 +481,23 @@ function showModal(textTitle, book) {
     }
 }
 //======================================================================================================================
-function addTagModal(id, all_tags) {
+// --- Add tags to book ---
+function addTagModal(id, type) {
+
+    var element_id = '';
+    var all_elem = '';
+    var add_element = '';
+
+    if (type == 'tags') {
+        element_id = '#tag_' + id;
+        all_elem = 'all_tags';
+        add_element = 'add_tags';
+    }
+    else if (type == 'formats') {
+        element_id = '#format_' + id;
+        all_elem = 'all_formats';
+        add_element = 'add_formats';
+    }
 
     $('#myModal').modal('show');
     $('#YesButton').off('click');
@@ -497,7 +513,7 @@ function addTagModal(id, all_tags) {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             'type': 'post',
-            'url': 'add_tags',
+            'url': add_element,
             'data': {
                 'checkbox': checked,
                 'book_id': id
@@ -505,7 +521,7 @@ function addTagModal(id, all_tags) {
             success: function (data) {
 
                 var source = $.parseJSON(data);
-                // console.log(source.length);
+                console.log(source);
 
                 $('#myModal').modal('hide');
 
@@ -513,7 +529,7 @@ function addTagModal(id, all_tags) {
                 for (var i = 0; i < source.length; i++) {
                     tags += '<span class="label label-primary">' + source[i].name + '</span> ';
                 }
-                $('#tag_' + id).html(tags)
+                $(element_id).html(tags)
             },
             error: function (x, e) {
                 console.log(x);
@@ -522,27 +538,40 @@ function addTagModal(id, all_tags) {
         });
     });
 
-    $("#myModal .modal-title").text("Select tags:");
+    $.ajax({
+        'headers': {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        'type': 'get',
+        'url': all_elem,
+        success: function (data) {
 
-    all_tags = $.parseJSON(all_tags);
+            var source = $.parseJSON(data);
+            // console.log(source);
 
-    var arr = $('#tag_' + id).text().split(' ');
-    for (var j = 0; j < arr.length; j++) {
-        arr[j] = $.trim(arr[j]);
-    }
+            $("#myModal .modal-title").text("Select " + type + ":");
 
-    var body = $("#myModal .modal-body");
-    body.empty();
+            var arr = $(element_id).text();
+            // console.log(arr);
 
-    for (var i = 0; i < all_tags.length; i++) {
-        if (arr.indexOf(all_tags[i]['name']) != -1) {
-            var p = '<label><input type="checkbox" name="' + all_tags[i]['name'] + '" value="' + all_tags[i]['id'] + '" checked>' + all_tags[i]['name'] + '</label><br>';
+            var body = $("#myModal .modal-body");
+            body.empty();
+
+            for (var i = 0; i < source.length; i++) {
+                if (arr.indexOf(source[i]['name']) != -1) {
+                    var p = '<label><input type="checkbox" name="' + source[i]['name'] + '" value="' + source[i]['id'] + '" checked>' + source[i]['name'] + '</label><br>';
+                }
+                else {
+                    var p = '<label><input type="checkbox" name="' + source[i]['name'] + '" value="' + source[i]['id'] + '">' + source[i]['name'] + '</label><br>';
+                }
+                body.append(p);
+            }
+        },
+        error: function (x, e) {
+            console.log(x);
+            console.log(e);
         }
-        else {
-            var p = '<label><input type="checkbox" name="' + all_tags[i]['name'] + '" value="' + all_tags[i]['id'] + '">' + all_tags[i]['name'] + '</label><br>';
-        }
-        body.append(p);
-    }
+    });
 }
 //======================================================================================================================
 // --- Ajax in home (find tags) ---
