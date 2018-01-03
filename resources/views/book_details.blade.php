@@ -132,7 +132,11 @@
                                     </td>
                                     <td>
                                         @if ($val->link)
+                                            @if (strpos($val->link, 'files/') == 1)
+                                                <a href="{{ $val->link }}" download>Download</a>
+                                            @else
                                             <a href="{{ $val->link }}">Show</a>
+                                            @endif
                                         @else
                                             <p>None</p>
                                         @endif
